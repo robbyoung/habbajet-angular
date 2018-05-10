@@ -3,3 +3,4 @@ platforms/
 *.sh~
 app/images/habbajets/
 my-release-key.jks
+npm-debug.log
