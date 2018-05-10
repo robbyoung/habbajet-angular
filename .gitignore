@@ -1,0 +1,7 @@
+hooks/
+node_modules/
+platforms/
+piskel/
+*.sh~
+app/images/habbajets/
+my-release-key.jks
