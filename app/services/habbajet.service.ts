@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ImageState, ImageService } from "./images.service";
+import { HabbajetCheckbox, CheckboxService } from "./checkbox.service";
+import * as _ from 'lodash';
 
 export interface HabbajetInfo  {
     streak: number;
@@ -8,6 +10,7 @@ export interface HabbajetInfo  {
 export class Habbajet {
     public image: ImageState;
     public info: HabbajetInfo;
+    public checkboxes: HabbajetCheckbox[];
 
     constructor(public name: string, public state: number, public color: string) {
         this.image = new ImageState(state, color);
@@ -21,7 +24,7 @@ export class Habbajet {
 export class HabbajetService {
     public habbajetList: Habbajet[];
 
-    constructor(private imageService: ImageService) {
+    constructor(private imageService: ImageService, private checkboxService: CheckboxService) {
         this.habbajetList = [];
         this.habbajetList.push(new Habbajet('one', 0, 'red'));
         this.habbajetList.push(new Habbajet('two', 0, 'blue'));
@@ -29,6 +32,10 @@ export class HabbajetService {
         this.habbajetList.push(new Habbajet('four', 0, 'red'));
         this.habbajetList.push(new Habbajet('five', 0, 'red'));
         this.habbajetList.push(new Habbajet('six', 0, 'red'));
+        //TODO: add to constructor
+        _.each(this.habbajetList, (habbajet) => {
+            habbajet.checkboxes = checkboxService.getCurrentWeek();
+        })
     }
 
     public habbajetExists(index: number): boolean {
@@ -54,6 +61,14 @@ export class HabbajetService {
     public getHabbajetInfo(index: number): HabbajetInfo {
         if (this.habbajetExists(index)) {
             return this.habbajetList[index].info;
+        } else {
+            return undefined;
+        }
+    }
+
+    public getHabbajetCheckboxes(index: number): HabbajetCheckbox[] {
+        if (this.habbajetExists(index)) {
+            return this.habbajetList[index].checkboxes;
         } else {
             return undefined;
         }
