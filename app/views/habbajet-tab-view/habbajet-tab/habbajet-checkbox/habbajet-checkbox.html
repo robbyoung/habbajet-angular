@@ -1,19 +1,19 @@
 <StackLayout>
     <label [text]="currentDay" class="currentDay"></label>
     <GridLayout rows="60" columns="*,*,*,*,*,*,*" class="checkboxGrid">
-        <label col="0" text="c" (tap)="onCheckboxTap(0)"
-            [class]="checkboxes[0].active ? 'checkbox active' : 'checkbox'"></label>
-        <label col="1" text="c" (tap)="onCheckboxTap(1)"
-            [class]="checkboxes[1].active ? 'checkbox active' : 'checkbox'"></label>
-        <label col="2" text="c" (tap)="onCheckboxTap(2)"
-            [class]="checkboxes[2].active ? 'checkbox active' : 'checkbox'"></label>
-        <label col="3" text="c" (tap)="onCheckboxTap(3)"
-            [class]="checkboxes[3].active ? 'checkbox active' : 'checkbox'"></label>
-        <label col="4" text="c" (tap)="onCheckboxTap(4)"
-            [class]="checkboxes[4].active ? 'checkbox active' : 'checkbox'"></label>
-        <label col="5" text="c" (tap)="onCheckboxTap(5)"
-            [class]="checkboxes[5].active ? 'checkbox active' : 'checkbox'"></label>
-        <label col="6" text="c" (tap)="onCheckboxTap(6)"
-            [class]="checkboxes[6].active ? 'checkbox active' : 'checkbox'"></label>
+        <label col="0" [text]="checkboxes[0].checkmark" (tap)="onCheckboxTap(0)"
+            [class]="checkboxes[0].active ? 'checkbox active' : 'checkbox inactive'"></label>
+        <label col="1" [text]="checkboxes[1].checkmark" (tap)="onCheckboxTap(1)"
+            [class]="checkboxes[1].active ? 'checkbox active' : 'checkbox inactive'"></label>
+        <label col="2" [text]="checkboxes[2].checkmark" (tap)="onCheckboxTap(2)"
+            [class]="checkboxes[2].active ? 'checkbox active' : 'checkbox inactive'"></label>
+        <label col="3" [text]="checkboxes[3].checkmark" (tap)="onCheckboxTap(3)"
+            [class]="checkboxes[3].active ? 'checkbox active' : 'checkbox inactive'"></label>
+        <label col="4" [text]="checkboxes[4].checkmark" (tap)="onCheckboxTap(4)"
+            [class]="checkboxes[4].active ? 'checkbox active' : 'checkbox inactive'"></label>
+        <label col="5" [text]="checkboxes[5].checkmark" (tap)="onCheckboxTap(5)"
+            [class]="checkboxes[5].active ? 'checkbox active' : 'checkbox inactive'"></label>
+        <label col="6" [text]="checkboxes[6].checkmark" (tap)="onCheckboxTap(6)"
+            [class]="checkboxes[6].active ? 'checkbox active' : 'checkbox inactive'"></label>
     </GridLayout>
 </StackLayout>

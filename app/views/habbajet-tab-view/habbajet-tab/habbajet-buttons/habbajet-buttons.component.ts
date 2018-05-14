@@ -1,6 +1,7 @@
 import { Component, Input } from "@angular/core";
 import * as _ from 'lodash';
-import { HabbajetService } from "../../../../services/habbajet.service";
+import { HabbajetService, HabbajetButtons } from "../../../../services/habbajet.service";
+import { Checkmark } from "../../../../services/checkbox.service";
 
 
 @Component({
@@ -11,22 +12,26 @@ import { HabbajetService } from "../../../../services/habbajet.service";
 
 export class HabbajetButtonsComponent {
     @Input() habbajetIndex: number;
-    public locked: boolean;
+    public habbajetButtons: HabbajetButtons;
 
     constructor(private habbajetService: HabbajetService) {}
 
     ngOnInit() {
-        this.locked = false;
+        this.habbajetButtons = this.habbajetService.getHabbajetButtons(this.habbajetIndex);
     }
 
     onPositiveTap() {
-        if(!this.locked) {
+        if(!this.habbajetButtons.locked) {
+            this.habbajetService.setCheckmark(this.habbajetIndex, Checkmark.Positive);
             this.habbajetService.evolve(this.habbajetIndex);
         }
-        this.locked = true;
+        this.habbajetButtons.locked = true;
     }
 
     onNegativeTap() {
-        this.locked = true;
+        if(!this.habbajetButtons.locked) {
+            this.habbajetService.setCheckmark(this.habbajetIndex, Checkmark.Negative);
+        }
+        this.habbajetButtons.locked = true;
     }
 }

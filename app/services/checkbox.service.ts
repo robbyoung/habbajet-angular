@@ -1,5 +1,6 @@
 import * as Moment from "moment";
 import { Injectable } from "@angular/core";
+import _ = require("lodash");
 
 export enum Day {
     Sunday = 0,
@@ -11,12 +12,19 @@ export enum Day {
     Saturday = 6,
 }
 
+export enum Checkmark {
+    None = 0,
+    Positive = 1,
+    Negative = 2,
+}
+
 export interface HabbajetCheckbox {
     locked: boolean;
     time: string;
     active: boolean;
     dateName: string;
     day: Day;
+    checkmark: Checkmark,
 }
 
 @Injectable()
@@ -35,17 +43,20 @@ export class CheckboxService {
                 active: false,
                 dateName: 'Someday',
                 day,
+                checkmark: Checkmark.None,
             });
         }
         weekOfCheckboxes[0].active = true;
         return weekOfCheckboxes;
     }
 
-    getNextWeek(startOfWeek: string): HabbajetCheckbox[] {
-        return undefined;
+    getNextWeek(checkboxes: HabbajetCheckbox[]): HabbajetCheckbox[] {
+        return _.each(checkboxes, (c: HabbajetCheckbox) => {
+            c.checkmark = Checkmark.None;
+        });
     }
 
-    getPreviousWeek(startOfWeek: string): HabbajetCheckbox[] {
+    getPreviousWeek(checkboxes: HabbajetCheckbox[]): HabbajetCheckbox[] {
         return undefined;
     }
 }

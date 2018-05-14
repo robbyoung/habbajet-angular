@@ -21,8 +21,11 @@ export class HabbajetCheckboxComponent {
         this.setCurrentDay();
     }
 
-    onCheckboxTap(day: number) {
-        console.log(day);
+    onCheckboxTap(day: Day) {
+        _.each(this.checkboxes, (c) => {
+            c.active = day === c.day;
+        });
+        this.habbajetService.selectCheckbox(this.habbajetIndex, day);
     }
 
     setCurrentDay() {

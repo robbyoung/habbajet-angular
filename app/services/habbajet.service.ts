@@ -1,21 +1,29 @@
 import { Injectable } from "@angular/core";
 import { ImageState, ImageService } from "./images.service";
-import { HabbajetCheckbox, CheckboxService } from "./checkbox.service";
+import { HabbajetCheckbox, CheckboxService, Day, Checkmark } from "./checkbox.service";
 import * as _ from 'lodash';
 
 export interface HabbajetInfo  {
     streak: number;
 }
 
+export interface HabbajetButtons {
+    locked: boolean;
+}
+
 export class Habbajet {
     public image: ImageState;
     public info: HabbajetInfo;
     public checkboxes: HabbajetCheckbox[];
+    public buttons: HabbajetButtons;
 
     constructor(public name: string, public state: number, public color: string) {
         this.image = new ImageState(state, color);
         this.info = {
             streak: 0,
+        }
+        this.buttons = {
+            locked: false,
         }
     }
 }
@@ -74,6 +82,14 @@ export class HabbajetService {
         }
     }
 
+    public getHabbajetButtons(index: number): HabbajetButtons {
+        if (this.habbajetExists(index)) {
+            return this.habbajetList[index].buttons;
+        } else {
+            return undefined;
+        }
+    }
+
     public evolve(habbajetIndex: number) {
         if(this.habbajetExists(habbajetIndex)) {
             this.imageService.evolve(this.habbajetList[habbajetIndex].image);
@@ -84,6 +100,32 @@ export class HabbajetService {
     public action(habbajetIndex: number) {
         if(this.habbajetExists(habbajetIndex)) {
             this.imageService.action(this.habbajetList[habbajetIndex].image);
+        }
+    }
+
+    public selectCheckbox(habbajetIndex: number, day: Day) {
+        if(this.habbajetExists(habbajetIndex)) {
+            const habbajet = this.habbajetList[habbajetIndex];
+            habbajet.buttons.locked = habbajet.checkboxes[day].checkmark !== Checkmark.None;
+        }
+    }
+
+    public setCheckmark(habbajetIndex: number, checkmark: Checkmark) {
+        if(this.habbajetExists(habbajetIndex)) {
+            const habbajet = this.habbajetList[habbajetIndex];
+            const activeCheckbox = _.find(habbajet.checkboxes, (c: HabbajetCheckbox) => c.active);
+            if(activeCheckbox !== undefined) {
+                activeCheckbox.checkmark = checkmark;
+            }
+            this.resetCheckboxesIfNecessary(habbajet);
+        }
+    }
+
+    private resetCheckboxesIfNecessary(habbajet: Habbajet) {
+        const checkboxes = habbajet.checkboxes;
+        if(_.every(checkboxes, (c: HabbajetCheckbox) => c.checkmark !== Checkmark.None)) {
+            this.checkboxService.getNextWeek(checkboxes);
+            habbajet.buttons.locked = false;
         }
     }
 }
