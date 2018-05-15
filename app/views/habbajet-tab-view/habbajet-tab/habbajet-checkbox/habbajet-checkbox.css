@@ -10,20 +10,17 @@ label {
 }
 
 .checkbox {
-    height: 40;
     margin: 5;
     text-align: center;
     vertical-align: center;
 }
 
 .active {
-    background-color: #111111;
-    color: #acacac;
+    background-color: #acacac;
 }
 
 .inactive {
-    background-color: #acacac;
-    color: #111111;
+    background-color: #ffffff;
 }
 
 .checkboxGrid {

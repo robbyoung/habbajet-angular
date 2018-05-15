@@ -1,19 +1,19 @@
 <StackLayout>
     <label [text]="currentDay" class="currentDay"></label>
     <GridLayout rows="60" columns="*,*,*,*,*,*,*" class="checkboxGrid">
-        <label col="0" [text]="checkboxes[0].checkmark" (tap)="onCheckboxTap(0)"
-            [class]="checkboxes[0].active ? 'checkbox active' : 'checkbox inactive'"></label>
-        <label col="1" [text]="checkboxes[1].checkmark" (tap)="onCheckboxTap(1)"
-            [class]="checkboxes[1].active ? 'checkbox active' : 'checkbox inactive'"></label>
-        <label col="2" [text]="checkboxes[2].checkmark" (tap)="onCheckboxTap(2)"
-            [class]="checkboxes[2].active ? 'checkbox active' : 'checkbox inactive'"></label>
-        <label col="3" [text]="checkboxes[3].checkmark" (tap)="onCheckboxTap(3)"
-            [class]="checkboxes[3].active ? 'checkbox active' : 'checkbox inactive'"></label>
-        <label col="4" [text]="checkboxes[4].checkmark" (tap)="onCheckboxTap(4)"
-            [class]="checkboxes[4].active ? 'checkbox active' : 'checkbox inactive'"></label>
-        <label col="5" [text]="checkboxes[5].checkmark" (tap)="onCheckboxTap(5)"
-            [class]="checkboxes[5].active ? 'checkbox active' : 'checkbox inactive'"></label>
-        <label col="6" [text]="checkboxes[6].checkmark" (tap)="onCheckboxTap(6)"
-            [class]="checkboxes[6].active ? 'checkbox active' : 'checkbox inactive'"></label>
+        <Image col="0" [src]="checkboxImagePrefix + checkboxes[0].checkmark + '.png'" (tap)="onCheckboxTap(0)"
+            [class]="checkboxes[0].active ? 'checkbox active' : 'checkbox inactive'"></Image>
+        <Image col="1" [src]="checkboxImagePrefix + checkboxes[1].checkmark + '.png'" (tap)="onCheckboxTap(1)"
+            [class]="checkboxes[1].active ? 'checkbox active' : 'checkbox inactive'"></Image>
+        <Image col="2" [src]="checkboxImagePrefix + checkboxes[2].checkmark + '.png'" (tap)="onCheckboxTap(2)"
+            [class]="checkboxes[2].active ? 'checkbox active' : 'checkbox inactive'"></Image>
+        <Image col="3" [src]="checkboxImagePrefix + checkboxes[3].checkmark + '.png'" (tap)="onCheckboxTap(3)"
+            [class]="checkboxes[3].active ? 'checkbox active' : 'checkbox inactive'"></Image>
+        <Image col="4" [src]="checkboxImagePrefix + checkboxes[4].checkmark + '.png'" (tap)="onCheckboxTap(4)"
+            [class]="checkboxes[4].active ? 'checkbox active' : 'checkbox inactive'"></Image>
+        <Image col="5" [src]="checkboxImagePrefix + checkboxes[5].checkmark + '.png'" (tap)="onCheckboxTap(5)"
+            [class]="checkboxes[5].active ? 'checkbox active' : 'checkbox inactive'"></Image>
+        <Image col="6" [src]="checkboxImagePrefix + checkboxes[6].checkmark + '.png'" (tap)="onCheckboxTap(6)"
+            [class]="checkboxes[6].active ? 'checkbox active' : 'checkbox inactive'"></Image>
     </GridLayout>
 </StackLayout>

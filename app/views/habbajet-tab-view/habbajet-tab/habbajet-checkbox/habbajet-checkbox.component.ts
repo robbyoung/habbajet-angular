@@ -2,6 +2,7 @@ import { Component, Input } from "@angular/core";
 import * as _ from 'lodash';
 import { HabbajetService } from "../../../../services/habbajet.service";
 import { HabbajetCheckbox, Day } from "../../../../services/checkbox.service";
+import { checkboxImagePrefix } from "../../../../services/images.service";
 
 @Component({
     selector: "habbajet-checkbox",
@@ -13,8 +14,11 @@ export class HabbajetCheckboxComponent {
     @Input() habbajetIndex: number;
     public checkboxes: HabbajetCheckbox[];
     public currentDay: string;
+    public checkboxImagePrefix: string;
     
-    constructor(private habbajetService: HabbajetService) {}
+    constructor(private habbajetService: HabbajetService) {
+        this.checkboxImagePrefix = checkboxImagePrefix;
+    }
 
     ngOnInit(){
         this.checkboxes = this.habbajetService.getHabbajetCheckboxes(this.habbajetIndex);
