@@ -20,7 +20,7 @@ export enum Checkmark {
 
 export interface HabbajetCheckbox {
     locked: boolean;
-    time: string;
+    moment: Moment.Moment;
     active: boolean;
     dateName: string;
     day: Day;
@@ -33,20 +33,20 @@ export class CheckboxService {
     constructor() {}
 
     getCurrentWeek(): HabbajetCheckbox[] {
-        const startOfThisWeek: string = Moment().startOf('week').fromNow();
-        const today: string = Moment().startOf('day').fromNow();
         const weekOfCheckboxes: HabbajetCheckbox[] = [];
+        let currentDay: Moment.Moment = Moment().startOf('week');
+        let today: Moment.Moment = Moment().startOf('day');
         for(let day = Day.Sunday; day <= Day.Saturday; day++) {
             weekOfCheckboxes.push({
                 locked: false,
-                time: today,
-                active: false,
-                dateName: 'Someday',
+                moment: currentDay.clone(),
+                active: currentDay.valueOf() === today.valueOf(),
+                dateName: currentDay.format('dddd Do MMM'),
                 day,
                 checkmark: Checkmark.None,
             });
+            currentDay.add(1, 'days');
         }
-        weekOfCheckboxes[0].active = true;
         return weekOfCheckboxes;
     }
 

@@ -21,17 +21,15 @@ export class HabbajetButtonsComponent {
     }
 
     onPositiveTap() {
-        if(!this.habbajetButtons.locked) {
-            this.habbajetService.setCheckmark(this.habbajetIndex, Checkmark.Positive);
+        if(!this.habbajetButtons.locked && this.habbajetService.setCheckmark(this.habbajetIndex, Checkmark.Positive)) {
             this.habbajetService.evolve(this.habbajetIndex);
+            this.habbajetButtons.locked = true;
         }
-        this.habbajetButtons.locked = true;
     }
 
     onNegativeTap() {
-        if(!this.habbajetButtons.locked) {
-            this.habbajetService.setCheckmark(this.habbajetIndex, Checkmark.Negative);
+        if(!this.habbajetButtons.locked && this.habbajetService.setCheckmark(this.habbajetIndex, Checkmark.Negative)) {
+            this.habbajetButtons.locked = true;
         }
-        this.habbajetButtons.locked = true;
     }
 }

@@ -22,17 +22,21 @@ export class HabbajetCheckboxComponent {
 
     ngOnInit(){
         this.checkboxes = this.habbajetService.getHabbajetCheckboxes(this.habbajetIndex);
-        this.setCurrentDay();
+        this.setCurrentDayString();
     }
 
     onCheckboxTap(day: Day) {
         _.each(this.checkboxes, (c) => {
             c.active = day === c.day;
         });
+        this.setCurrentDayString();
         this.habbajetService.selectCheckbox(this.habbajetIndex, day);
     }
 
-    setCurrentDay() {
-        this.currentDay = "Current Day";
+    setCurrentDayString() {
+        const activeCheckbox = _.find(this.checkboxes, (c: HabbajetCheckbox) => c.active);
+        if(activeCheckbox !== undefined) {
+            this.currentDay = activeCheckbox.dateName;
+        }
     }
 }

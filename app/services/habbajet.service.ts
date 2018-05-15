@@ -110,15 +110,19 @@ export class HabbajetService {
         }
     }
 
-    public setCheckmark(habbajetIndex: number, checkmark: Checkmark) {
+    public setCheckmark(habbajetIndex: number, checkmark: Checkmark): boolean {
         if(this.habbajetExists(habbajetIndex)) {
             const habbajet = this.habbajetList[habbajetIndex];
-            const activeCheckbox = _.find(habbajet.checkboxes, (c: HabbajetCheckbox) => c.active);
-            if(activeCheckbox !== undefined) {
-                activeCheckbox.checkmark = checkmark;
+            if(habbajet.image.action !== 't') {
+                const activeCheckbox = _.find(habbajet.checkboxes, (c: HabbajetCheckbox) => c.active);
+                if(activeCheckbox !== undefined) {
+                    activeCheckbox.checkmark = checkmark;
+                    // this.resetCheckboxesIfNecessary(habbajet);
+                    return true;
+                }
             }
-            this.resetCheckboxesIfNecessary(habbajet);
         }
+        return false;
     }
 
     private resetCheckboxesIfNecessary(habbajet: Habbajet) {
