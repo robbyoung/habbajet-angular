@@ -1,5 +1,11 @@
 import { Component } from "@angular/core";
 import * as _ from 'lodash';
+import { ValidationService } from "../../../../services/validation.service";
+
+interface ColorBinding {
+    name: string;
+    class: string;
+}
 
 @Component({
     selector: "habbajet-color-picker",
@@ -8,8 +14,29 @@ import * as _ from 'lodash';
 })
 
 export class HabbajetColorPickerComponent {
+    public colors: ColorBinding[];
     
-    constructor() {}
+    constructor(private validationService: ValidationService) {}
 
-    ngOnInit(){}
+    ngOnInit(){
+        this.colors = [
+            { name: 'red', class: '' },
+            { name: 'blue', class: '' },
+            { name: 'green', class: '' },
+        ];
+        this.onColorTap(0);
+    }
+
+    onColorTap(index: number) {
+        if(index < 0 || index >= this.colors.length) {
+            return;
+        }
+
+        const selectedColor: ColorBinding = this.colors[index];
+        this.validationService.validateColor(selectedColor.name);
+        _.each(this.colors, (c) => {
+            c.class = 'colorChoice ' + c.name +
+                (c.name === selectedColor.name ? ' selected' : '') 
+        });
+    }
 }

@@ -132,4 +132,8 @@ export class HabbajetService {
             habbajet.buttons.locked = false;
         }
     }
+
+    public newHabbajet() {
+        _.noop();
+    }
 }
