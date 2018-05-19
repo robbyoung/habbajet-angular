@@ -15,6 +15,7 @@ const VALUE_ERROR: string = 'Habbajet value is invalid';
 const SLACK_ERROR: string = 'Habbajet slack is invalid';
 const FACTOR_ERROR: string = 'Habbajet factor is invalid';
 const COLOR_ERROR: string = 'Habbajet color is invalid';
+const VALID_SUBMISSION: string = 'Habbajet properties are valid';
 
 @Injectable()
 export class ValidationService {
@@ -79,11 +80,13 @@ export class ValidationService {
     }
 
     public submit() {
-        if(this.validateSubmission()) {
+        const result = this.validateSubmission();
+        if(result === VALID_SUBMISSION) {
             this.habbajetService.newHabbajet();
             this.resetCurrentSubmission();
+        } else {
+            alert(result);
         }
-        
     }
 
     public resetCurrentSubmission() {
@@ -96,11 +99,20 @@ export class ValidationService {
         };
     }
 
-    private validateSubmission(): boolean {
-        return this.validateName(this.currentSubmission.name) &&
-            this.validateValue(this.currentSubmission.value + '') && 
-            this.validateFactor(this.currentSubmission.factor + '') &&
-            this.validateSlack(this.currentSubmission.slack + '') &&
-            this.validateColor(this.currentSubmission.color);
+    private validateSubmission(): string {
+        if (!this.validateName(this.currentSubmission.name)) {
+            return NAME_ERROR;
+        } else if (!this.validateValue(this.currentSubmission.value + '')) {
+            return VALUE_ERROR;
+        } else if (!this.validateFactor(this.currentSubmission.factor + '')) {
+            return FACTOR_ERROR;
+        } else if (!this.validateSlack(this.currentSubmission.slack + '')) {
+            return SLACK_ERROR;
+        } else if (this.validateColor(this.currentSubmission.color)) {
+            return COLOR_ERROR;
+        } else {
+            return VALID_SUBMISSION;
+        }
+            
     }
 }

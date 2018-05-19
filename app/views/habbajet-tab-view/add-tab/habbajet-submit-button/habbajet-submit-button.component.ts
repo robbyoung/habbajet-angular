@@ -13,4 +13,8 @@ export class HabbajetSubmitButtonComponent {
     constructor(private validationService: ValidationService) {}
 
     ngOnInit(){}
+
+    public onSubmitTap() {
+        this.validationService.submit();
+    }
 }
