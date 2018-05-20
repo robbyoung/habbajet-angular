@@ -27,7 +27,11 @@ export class ValidationService {
 
     public validateInput(field: string, value: string): boolean {
         switch(field) {
-            case 'name': return this.validateName(value);
+            case 'Name': return this.validateName(value);
+            case 'Value': return this.validateValue(value);
+            case 'Slack': return this.validateSlack(value);
+            case 'Factor': return this.validateFactor(value);
+            default: return false;
         }
     }
 
@@ -108,7 +112,7 @@ export class ValidationService {
             return FACTOR_ERROR;
         } else if (!this.validateSlack(this.currentSubmission.slack + '')) {
             return SLACK_ERROR;
-        } else if (this.validateColor(this.currentSubmission.color)) {
+        } else if (!this.validateColor(this.currentSubmission.color)) {
             return COLOR_ERROR;
         } else {
             return VALID_SUBMISSION;

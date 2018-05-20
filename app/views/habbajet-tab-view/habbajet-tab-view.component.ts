@@ -14,6 +14,7 @@ export class HabbajetTabViewComponent {
         setTimeout(() => {
             const page = frame.topmost().currentPage;
             page.getViewById('tabView').android.removeViewAt(0);
+            page.actionBarHidden = true;
         }, 1000);
     }
 

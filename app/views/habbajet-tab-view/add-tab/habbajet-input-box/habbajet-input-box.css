@@ -1,3 +1,26 @@
-label {
-    color: #773408;
+.inputGrid {
+    margin: 0;
+    margin-left: 10;
+    margin-right: 10;
+}
+
+.heading {
+    font-weight: bold;
+    font-size: 25;
+    vertical-align: center;
+}
+
+.valid {
+    border-width: 3px;
+    border-color: #000000; 
+}
+
+.invalid {
+    border-width: 3px;
+    border-color: red;
+}
+
+TextField {
+    margin-top: 5;
+    margin-bottom: 5;
 }

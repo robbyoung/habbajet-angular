@@ -1,3 +1,6 @@
 <StackLayout>
-    <label [text]="field + ' input box goes here'"></label>
+    <GridLayout class="inputGrid" rows="50" columns="90, *">
+        <label col="0" [text]="field + ': '" class="heading"></label>
+        <TextField col="1" (textChange)="onTextChange($event)" [class]="inputClass" [keyboardType]="keyboardType"></TextField>
+    </GridLayout>
 </StackLayout>
