@@ -1,28 +1,9 @@
 <StackLayout>
-    <TabView id='tabView'>
-        <StackLayout *tabItem="{title: 'Budget'}">
-            <budget-tab></budget-tab>
-        </StackLayout>
-        <StackLayout *tabItem="{title: 'h0'}">
-            <habbajet-tab [habbajetIndex]="0"></habbajet-tab>
-        </StackLayout>
-        <StackLayout *tabItem="{title: 'h1'}">
-            <habbajet-tab [habbajetIndex]="1"></habbajet-tab>
-        </StackLayout>
-        <StackLayout *tabItem="{title: 'h2'}">
-            <habbajet-tab [habbajetIndex]="2"></habbajet-tab>
-        </StackLayout>
-        <!-- <StackLayout *tabItem="{title: 'h3'}">
-            <habbajet-tab [habbajetIndex]="3"></habbajet-tab>
-        </StackLayout>
-        <StackLayout *tabItem="{title: 'h4'}">
-            <habbajet-tab [habbajetIndex]="4"></habbajet-tab>
-        </StackLayout>
-        <StackLayout *tabItem="{title: 'h5'}">
-            <habbajet-tab [habbajetIndex]="5"></habbajet-tab>
-        </StackLayout> -->
-        <StackLayout *tabItem="{title: 'Add'}">
-            <add-tab></add-tab>
+    <TabView id='tabView' *ngFor="let tab of tabList; let i = index">
+        <StackLayout *tabItem="{title: 'Tab ' + i}">
+            <budget-tab *ngIf="tab === 1"></budget-tab>
+            <habbajet-tab *ngIf="item === 0" [habbajetIndex]="index"></habbajet-tab>
+            <add-tab *ngIf="tab === 2"></add-tab>
         </StackLayout>
     </TabView>
 </StackLayout>

@@ -86,7 +86,13 @@ export class ValidationService {
     public submit() {
         const result = this.validateSubmission();
         if(result === VALID_SUBMISSION) {
-            this.habbajetService.newHabbajet();
+            this.habbajetService.newHabbajet(
+                this.currentSubmission.name,
+                this.currentSubmission.value,
+                this.currentSubmission.factor,
+                this.currentSubmission.slack,
+                this.currentSubmission.color,
+            );
             this.resetCurrentSubmission();
         } else {
             alert(result);

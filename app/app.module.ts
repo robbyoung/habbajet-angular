@@ -18,6 +18,7 @@ import { ValidationService } from "./services/validation.service";
 import { HabbajetColorPickerComponent } from "./views/habbajet-tab-view/add-tab/habbajet-color-picker/habbajet-color-picker.component";
 import { HabbajetInputBoxComponent } from "./views/habbajet-tab-view/add-tab/habbajet-input-box/habbajet-input-box.component";
 import { HabbajetSubmitButtonComponent } from "./views/habbajet-tab-view/add-tab/habbajet-submit-button/habbajet-submit-button.component";
+import { TabService } from "./services/tab.service";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { HabbajetSubmitButtonComponent } from "./views/habbajet-tab-view/add-tab
     SavingService,
     CheckboxService,
     ValidationService,
+    TabService,
   ],
   bootstrap: [AppComponent],
   imports: [NativeScriptModule],

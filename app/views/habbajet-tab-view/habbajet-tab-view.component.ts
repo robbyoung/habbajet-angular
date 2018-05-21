@@ -1,7 +1,8 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import * as _ from 'lodash';
 import * as frame from 'ui/frame';
 import { HabbajetService } from "../../services/habbajet.service";
+import { TabService, TabType } from "../../services/tab.service";
 
 @Component({
     selector: "habbajet-tab-view",
@@ -10,7 +11,14 @@ import { HabbajetService } from "../../services/habbajet.service";
 
 export class HabbajetTabViewComponent {
 
-    constructor(private habbajetService: HabbajetService) {
+    public tabList: TabType[];
+
+    constructor(private tabService: TabService) {}
+
+    ngOnInit() {
+        this.tabList = this.tabService.tabList;
+        console.dir(this.tabList);
+
         setTimeout(() => {
             const page = frame.topmost().currentPage;
             page.getViewById('tabView').android.removeViewAt(0);
@@ -18,11 +26,4 @@ export class HabbajetTabViewComponent {
         }, 1000);
     }
 
-    public showTab(index: number): boolean {
-        return this.habbajetService.habbajetExists(index);
-    }
-
-    public getName(index: number): string {
-        return this.habbajetService.getHabbajetName(index);
-    }
 }
