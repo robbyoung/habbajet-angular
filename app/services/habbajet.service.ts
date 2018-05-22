@@ -132,6 +132,7 @@ export class HabbajetService {
         const habbajet = new Habbajet(name, 0, color);
         habbajet.checkboxes = this.checkboxService.getCurrentWeek();
 
-        this.tabService.updateTabs(this.habbajetList.length);
+        this.habbajetList.push(habbajet);
+        this.tabService.addHabbajetTab();
     }
 }

@@ -17,7 +17,6 @@ export class HabbajetTabViewComponent {
 
     ngOnInit() {
         this.tabList = this.tabService.tabList;
-        console.dir(this.tabList);
 
         setTimeout(() => {
             const page = frame.topmost().currentPage;

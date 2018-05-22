@@ -1,9 +1,11 @@
 <StackLayout>
-    <TabView id='tabView' *ngFor="let tab of tabList; let i = index">
-        <StackLayout *tabItem="{title: 'Tab ' + i}">
-            <budget-tab *ngIf="tab === 1"></budget-tab>
-            <habbajet-tab *ngIf="item === 0" [habbajetIndex]="index"></habbajet-tab>
-            <add-tab *ngIf="tab === 2"></add-tab>
-        </StackLayout>
+    <TabView id='tabView'>
+        <ng-container  *ngFor="let tab of tabList; let i = index">
+            <StackLayout *tabItem="{title: 'tab: ' + tab}">
+                <budget-tab *ngIf="tab === 1"></budget-tab>
+                <habbajet-tab *ngIf="tab === 0" [habbajetIndex]="i - 1"></habbajet-tab>
+                <add-tab *ngIf="tab === 2"></add-tab>
+            </StackLayout>
+        </ng-container>
     </TabView>
 </StackLayout>

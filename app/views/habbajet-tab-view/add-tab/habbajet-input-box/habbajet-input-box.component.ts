@@ -17,7 +17,7 @@ export class HabbajetInputBoxComponent {
 
     ngOnInit() {
         this.inputClass = 'invalid';
-        this.keyboardType = this.field === 'Name' ? '' : 'number';
+        this.keyboardType = this.field === 'Name' ? 'email' : 'number';
     }
 
     public onTextChange(args) {

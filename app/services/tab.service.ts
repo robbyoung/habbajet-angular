@@ -13,15 +13,21 @@ export class TabService {
     public tabList: TabType[];
 
     constructor() {
-        this.updateTabs(0);
+        this.initialiseTabs();
     }
 
-    public updateTabs(habbajetCount: number) {
+    public initialiseTabs() {
         this.tabList = [];
         this.tabList.push(TabType.Budget)
-        for(let h = 0; h < habbajetCount; h++) {
-            this.tabList.push(TabType.Habbajet);
-        }
         this.tabList.push(TabType.Add);
+    }
+
+    public addHabbajetTab() {
+        const newHabbajetIndex = this.tabList.length - 1;
+
+        this.tabList[newHabbajetIndex] = TabType.Habbajet;
+        this.tabList.push(TabType.Add);
+
+        console.dir(this.tabList);
     }
 }
