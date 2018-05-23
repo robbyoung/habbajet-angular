@@ -7,10 +7,16 @@ export enum TabType {
     Add,
 }
 
+export interface TabBinding {
+    title: string;
+    type: TabType;
+    habbajetIndex: number;
+}
+
 @Injectable()
 export class TabService {
 
-    public tabList: TabType[];
+    public tabList: TabBinding[];
 
     constructor() {
         this.initialiseTabs();
@@ -18,16 +24,58 @@ export class TabService {
 
     public initialiseTabs() {
         this.tabList = [];
-        this.tabList.push(TabType.Budget)
-        this.tabList.push(TabType.Add);
+        this.budgetTabAtIndex(0);
+        this.addTabAtIndex(1);
     }
 
     public addHabbajetTab() {
-        const newHabbajetIndex = this.tabList.length - 1;
+        const newHabbajetIndex = this.tabList.length;
 
-        this.tabList[newHabbajetIndex] = TabType.Habbajet;
-        this.tabList.push(TabType.Add);
+        this.habbajetTabAtIndex(newHabbajetIndex);
+        this.addTabAtIndex(newHabbajetIndex + 1);
 
         console.dir(this.tabList);
+    }
+
+    public budgetTabAtIndex(index: number) {
+        if(this.tabList.length <= index) {
+            this.tabList.push({
+                title: 'Budget',
+                type: TabType.Budget,
+                habbajetIndex: undefined,
+            });
+        } else {
+            this.tabList[index].title = 'Budget';
+            this.tabList[index].type = TabType.Budget;
+            this.tabList[index].habbajetIndex = undefined;
+        }
+    }
+
+    public habbajetTabAtIndex(index: number) {
+        if(this.tabList.length <= index) {
+            this.tabList.push({
+                title: 'Habbajet ' + index,
+                type: TabType.Habbajet,
+                habbajetIndex: index - 2,
+            });
+        } else {
+            this.tabList[index].title = 'Habbajet ' + index;
+            this.tabList[index].type = TabType.Habbajet;
+            this.tabList[index].habbajetIndex = index - 2;
+        }
+    }
+
+    public addTabAtIndex(index: number) {
+        if(this.tabList.length <= index) {
+            this.tabList.push({
+                title: 'New Habbajet',
+                type: TabType.Add,
+                habbajetIndex: undefined,
+            });
+        } else {
+            this.tabList[index].title = 'New Habbajet';
+            this.tabList[index].type = TabType.Add;
+            this.tabList[index].habbajetIndex = undefined;
+        }
     }
 }
