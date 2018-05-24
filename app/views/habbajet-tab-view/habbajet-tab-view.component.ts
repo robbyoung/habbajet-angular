@@ -18,11 +18,11 @@ export class HabbajetTabViewComponent {
     ngOnInit() {
         this.tabList = this.tabService.tabList;
 
-        // setTimeout(() => {
-        //     const page = frame.topmost().currentPage;
-        //     page.getViewById('tabView').android.removeViewAt(0);
-        //     page.actionBarHidden = true;
-        // }, 1000);
+        setTimeout(() => {
+            const page = frame.topmost().currentPage;
+            page.getViewById('tabView').android.removeViewAt(0);
+            page.actionBarHidden = true;
+        }, 1000);
     }
 
 }

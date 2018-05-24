@@ -6,13 +6,16 @@ import { TabService } from "./tab.service";
 
 export interface HabbajetInfo  {
     streak: number;
+    value: number;
+    factor: number;
+    slack: number;
 }
 
 export interface HabbajetButtons {
     locked: boolean;
 }
 
-export class Habbajet {
+class Habbajet {
     public image: ImageState;
     public info: HabbajetInfo;
     public checkboxes: HabbajetCheckbox[];
@@ -20,9 +23,6 @@ export class Habbajet {
 
     constructor(public name: string, public state: number, public color: string) {
         this.image = new ImageState(state, color);
-        this.info = {
-            streak: 0,
-        }
         this.buttons = {
             locked: false,
         }
@@ -131,6 +131,12 @@ export class HabbajetService {
     public newHabbajet(name: string, value: number, factor: number, slack: number, color: string) {
         const habbajet = new Habbajet(name, 0, color);
         habbajet.checkboxes = this.checkboxService.getCurrentWeek();
+        habbajet.info = {
+            streak: 0,
+            value,
+            factor,
+            slack,
+        }
 
         this.habbajetList.push(habbajet);
         this.tabService.addHabbajetTab();

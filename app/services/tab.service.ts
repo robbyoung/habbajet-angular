@@ -29,12 +29,9 @@ export class TabService {
     }
 
     public addHabbajetTab() {
-        const newHabbajetIndex = this.tabList.length;
+        const newHabbajetIndex = this.tabList.length - 1;
 
         this.habbajetTabAtIndex(newHabbajetIndex);
-        this.addTabAtIndex(newHabbajetIndex + 1);
-
-        console.dir(this.tabList);
     }
 
     public budgetTabAtIndex(index: number) {
@@ -56,12 +53,12 @@ export class TabService {
             this.tabList.push({
                 title: 'Habbajet ' + index,
                 type: TabType.Habbajet,
-                habbajetIndex: index - 2,
+                habbajetIndex: index - 1,
             });
         } else {
             this.tabList[index].title = 'Habbajet ' + index;
             this.tabList[index].type = TabType.Habbajet;
-            this.tabList[index].habbajetIndex = index - 2;
+            this.tabList[index].habbajetIndex = index - 1;
         }
     }
 
