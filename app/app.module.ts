@@ -19,6 +19,7 @@ import { HabbajetColorPickerComponent } from "./views/habbajet-tab-view/add-tab/
 import { HabbajetInputBoxComponent } from "./views/habbajet-tab-view/add-tab/habbajet-input-box/habbajet-input-box.component";
 import { HabbajetSubmitButtonComponent } from "./views/habbajet-tab-view/add-tab/habbajet-submit-button/habbajet-submit-button.component";
 import { TabService } from "./services/tab.service";
+import { BudgetService } from "./services/budget.service";
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { TabService } from "./services/tab.service";
   ],
   providers: [
     HabbajetService,
+    BudgetService,
     ImageService,
     SavingService,
     CheckboxService,

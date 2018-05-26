@@ -1,25 +1,21 @@
 import { Component } from "@angular/core";
 import * as _ from 'lodash';
+import { BudgetService } from "../../../services/budget.service";
 
 @Component({
     selector: "budget-tab",
     templateUrl: "views/habbajet-tab-view/budget-tab/budget-tab.html",
+    styleUrls: ["views/habbajet-tab-view/budget-tab/budget-tab.css"]
 })
 
 export class BudgetTabComponent {
-    public totalMoneyString: string;
-    public totalMoney: number;
+    public totalAmountString: {
+        text: string;
+    };
 
-    constructor() {
-        this.totalMoney = 0;
-        this.setTotalMoneyString();
-    }
+    constructor(private budgetService: BudgetService) {}
 
-    setTotalMoneyString() {
-        if (this.totalMoney >= 0) {
-            this.totalMoneyString = '$' + this.totalMoney.toFixed(2);
-        } else {
-            this.totalMoneyString = '-$' + (this.totalMoney * -1).toFixed(2);
-        }
+    ngOnInit() {
+        this.totalAmountString = this.budgetService.getTotalAmountString();
     }
 }

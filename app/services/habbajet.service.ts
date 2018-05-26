@@ -3,6 +3,7 @@ import { ImageState, ImageService } from "./images.service";
 import { HabbajetCheckbox, CheckboxService, Day, Checkmark } from "./checkbox.service";
 import * as _ from 'lodash';
 import { TabService } from "./tab.service";
+import { BudgetService } from "./budget.service";
 
 export interface HabbajetInfo  {
     streak: number;
@@ -33,7 +34,8 @@ class Habbajet {
 export class HabbajetService {
     public habbajetList: Habbajet[];
 
-    constructor(private imageService: ImageService, private checkboxService: CheckboxService, private tabService: TabService) {
+    constructor(private imageService: ImageService, private checkboxService: CheckboxService,
+            private tabService: TabService, private budgetService: BudgetService) {
         this.habbajetList = [];
     }
 
@@ -112,7 +114,7 @@ export class HabbajetService {
                 const activeCheckbox = _.find(habbajet.checkboxes, (c: HabbajetCheckbox) => c.active);
                 if(activeCheckbox !== undefined) {
                     activeCheckbox.checkmark = checkmark;
-                    // this.resetCheckboxesIfNecessary(habbajet);
+                    this.updateBudgetIfNecessary(habbajet);
                     return true;
                 }
             }
@@ -120,11 +122,10 @@ export class HabbajetService {
         return false;
     }
 
-    private resetCheckboxesIfNecessary(habbajet: Habbajet) {
+    private updateBudgetIfNecessary(habbajet: Habbajet) {
         const checkboxes = habbajet.checkboxes;
         if(_.every(checkboxes, (c: HabbajetCheckbox) => c.checkmark !== Checkmark.None)) {
-            this.checkboxService.getNextWeek(checkboxes);
-            habbajet.buttons.locked = false;
+            this.budgetService.addToBudgetWithHabbajet(habbajet.info, checkboxes);
         }
     }
 
