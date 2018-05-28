@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import * as _ from 'lodash';
 import { BudgetService } from "../../../../services/budget.service";
 
@@ -10,8 +10,8 @@ import { BudgetService } from "../../../../services/budget.service";
 
 export class OldPurchaseComponent {
 
-    constructor(private budgetService: BudgetService) {}
+    @Input() name: string;
+    @Input() cost: string;
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 }

@@ -1,5 +1,7 @@
 <StackLayout>
         <money-display></money-display>
         <new-purchase></new-purchase>
-        <old-purchase></old-purchase>
+        <ng-container  *ngFor="let purchase of purchases">
+                <old-purchase [name]="purchase.name" [cost]="purchase.cost"></old-purchase>
+        </ng-container>
 </StackLayout>

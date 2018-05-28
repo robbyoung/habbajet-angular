@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import * as _ from 'lodash';
 import { BudgetService } from "../../../../services/budget.service";
+import * as dialogs from 'ui/dialogs';
 
 @Component({
     selector: "new-purchase",
@@ -12,6 +13,20 @@ export class NewPurchaseComponent {
 
     constructor(private budgetService: BudgetService) {}
 
-    ngOnInit() {
+    ngOnInit() {}
+
+    public onNewPurchaseTap() {
+        dialogs.prompt("What did you purchase?")
+        .then((name) => {
+            if(name.result) {
+                dialogs.prompt("How much did it cost?")
+                .then((cost) => {
+                    if(cost.result) {
+                        this.budgetService.makePurchase(name.text, _.toNumber(cost.text));
+                    }
+                });
+            }
+        });
+        
     }
 }

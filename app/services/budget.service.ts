@@ -4,18 +4,28 @@ import { HabbajetService, HabbajetInfo } from "./habbajet.service";
 import * as _ from 'lodash';
 import { HabbajetCheckbox, Checkmark } from "./checkbox.service";
 
+export interface PurchaseRecord {
+    name: string;
+    cost: string;
+}
+
 @Injectable()
 export class BudgetService {
     private totalAmount: number;
     private totalAmountString: {
         text: string;
     };
+    private purchases: PurchaseRecord[];
 
     constructor() {
         this.totalAmount = 0;
         this.totalAmountString = {
             text: '',
         }
+        this.purchases = [{
+            name: 'test',
+            cost: '100',
+        }];
         this.updateTotalAmountString();
     }
 
@@ -40,16 +50,36 @@ export class BudgetService {
         this.updateTotalAmountString();
     }
 
-    public makePurchase(name: string, amount: number) {
-        _.noop();
+    public makePurchase(name: string, cost: number) {
+        if(!this.validateCost(cost)) {
+            return;
+        }
+        this.purchases.push({
+            name,
+            cost: this.formatMoney(cost),
+        });
+        this.totalAmount = this.totalAmount - cost;
+        this.updateTotalAmountString();
+    }
+
+    private validateCost(cost: number): boolean {
+        return isFinite(cost) && cost > 0;
+    }
+
+    public getPurchases(): PurchaseRecord[] {
+        return this.purchases;
+    }
+
+    private formatMoney(moneyNumber: number): string {
+        if (moneyNumber >= 0) {
+            return '$' + moneyNumber.toFixed(2);
+        } else {
+            return '-$' + (-1 * moneyNumber).toFixed(2);
+        }
     }
 
     private updateTotalAmountString() {
-        if (this.totalAmount >= 0) {
-            this.totalAmountString.text = '$' + this.totalAmount.toFixed(2);
-        } else {
-            this.totalAmountString.text = '-$' + (-1 * this.totalAmount).toFixed(2);
-        }
+        this.totalAmountString.text = this.formatMoney(this.totalAmount);
     }
 
 }

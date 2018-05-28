@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import * as _ from 'lodash';
-import { BudgetService } from "../../../services/budget.service";
+import { BudgetService, PurchaseRecord } from "../../../services/budget.service";
 
 @Component({
     selector: "budget-tab",
@@ -9,9 +9,11 @@ import { BudgetService } from "../../../services/budget.service";
 })
 
 export class BudgetTabComponent {
+    public purchases: PurchaseRecord[];
 
     constructor(private budgetService: BudgetService) {}
 
     ngOnInit() {
+        this.purchases = this.budgetService.getPurchases();
     }
 }

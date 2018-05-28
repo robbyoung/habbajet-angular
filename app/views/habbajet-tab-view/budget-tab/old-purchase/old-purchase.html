@@ -1,3 +1,7 @@
 <StackLayout>
-        <label text="Old Purchase"></label>
+        <GridLayout columns="auto, *, auto">
+                <label [text]="name" col="0"></label>
+                <label [text]="cost" col="2"></label>
+        </GridLayout>
+        
 </StackLayout>

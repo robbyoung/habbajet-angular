@@ -1,0 +1,11 @@
+GridLayout {
+    background-color: #c9c9c9;
+    color: #000000;
+    vertical-align: center;
+    text-align: center;
+    margin: 10;
+    margin-top: 0;
+    font-size: 30;
+    border-radius: 3;
+    padding: 10;
+}
