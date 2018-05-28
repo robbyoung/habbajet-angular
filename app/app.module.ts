@@ -20,6 +20,9 @@ import { HabbajetInputBoxComponent } from "./views/habbajet-tab-view/add-tab/hab
 import { HabbajetSubmitButtonComponent } from "./views/habbajet-tab-view/add-tab/habbajet-submit-button/habbajet-submit-button.component";
 import { TabService } from "./services/tab.service";
 import { BudgetService } from "./services/budget.service";
+import { MoneyDisplayComponent } from "./views/habbajet-tab-view/budget-tab/money-display/money-display.component";
+import { NewPurchaseComponent } from "./views/habbajet-tab-view/budget-tab/new-purchase/new-purchase.component";
+import { OldPurchaseComponent } from "./views/habbajet-tab-view/budget-tab/old-purchase/old-purchase.component";
 
 @NgModule({
   declarations: [
@@ -35,6 +38,9 @@ import { BudgetService } from "./services/budget.service";
     HabbajetColorPickerComponent,
     HabbajetInputBoxComponent,
     HabbajetSubmitButtonComponent,
+    MoneyDisplayComponent,
+    NewPurchaseComponent,
+    OldPurchaseComponent,
   ],
   providers: [
     HabbajetService,

@@ -9,13 +9,9 @@ import { BudgetService } from "../../../services/budget.service";
 })
 
 export class BudgetTabComponent {
-    public totalAmountString: {
-        text: string;
-    };
 
     constructor(private budgetService: BudgetService) {}
 
     ngOnInit() {
-        this.totalAmountString = this.budgetService.getTotalAmountString();
     }
 }
