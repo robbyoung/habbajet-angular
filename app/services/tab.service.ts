@@ -32,6 +32,8 @@ export class TabService {
         const newHabbajetIndex = this.tabList.length - 1;
 
         this.habbajetTabAtIndex(newHabbajetIndex);
+
+        console.dir(this.tabList);
     }
 
     public budgetTabAtIndex(index: number) {

@@ -4,6 +4,7 @@ import { HabbajetCheckbox, CheckboxService, Day, Checkmark } from "./checkbox.se
 import * as _ from 'lodash';
 import { TabService } from "./tab.service";
 import { BudgetService } from "./budget.service";
+import { SavingService } from "./saving.service";
 
 export interface HabbajetInfo  {
     streak: number;
@@ -35,8 +36,9 @@ export class HabbajetService {
     public habbajetList: Habbajet[];
 
     constructor(private imageService: ImageService, private checkboxService: CheckboxService,
-            private tabService: TabService, private budgetService: BudgetService) {
+            private tabService: TabService, private budgetService: BudgetService, private savingService: SavingService) {
         this.habbajetList = [];
+        this.savingService.loadHabbajetList(this);
     }
 
     public habbajetExists(index: number): boolean {
@@ -90,6 +92,7 @@ export class HabbajetService {
     public evolve(habbajetIndex: number) {
         if(this.habbajetExists(habbajetIndex)) {
             this.imageService.evolve(this.habbajetList[habbajetIndex].image);
+            this.savingService.saveHabbajetList(this.habbajetList);
         }
         
     }
@@ -117,6 +120,7 @@ export class HabbajetService {
                     this.updateBudgetIfNecessary(habbajet);
                     return true;
                 }
+                this.savingService.saveHabbajetList(this.habbajetList);
             }
         }
         return false;
@@ -129,11 +133,17 @@ export class HabbajetService {
         }
     }
 
-    public newHabbajet(name: string, value: number, factor: number, slack: number, color: string) {
+    public newHabbajet(name: string, state: number, value: number, factor: number, slack: number, color: string, streak: number, checkboxes: HabbajetCheckbox[]) {
         const habbajet = new Habbajet(name, 0, color);
-        habbajet.checkboxes = this.checkboxService.getCurrentWeek();
+
+        if(checkboxes.length !== 0) {
+            habbajet.checkboxes = checkboxes;
+        } else {
+            habbajet.checkboxes = this.checkboxService.getCurrentWeek();
+        }
+
         habbajet.info = {
-            streak: 0,
+            streak,
             value,
             factor,
             slack,
@@ -141,5 +151,9 @@ export class HabbajetService {
 
         this.habbajetList.push(habbajet);
         this.tabService.addHabbajetTab();
+
+        if(checkboxes.length === 0) {
+            this.savingService.saveHabbajetList(this.habbajetList);
+        }
     }
 }

@@ -1,64 +1,63 @@
 import { Injectable } from "@angular/core";
 import * as saveObject from 'application-settings';
-import { HabbajetService } from "./habbajet.service";
+import { HabbajetService, HabbajetInfo } from "./habbajet.service";
 import * as _ from 'lodash';
+import { ImageState } from "./images.service";
+import { HabbajetCheckbox, CheckboxService } from "./checkbox.service";
 
 @Injectable()
 export class SavingService {
-    constructor(private habbajetService: HabbajetService) {}
+    constructor(private checkboxService: CheckboxService) {}
 
-    // public saveHabbajetList() {
-    //     const habbajetList = this.habbajetService.habbajetList;
-    //     _.each(habbajetList, (habbajet, index) => {
-    //         if(habbajet !== undefined) {
-    //             this.saveHabbajet(habbajet, index);
-    //         }
-    //     });
-    // }
+    public saveHabbajetList(habbajetList: any[]) {
+        _.each(habbajetList, (habbajet, index) => {
+            if(habbajet !== undefined) {
+                this.saveHabbajet(habbajet.name, habbajet.info, habbajet.image, habbajet.checkboxes, index);
+            }
+        });
+    }
 
-    // public saveHabbajet(habbajet: Habbajet, index: number) {
-    //     saveObject.setString(`hName${index}`, habbajet.name);
-    //     saveObject.setNumber(`hState${index}`, habbajet.state);
-    //     saveObject.setString(`hColor${index}`, habbajet.color)
-    // }
+    public saveHabbajet(name: string, info: HabbajetInfo, image: ImageState, checkboxes: HabbajetCheckbox[], index: number) {
+        saveObject.setString(`hName${index}`, name);
+        saveObject.setNumber(`hState${index}`, image.state);
+        saveObject.setString(`hColor${index}`, image.color);
+        this.saveHabbajetInfo(info, index);
+        this.saveHabbajetCheckboxes(checkboxes, index);
+    }
 
-    // public loadHabbajetList(): Habbajet[] {
-    //     const habbajetList: Habbajet[] = [];
+    private saveHabbajetInfo(info: HabbajetInfo, index: number) {
+        saveObject.setNumber(`hStreak${index}`, info.streak);
+        saveObject.setNumber(`hValue${index}`, info.value);
+        saveObject.setNumber(`hFactor${index}`, info.factor);
+        saveObject.setNumber(`hSlack${index}`, info.slack);
+    }
 
-    //     let i;
-    //     while(i < 6) {
-    //         habbajetList.push(this.loadHabbajet(i));
-    //         i++;
-    //     }
+    private saveHabbajetCheckboxes(checkboxes: HabbajetCheckbox[], index: number) {
+        _.each(checkboxes, (c, i) => {
+            saveObject.setNumber(`hCheckbox${i}${index}`, c.checkmark);
+        });
+    }
 
-    //     return habbajetList;
-    // }
+    public loadHabbajetList(habbajetService: HabbajetService) {
+        let index = 0;
+        while(saveObject.hasKey(`hName${index}`)) {
+            const name = saveObject.getString(`hName${index}`);
+            const state = saveObject.getNumber(`hState${index}`);
+            const color = saveObject.getString(`hColor${index}`);
+            const streak = saveObject.getNumber(`hStreak${index}`);
+            const value = saveObject.getNumber(`hValue${index}`);
+            const factor = saveObject.getNumber(`hFactor${index}`);
+            const slack = saveObject.getNumber(`hSlack${index}`);
 
-    // public loadHabbajet(index: number): Habbajet {
-    //     if(saveObject.hasKey(`hName${index}`) &&
-    //             saveObject.hasKey(`hState${index}`) &&
-    //             saveObject.hasKey(`hColor${index}`)) {
-    //         const habbajet = new Habbajet(
-    //             saveObject.getString(`hName${index}`),
-    //             saveObject.getNumber(`hState${index}`),
-    //             saveObject.getString(`hColor${index}`)
-    //         );
-    //     } else {
-    //         return undefined;
-    //     }
-    // }
+            const checkboxes = this.checkboxService.getCurrentWeek();
+            _.each(checkboxes, (c, i) => {
+                c.checkmark = saveObject.getNumber(`hCheckbox${i}${index}`);
+            });
+            
+            habbajetService.newHabbajet(name, state, value, factor, slack, color, streak, checkboxes);
 
-    // public deleteHabbajet(index: number){
-    //     if(saveObject.hasKey(`hName${index}`)) {
-    //         saveObject.remove(`hName${index}`);
-    //     }
-    //     if(saveObject.hasKey(`hState${index}`)) {
-    //         saveObject.remove(`hState${index}`);
-    //     }
-    // }
+            index++;
+        }
+    }
 
-    // public moveHabbajet(habbajet: Habbajet, start: number, finish: number) {
-    //     this.saveHabbajet(habbajet, finish);
-    //     this.deleteHabbajet(start);
-    // }
 }

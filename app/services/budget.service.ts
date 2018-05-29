@@ -22,10 +22,7 @@ export class BudgetService {
         this.totalAmountString = {
             text: '',
         }
-        this.purchases = [{
-            name: 'test',
-            cost: '100',
-        }];
+        this.purchases = [];
         this.updateTotalAmountString();
     }
 
