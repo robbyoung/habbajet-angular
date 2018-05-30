@@ -4,6 +4,7 @@ import { HabbajetService, HabbajetInfo } from "./habbajet.service";
 import * as _ from 'lodash';
 import { ImageState } from "./images.service";
 import { HabbajetCheckbox, CheckboxService } from "./checkbox.service";
+import { PurchaseRecord } from "./budget.service";
 
 @Injectable()
 export class SavingService {
@@ -58,6 +59,38 @@ export class SavingService {
 
             index++;
         }
+    }
+
+    public saveBudget(budget: number) {
+        saveObject.setNumber('budget', budget);
+    }
+
+    public loadBudget(): number {
+        if(saveObject.hasKey('budget')) {
+            return saveObject.getNumber('budget');
+        } else {
+            return 0;
+        }
+    }
+
+    public savePurchases(purchases: PurchaseRecord[]) {
+        _.each(purchases, (purchase, index) => {
+            saveObject.setString(`pName${index}`, purchase.name);
+            saveObject.setString(`pCost${index}`, purchase.cost);
+        });
+    }
+
+    public loadPurchases(): PurchaseRecord[] {
+        let index = 0;
+        const purchases: PurchaseRecord[] = [];
+        while(saveObject.hasKey(`pName${index}`)) {
+            purchases.push({
+                name: saveObject.getString(`pName${index}`),
+                cost: saveObject.getString(`pCost${index}`),
+            });
+            index++;
+        }
+        return purchases;
     }
 
 }

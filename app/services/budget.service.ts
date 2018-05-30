@@ -3,6 +3,7 @@ import * as saveObject from 'application-settings';
 import { HabbajetService, HabbajetInfo } from "./habbajet.service";
 import * as _ from 'lodash';
 import { HabbajetCheckbox, Checkmark } from "./checkbox.service";
+import { SavingService } from "./saving.service";
 
 export interface PurchaseRecord {
     name: string;
@@ -17,12 +18,12 @@ export class BudgetService {
     };
     private purchases: PurchaseRecord[];
 
-    constructor() {
-        this.totalAmount = 0;
+    constructor(private savingService: SavingService) {
+        this.totalAmount = this.savingService.loadBudget();
         this.totalAmountString = {
             text: '',
         }
-        this.purchases = [];
+        this.purchases = this.savingService.loadPurchases();
         this.updateTotalAmountString();
     }
 
@@ -57,6 +58,7 @@ export class BudgetService {
         });
         this.totalAmount = this.totalAmount - cost;
         this.updateTotalAmountString();
+        this.savingService.savePurchases(this.purchases);
     }
 
     private validateCost(cost: number): boolean {
@@ -77,6 +79,7 @@ export class BudgetService {
 
     private updateTotalAmountString() {
         this.totalAmountString.text = this.formatMoney(this.totalAmount);
+        this.savingService.saveBudget(this.totalAmount);
     }
 
 }
