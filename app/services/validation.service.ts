@@ -88,13 +88,10 @@ export class ValidationService {
         if(result === VALID_SUBMISSION) {
             this.habbajetService.newHabbajet(
                 this.currentSubmission.name,
-                0, //value
                 this.currentSubmission.value,
                 this.currentSubmission.factor,
                 this.currentSubmission.slack,
                 this.currentSubmission.color,
-                0, //streak
-                [], //checkmarks
             );
             this.resetCurrentSubmission();
         } else {

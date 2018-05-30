@@ -32,7 +32,7 @@ export class CheckboxService {
 
     constructor() {}
 
-    getCurrentWeek(): HabbajetCheckbox[] {
+    public getCurrentWeek(): HabbajetCheckbox[] {
         const weekOfCheckboxes: HabbajetCheckbox[] = [];
         let currentDay: Moment.Moment = Moment().startOf('week');
         let today: Moment.Moment = Moment().startOf('day');
@@ -50,13 +50,12 @@ export class CheckboxService {
         return weekOfCheckboxes;
     }
 
-    getNextWeek(checkboxes: HabbajetCheckbox[]): HabbajetCheckbox[] {
-        return _.each(checkboxes, (c: HabbajetCheckbox) => {
-            c.checkmark = Checkmark.None;
-        });
-    }
-
-    getPreviousWeek(checkboxes: HabbajetCheckbox[]): HabbajetCheckbox[] {
-        return undefined;
+    public isCurrentWeek(startOfWeekInQuestion: number): boolean {
+        let startOfCurrentWeek = Moment().startOf('week');
+        if(startOfCurrentWeek.valueOf() > startOfWeekInQuestion) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

@@ -133,14 +133,25 @@ export class HabbajetService {
         }
     }
 
-    public newHabbajet(name: string, state: number, value: number, factor: number, slack: number, color: string, streak: number, checkboxes: HabbajetCheckbox[]) {
+    public newHabbajet(name: string, value: number, factor: number, slack: number, color: string) {
         const habbajet = new Habbajet(name, 0, color);
 
-        if(checkboxes.length !== 0) {
-            habbajet.checkboxes = checkboxes;
-        } else {
-            habbajet.checkboxes = this.checkboxService.getCurrentWeek();
+        habbajet.checkboxes = this.checkboxService.getCurrentWeek();
+
+        habbajet.info = {
+            streak: 0,
+            value,
+            factor,
+            slack,
         }
+
+        this.habbajetList.push(habbajet);
+        this.tabService.addHabbajetTab();
+    }
+
+    public newHabbajetFromSave(name: string, state: number, value: number, factor: number, slack: number, color: string,
+            streak: number,checkboxes: HabbajetCheckbox[], startOfWeek: number) {
+        const habbajet = new Habbajet(name, 0, color);
 
         habbajet.info = {
             streak,
@@ -149,11 +160,16 @@ export class HabbajetService {
             slack,
         }
 
+        if(this.checkboxService.isCurrentWeek(startOfWeek)) {
+            habbajet.checkboxes = checkboxes;
+        } else {
+            this.budgetService.addToBudgetWithHabbajet(habbajet.info, checkboxes);
+            habbajet.checkboxes = this.checkboxService.getCurrentWeek();
+        }
+        
+
         this.habbajetList.push(habbajet);
         this.tabService.addHabbajetTab();
-
-        if(checkboxes.length === 0) {
-            this.savingService.saveHabbajetList(this.habbajetList);
-        }
+        this.savingService.saveHabbajetList(this.habbajetList);
     }
 }
