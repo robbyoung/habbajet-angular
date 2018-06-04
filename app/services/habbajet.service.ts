@@ -163,7 +163,11 @@ export class HabbajetService {
         if(this.checkboxService.isCurrentWeek(startOfWeek)) {
             habbajet.checkboxes = checkboxes;
         } else {
-            this.budgetService.addToBudgetWithHabbajet(habbajet.info, checkboxes);
+            if(_.some(checkboxes, (checkbox: HabbajetCheckbox) => {
+                checkbox.checkmark === Checkmark.None;
+            })) {
+                this.budgetService.addToBudgetWithHabbajet(habbajet.info, checkboxes);
+            };
             habbajet.checkboxes = this.checkboxService.getCurrentWeek();
         }
         
