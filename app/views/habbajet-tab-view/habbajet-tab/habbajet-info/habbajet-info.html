@@ -1,6 +1,6 @@
 <StackLayout>
-    <label [text]="'Value:  ' + info.value"></label>
-    <label [text]="'Factor:  ' + info.factor"></label>
-    <label [text]="'Slack:  ' + info.slack"></label>
-    <label [text]="'Streak:  ' + info.streak"></label>
+    <GridLayout rows="30" columns="200, *" class="infoContainer">
+        <label [text]="'Value:  $' + info.value" row="0" col="0" class="valueLabel"></label>
+        <label [text]="info.factor + ' - ' + info.slack + ' - ' + info.streak" row="0" col="1" class="streakLabel"></label>
+    </GridLayout>
 </StackLayout>

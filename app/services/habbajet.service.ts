@@ -150,7 +150,7 @@ export class HabbajetService {
     }
 
     public newHabbajetFromSave(name: string, state: number, value: number, factor: number, slack: number, color: string,
-            streak: number,checkboxes: HabbajetCheckbox[], startOfWeek: number) {
+            streak: number, checkboxes: HabbajetCheckbox[], startOfWeek: number) {
         const habbajet = new Habbajet(name, 0, color);
 
         habbajet.info = {
@@ -171,7 +171,6 @@ export class HabbajetService {
             habbajet.checkboxes = this.checkboxService.getCurrentWeek();
         }
         
-
         this.habbajetList.push(habbajet);
         this.tabService.addHabbajetTab();
         this.savingService.saveHabbajetList(this.habbajetList);

@@ -1,6 +1,6 @@
 <StackLayout>
-    <GridLayout rows="auto" columns="*,*">
-        <button col="0" text="GOOD" [class]="habbajetButtons.locked ? 'lockedButton' : 'button'" (tap)="onPositiveTap()"></button>
-        <button col="1" text="BAD" [class]="habbajetButtons.locked ? 'lockedButton' : 'button'" (tap)="onNegativeTap()"></button>
+    <GridLayout rows="150" columns="*,150,20,150,*">
+        <image col="1" src="~/images/checkboxes/checkbox1.png" [class]="habbajetButtons.locked ? 'lockedButton' : 'button'" (tap)="onPositiveTap()"></image>
+        <image col="3" src="~/images/checkboxes/checkbox2.png" [class]="habbajetButtons.locked ? 'lockedButton' : 'button'" (tap)="onNegativeTap()"></image>
     </GridLayout>
 </StackLayout>

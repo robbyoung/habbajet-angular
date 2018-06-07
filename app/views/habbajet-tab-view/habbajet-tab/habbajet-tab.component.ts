@@ -5,6 +5,7 @@ import { HabbajetService } from "../../../services/habbajet.service";
 @Component({
     selector: "habbajet-tab",
     templateUrl: "views/habbajet-tab-view/habbajet-tab/habbajet-tab.html",
+    styleUrls: ["views/habbajet-tab-view/habbajet-tab/habbajet-tab.css"]
 })
 
 export class HabbajetTabComponent {
@@ -14,6 +15,6 @@ export class HabbajetTabComponent {
     constructor(private habbajetService: HabbajetService) {}
 
     ngOnInit() {
-        this.name = this.habbajetService.getHabbajetName(this.habbajetIndex) + ' (' + this.habbajetIndex + ')';
+        this.name = this.habbajetService.getHabbajetName(this.habbajetIndex);
     }
 }

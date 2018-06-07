@@ -1,4 +1,22 @@
-label {
+.infoContainer {
+    width: 300;
     color: #2e2e2e;
-    padding-left: 20;
+    padding: 10;
+    padding-bottom: 5;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #9e9e9e;
+    border-bottom-left-radius: 20;
+    border-bottom-right-radius: 20;
+}
+
+.valueLabel {
+    font-weight: bold;
+    font-size: 20;
+}
+
+.streakLabel {
+    font-weight: bold;
+    font-size: 20;
+    text-align: right;
 }
