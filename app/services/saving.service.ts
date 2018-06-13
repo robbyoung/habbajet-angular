@@ -37,7 +37,7 @@ export class SavingService {
         _.each(checkboxes, (c, i) => {
             saveObject.setNumber(`hCheckbox${i}${index}`, c.checkmark);
         });
-        saveObject.setNumber(`hWeekStart${index}`, checkboxes[0].moment.valueOf());
+        saveObject.setString(`hWeekStart${index}`, checkboxes[0].moment.format('dddd Do MMM'));
     }
 
     public loadHabbajetList(habbajetService: HabbajetService) {
@@ -55,7 +55,7 @@ export class SavingService {
             _.each(checkboxes, (c, i) => {
                 c.checkmark = saveObject.getNumber(`hCheckbox${i}${index}`);
             });
-            const startOfWeek = saveObject.getNumber(`hWeekStart${index}`);
+            const startOfWeek = saveObject.getString(`hWeekStart${index}`);
             
             habbajetService.newHabbajetFromSave(name, state, value, factor, slack, color, streak, checkboxes, startOfWeek);
 

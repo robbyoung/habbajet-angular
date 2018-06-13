@@ -6,6 +6,13 @@ import { TabService } from "./tab.service";
 import { BudgetService } from "./budget.service";
 import { SavingService } from "./saving.service";
 
+export enum ButtonImages {
+    Positive = "~/images/checkboxes/checkboxButton1.png",
+    Negative = "~/images/checkboxes/checkboxButton2.png",
+    PositiveSelected = "~/images/checkboxes/checkbox1.png",
+    NegativeSelected = "~/images/checkboxes/checkbox2.png",
+}
+
 export interface HabbajetInfo  {
     streak: number;
     value: number;
@@ -14,6 +21,8 @@ export interface HabbajetInfo  {
 }
 
 export interface HabbajetButtons {
+    positiveSrc: string;
+    negativeSrc: string;
     locked: boolean;
 }
 
@@ -26,6 +35,8 @@ class Habbajet {
     constructor(public name: string, public state: number, public color: string) {
         this.image = new ImageState(state, color);
         this.buttons = {
+            positiveSrc: ButtonImages.Positive,
+            negativeSrc: ButtonImages.Negative,
             locked: false,
         }
     }
@@ -106,7 +117,7 @@ export class HabbajetService {
     public selectCheckbox(habbajetIndex: number, day: Day) {
         if(this.habbajetExists(habbajetIndex)) {
             const habbajet = this.habbajetList[habbajetIndex];
-            habbajet.buttons.locked = habbajet.checkboxes[day].checkmark !== Checkmark.None;
+            this.setButtonImages(habbajet);
         }
     }
 
@@ -150,7 +161,7 @@ export class HabbajetService {
     }
 
     public newHabbajetFromSave(name: string, state: number, value: number, factor: number, slack: number, color: string,
-            streak: number, checkboxes: HabbajetCheckbox[], startOfWeek: number) {
+            streak: number, checkboxes: HabbajetCheckbox[], startOfWeek: string) {
         const habbajet = new Habbajet(name, 0, color);
 
         habbajet.info = {
@@ -162,6 +173,7 @@ export class HabbajetService {
 
         if(this.checkboxService.isCurrentWeek(startOfWeek)) {
             habbajet.checkboxes = checkboxes;
+            this.setButtonImages(habbajet);
         } else {
             if(_.some(checkboxes, (checkbox: HabbajetCheckbox) => {
                 checkbox.checkmark === Checkmark.None;
@@ -174,5 +186,28 @@ export class HabbajetService {
         this.habbajetList.push(habbajet);
         this.tabService.addHabbajetTab();
         this.savingService.saveHabbajetList(this.habbajetList);
+    }
+
+    public setButtonImages(habbajet: Habbajet) {
+        const buttons = habbajet.buttons;
+        const selectedCheckbox = _.find(habbajet.checkboxes, (c: HabbajetCheckbox) => {
+            return c.active;
+        });
+
+        buttons.locked = selectedCheckbox.checkmark !== Checkmark.None;
+
+        switch (selectedCheckbox.checkmark) {
+            case Checkmark.Positive: 
+                buttons.positiveSrc = ButtonImages.PositiveSelected;
+                buttons.negativeSrc = ButtonImages.Negative;
+                break;
+            case Checkmark.Negative: 
+                buttons.positiveSrc = ButtonImages.Positive;
+                buttons.negativeSrc = ButtonImages.NegativeSelected;
+                break;
+            default: 
+                buttons.positiveSrc = ButtonImages.Positive;
+                buttons.negativeSrc = ButtonImages.Negative;
+        }
     }
 }

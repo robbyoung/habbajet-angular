@@ -50,9 +50,9 @@ export class CheckboxService {
         return weekOfCheckboxes;
     }
 
-    public isCurrentWeek(startOfWeekInQuestion: number): boolean {
+    public isCurrentWeek(startOfWeekInQuestion: string): boolean {
         let startOfCurrentWeek = Moment().startOf('week');
-        if(startOfCurrentWeek.valueOf() > startOfWeekInQuestion) {
+        if(startOfCurrentWeek.format('dddd Do MMM') !== startOfWeekInQuestion) {
             return false;
         } else {
             return true;
