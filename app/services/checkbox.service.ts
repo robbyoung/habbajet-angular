@@ -1,6 +1,5 @@
 import * as Moment from "moment";
 import { Injectable } from "@angular/core";
-import _ = require("lodash");
 
 export enum Day {
     Sunday = 0,

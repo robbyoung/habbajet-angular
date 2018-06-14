@@ -129,9 +129,9 @@ export class HabbajetService {
                 if(activeCheckbox !== undefined) {
                     activeCheckbox.checkmark = checkmark;
                     this.updateBudgetIfNecessary(habbajet);
+                    this.savingService.saveHabbajetList(this.habbajetList);
                     return true;
                 }
-                this.savingService.saveHabbajetList(this.habbajetList);
             }
         }
         return false;
