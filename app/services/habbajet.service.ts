@@ -28,11 +28,9 @@ export interface HabbajetButtons {
 
 class Habbajet {
     public image: ImageState;
-    public info: HabbajetInfo;
-    public checkboxes: HabbajetCheckbox[];
     public buttons: HabbajetButtons;
 
-    constructor(public name: string, public state: number, public color: string) {
+    constructor(public name: string, public state: number, public color: string, public info: HabbajetInfo, public checkboxes: HabbajetCheckbox[]) {
         this.image = new ImageState(state, color);
         this.buttons = {
             positiveSrc: ButtonImages.Positive,
@@ -145,45 +143,47 @@ export class HabbajetService {
     }
 
     public newHabbajet(name: string, value: number, factor: number, slack: number, color: string) {
-        const habbajet = new Habbajet(name, 0, color);
 
-        habbajet.checkboxes = this.checkboxService.getCurrentWeek();
+        const checkboxes = this.checkboxService.getCurrentWeek();
 
-        habbajet.info = {
+        const info = {
             streak: 0,
             value,
             factor,
             slack,
         }
 
+        const habbajet = new Habbajet(name, 0, color, info, checkboxes);
         this.habbajetList.push(habbajet);
         this.tabService.addHabbajetTab();
+        this.savingService.saveHabbajetList(this.habbajetList);
     }
 
     public newHabbajetFromSave(name: string, state: number, value: number, factor: number, slack: number, color: string,
             streak: number, checkboxes: HabbajetCheckbox[], startOfWeek: string) {
-        const habbajet = new Habbajet(name, 0, color);
-
-        habbajet.info = {
+        
+        const info = {
             streak,
             value,
             factor,
             slack,
         }
 
+        let checkboxesToUse: HabbajetCheckbox[];
         if(this.checkboxService.isCurrentWeek(startOfWeek)) {
-            habbajet.checkboxes = checkboxes;
-            this.setButtonImages(habbajet);
+            checkboxesToUse = checkboxes;
         } else {
             if(_.some(checkboxes, (checkbox: HabbajetCheckbox) => {
                 checkbox.checkmark === Checkmark.None;
             })) {
-                this.budgetService.addToBudgetWithHabbajet(habbajet.info, checkboxes);
+                this.budgetService.addToBudgetWithHabbajet(info, checkboxes);
             };
-            habbajet.checkboxes = this.checkboxService.getCurrentWeek();
+            checkboxesToUse = this.checkboxService.getCurrentWeek();
         }
         
+        const habbajet = new Habbajet(name, state, color, info, checkboxesToUse);
         this.habbajetList.push(habbajet);
+        this.setButtonImages(habbajet);
         this.tabService.addHabbajetTab();
         this.savingService.saveHabbajetList(this.habbajetList);
     }
