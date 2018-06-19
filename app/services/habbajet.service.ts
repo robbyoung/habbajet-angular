@@ -171,6 +171,7 @@ export class HabbajetService {
             slack,
         }
 
+        let stateToUse = state;
         let checkboxesToUse: HabbajetCheckbox[];
         if(this.checkboxService.isCurrentWeek(startOfWeek)) {
             checkboxesToUse = checkboxes;
@@ -181,9 +182,10 @@ export class HabbajetService {
                 this.budgetService.addToBudgetWithHabbajet(info, checkboxes);
             };
             checkboxesToUse = this.checkboxService.getCurrentWeek();
+            stateToUse = 0;
         }
         
-        const habbajet = new Habbajet(name, state, color, info, checkboxesToUse);
+        const habbajet = new Habbajet(name, stateToUse, color, info, checkboxesToUse);
         this.habbajetList.push(habbajet);
         this.setButtonImages(habbajet);
     }
