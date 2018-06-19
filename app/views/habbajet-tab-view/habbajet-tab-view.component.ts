@@ -1,8 +1,7 @@
-import { Component, OnInit } from "@angular/core";
-import * as _ from 'lodash';
+import { Component } from "@angular/core";
 import * as frame from 'ui/frame';
+import { TabService, TabBinding } from "../../services/tab.service";
 import { HabbajetService } from "../../services/habbajet.service";
-import { TabService, TabType, TabBinding } from "../../services/tab.service";
 
 @Component({
     selector: "habbajet-tab-view",
@@ -13,7 +12,7 @@ export class HabbajetTabViewComponent {
 
     public tabList: TabBinding[];
 
-    constructor(private tabService: TabService) {}
+    constructor(private tabService: TabService, private habbajetService: HabbajetService) {}
 
     ngOnInit() {
         this.tabList = this.tabService.tabList;

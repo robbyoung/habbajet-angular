@@ -48,6 +48,8 @@ export class HabbajetService {
             private tabService: TabService, private budgetService: BudgetService, private savingService: SavingService) {
         this.habbajetList = [];
         this.savingService.loadHabbajetList(this);
+        this.tabService.initialiseTabs(this.habbajetList.length);
+        this.savingService.saveHabbajetList(this.habbajetList);
     }
 
     public habbajetExists(index: number): boolean {
@@ -184,8 +186,6 @@ export class HabbajetService {
         const habbajet = new Habbajet(name, state, color, info, checkboxesToUse);
         this.habbajetList.push(habbajet);
         this.setButtonImages(habbajet);
-        this.tabService.addHabbajetTab();
-        this.savingService.saveHabbajetList(this.habbajetList);
     }
 
     public setButtonImages(habbajet: Habbajet) {

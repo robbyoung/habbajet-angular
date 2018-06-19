@@ -18,14 +18,15 @@ export class TabService {
 
     public tabList: TabBinding[];
 
-    constructor() {
-        this.initialiseTabs();
-    }
+    constructor() {}
 
-    public initialiseTabs() {
+    public initialiseTabs(numHabbajets: number) {
         this.tabList = [];
         this.budgetTabAtIndex(0);
-        this.addTabAtIndex(1);
+        for(let i = 0; i < numHabbajets; i++) {
+            this.habbajetTabAtIndex(i + 1);
+        }
+        this.addTabAtIndex(numHabbajets + 1);
     }
 
     public addHabbajetTab() {
