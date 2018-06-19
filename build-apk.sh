@@ -1,11 +1,16 @@
 #! /bin/sh -f
 
+if [ $# -eq 0 ]
+  then
+    echo "Missing arg 1: release name"
+fi
+
 echo 'Removing platforms...'
 rm -rf platforms
 
 echo 'Changing package name for release...'
-sed -i 's/HabbajetDev/Habbajet/' package.json
-sed -i 's/HabbajetDev/Habbajet/' app/App_Resources/Android/app.gradle
+sed -i 's/HabbajetAngular/Habbajet/' package.json
+sed -i 's/HabbajetAngular/Habbajet/' app/App_Resources/Android/app.gradle
 
 echo 'Copying release icons over...'
 cp Piskel/Icons/ReleaseIcon.png app/App_Resources/Android/drawable-ldpi/icon.png
@@ -25,8 +30,8 @@ case $yn in
 esac
 
 echo 'Changing package name back...'
-sed -i 's/Habbajet/HabbajetDev/' package.json
-sed -i 's/Habbajet/HabbajetDev/' app/App_Resources/Android/app.gradle
+sed -i 's/Habbajet/HabbajetAngular/' package.json
+sed -i 's/Habbajet/HabbajetAngular/' app/App_Resources/Android/app.gradle
 
 echo 'Putting dev icons back...'
 cp Piskel/Icons/DevIcon.png app/App_Resources/Android/drawable-ldpi/icon.png
@@ -35,3 +40,5 @@ cp Piskel/Icons/DevIcon.png app/App_Resources/Android/drawable-hdpi/icon.png
 cp Piskel/Icons/DevIcon.png app/App_Resources/Android/drawable-xhdpi/icon.png
 cp Piskel/Icons/DevIcon.png app/App_Resources/Android/drawable-xxhdpi/icon.png
 cp Piskel/Icons/DevIcon.png app/App_Resources/Android/drawable-xxxhdpi/icon.png
+
+git tag -a $1 -m "Released version $1"
