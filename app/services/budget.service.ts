@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
-import * as saveObject from 'application-settings';
-import { HabbajetService, HabbajetInfo } from "./habbajet.service";
+import { HabbajetInfo } from "./habbajet.service";
 import * as _ from 'lodash';
 import { HabbajetCheckbox, Checkmark } from "./checkbox.service";
 import { SavingService } from "./saving.service";
+
+const NEGATIVE_BUDGET_MODIFIER = 0.9;
 
 export interface PurchaseRecord {
     name: string;
@@ -44,6 +45,9 @@ export class BudgetService {
                 }
             }
         });
+        if (this.totalAmount < 0) {
+            amountToAdd *= NEGATIVE_BUDGET_MODIFIER;
+        }
         this.totalAmount = this.totalAmount + amountToAdd;
         this.updateTotalAmountString();
     }
