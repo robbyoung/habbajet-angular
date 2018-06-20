@@ -36,7 +36,7 @@ export class ValidationService {
     }
 
     public validateName(name: string): boolean {
-        if(name === undefined || name.length === 0 || name.length > 10) {
+        if(name === undefined || name.length === 0 || name.length > 20) {
             this.currentSubmission.name = undefined;
             return false;
         } else {
