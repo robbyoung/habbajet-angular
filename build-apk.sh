@@ -1,12 +1,7 @@
 #! /bin/sh -f
 
-if [ $# -eq 0 ]
-  then
-    echo "Missing arg 1: release name"
-fi
-
 echo 'Removing platforms...'
-rm -rf platforms
+rm -rf platforms || { echo 'Failed to remove platforms. Exiting... '; exit 1; }
 
 echo 'Changing package name for release...'
 sed -i 's/HabbajetAngular/Habbajet/' package.json
@@ -21,11 +16,11 @@ cp Piskel/Icons/ReleaseIcon.png app/App_Resources/Android/drawable-xxhdpi/icon.p
 cp Piskel/Icons/ReleaseIcon.png app/App_Resources/Android/drawable-xxxhdpi/icon.png
 
 echo 'Building for Android...'
-tns build android --release --key-store-path my-release-key.jks --key-store-password soupdragon --key-store-alias robbo --key-store-alias-password soupdragon
+tns build android --release --key-store-path my-release-key.jks --key-store-password soupdragon --key-store-alias robbo --key-store-alias-password soupdragon || { echo 'Build failed! Exiting... '; exit 1; }
 
 read -p "Install apk on device? " yn
 case $yn in
-    [Yy]* ) adb install platforms/android/build/outputs/apk/Habbajet-release.apk; break;;
+    [Yy]* ) adb install -r platforms/android/build/outputs/apk/Habbajet-release.apk; break;;
     * ) echo 'Skipping install...';;
 esac
 
@@ -41,4 +36,7 @@ cp Piskel/Icons/DevIcon.png app/App_Resources/Android/drawable-xhdpi/icon.png
 cp Piskel/Icons/DevIcon.png app/App_Resources/Android/drawable-xxhdpi/icon.png
 cp Piskel/Icons/DevIcon.png app/App_Resources/Android/drawable-xxxhdpi/icon.png
 
-git tag -a $1 -m "Released version $1"
+if [ $# -eq 1 ]
+then
+    git tag -a $1 -m "Tagged current changeset as $1"
+fi
