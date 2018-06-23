@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-import * as _ from 'lodash';
+
+const MAX_HABBAJETS = 5;
 
 export enum TabType {
     Habbajet,
@@ -26,7 +27,9 @@ export class TabService {
         for(let i = 0; i < numHabbajets; i++) {
             this.habbajetTabAtIndex(i + 1);
         }
-        this.addTabAtIndex(numHabbajets + 1);
+        if (numHabbajets < MAX_HABBAJETS) {
+            this.addTabAtIndex(numHabbajets + 1);
+        }
     }
 
     public addHabbajetTab() {
