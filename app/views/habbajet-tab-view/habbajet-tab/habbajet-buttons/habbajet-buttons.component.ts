@@ -20,7 +20,7 @@ export class HabbajetButtonsComponent {
         this.habbajetButtons = this.habbajetService.getHabbajetButtons(this.habbajetIndex);
     }
 
-    onPositiveTap() {
+    onPositiveLongPress() {
         if(!this.habbajetButtons.locked && this.habbajetService.setCheckmark(this.habbajetIndex, Checkmark.Positive)) {
             this.habbajetService.evolve(this.habbajetIndex);
             this.habbajetButtons.locked = true;
@@ -28,7 +28,7 @@ export class HabbajetButtonsComponent {
         }
     }
 
-    onNegativeTap() {
+    onNegativeLongPress() {
         if(!this.habbajetButtons.locked && this.habbajetService.setCheckmark(this.habbajetIndex, Checkmark.Negative)) {
             this.habbajetButtons.locked = true;
             this.habbajetButtons.negativeSrc = ButtonImages.NegativeSelected;

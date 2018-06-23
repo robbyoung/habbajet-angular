@@ -1,8 +1,8 @@
 <StackLayout>
-    <GridLayout rows="150" columns="*,150,20,150,*" id="buttonContainer">
+    <GridLayout rows="150" columns="*,130,*,130,*" id="buttonContainer">
         <image col="1" [src]="habbajetButtons.positiveSrc" class="button"
-         (tap)="onPositiveTap()" [class]="habbajetButtons.locked ? 'collapsed' : 'visible'"></image>
+         (longPress)="onPositiveLongPress()" [class]="habbajetButtons.locked ? 'collapsed' : 'visible'"></image>
         <image col="3" [src]="habbajetButtons.negativeSrc" class="button"
-         (tap)="onNegativeTap()" [class]="habbajetButtons.locked ? 'collapsed' : 'visible'"></image>
+         (longPress)="onNegativeLongPress()" [class]="habbajetButtons.locked ? 'collapsed' : 'visible'"></image>
     </GridLayout>
 </StackLayout>
