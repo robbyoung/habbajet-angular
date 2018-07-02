@@ -1,5 +1,5 @@
 <StackLayout>
-    <TabView id='tabView'>
+    <TabView id='tabView' class="non-modal">
         <ng-container  *ngFor="let tab of tabList">
             <StackLayout *tabItem="{title: tab.title}">
                 <budget-tab *ngIf="tab.type === 1"></budget-tab>

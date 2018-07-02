@@ -1,5 +1,4 @@
 import { Component, Input } from "@angular/core";
-import * as _ from 'lodash';
 import { HabbajetService, HabbajetButtons, ButtonImages } from "../../../../services/habbajet.service";
 import { Checkmark } from "../../../../services/checkbox.service";
 
