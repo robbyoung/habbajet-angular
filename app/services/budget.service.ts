@@ -56,7 +56,7 @@ export class BudgetService {
         if(!this.validateCost(cost)) {
             return;
         }
-        this.purchases.push({
+        this.purchases.unshift({
             name,
             cost: this.formatMoney(cost),
         });
