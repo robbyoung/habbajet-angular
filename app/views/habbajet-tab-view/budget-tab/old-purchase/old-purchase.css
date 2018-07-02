@@ -2,7 +2,6 @@ GridLayout {
     background-color: #c9c9c9;
     color: #000000;
     vertical-align: center;
-    text-align: center;
     margin: 10;
     margin-left: 15;
     margin-right: 15;
@@ -10,4 +9,12 @@ GridLayout {
     font-size: 30;
     border-radius: 3;
     padding: 10;
+}
+
+.oldPurchaseTitle {
+    text-align: left;
+}
+
+.oldPurchaseCost {
+    text-align: right;
 }
