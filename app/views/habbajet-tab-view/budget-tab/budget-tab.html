@@ -1,6 +1,8 @@
 <StackLayout>
-        <money-display></money-display>
-        <new-purchase></new-purchase>
+        <StackLayout class="topPart">
+                <money-display></money-display>
+                <new-purchase></new-purchase>
+        </StackLayout>
         <ListView [items]="purchases">
                 <ng-template let-purchase="item">
                         <old-purchase [purchase]="purchase"></old-purchase>
