@@ -3,12 +3,15 @@ import { HabbajetInfo } from "./habbajet.service";
 import * as _ from 'lodash';
 import { HabbajetCheckbox, Checkmark } from "./checkbox.service";
 import { SavingService } from "./saving.service";
+import * as Moment from "moment";
 
 const NEGATIVE_BUDGET_MODIFIER = 0.9;
 
 export interface PurchaseRecord {
     name: string;
     cost: string;
+    date: number;
+    dateString: string;
 }
 
 @Injectable()
@@ -56,9 +59,13 @@ export class BudgetService {
         if(!this.validateCost(cost)) {
             return;
         }
+
+        const date = Moment().unix();
         this.purchases.unshift({
             name,
             cost: this.formatMoney(cost),
+            date,
+            dateString: Moment.unix(date).calendar(),
         });
         this.totalAmount = this.totalAmount - cost;
         this.updateTotalAmountString();

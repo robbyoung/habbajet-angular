@@ -1,6 +1,5 @@
 import { Component, Input } from "@angular/core";
-import * as _ from 'lodash';
-import { BudgetService } from "../../../../services/budget.service";
+import { PurchaseRecord } from "../../../../services/budget.service";
 
 @Component({
     selector: "old-purchase",
@@ -10,8 +9,7 @@ import { BudgetService } from "../../../../services/budget.service";
 
 export class OldPurchaseComponent {
 
-    @Input() name: string;
-    @Input() cost: string;
+    @Input() purchase: PurchaseRecord;
 
     ngOnInit() {}
 }

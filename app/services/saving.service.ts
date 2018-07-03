@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import { ImageState } from "./images.service";
 import { HabbajetCheckbox, CheckboxService } from "./checkbox.service";
 import { PurchaseRecord } from "./budget.service";
+import * as Moment from "moment";
 
 @Injectable()
 export class SavingService {
@@ -79,6 +80,7 @@ export class SavingService {
         _.each(purchases, (purchase, index) => {
             saveObject.setString(`pName${index}`, purchase.name);
             saveObject.setString(`pCost${index}`, purchase.cost);
+            saveObject.setNumber(`pDate${index}`, purchase.date);
         });
     }
 
@@ -86,9 +88,12 @@ export class SavingService {
         let index = 0;
         const purchases: PurchaseRecord[] = [];
         while(saveObject.hasKey(`pName${index}`)) {
+            const date = saveObject.hasKey(`pDate${index}`) ? saveObject.getNumber(`pDate${index}`) : 0;
             purchases.push({
                 name: saveObject.getString(`pName${index}`),
                 cost: saveObject.getString(`pCost${index}`),
+                date,
+                dateString: date !== 0 ? Moment.unix(date).calendar() : '',
             });
             index++;
         }

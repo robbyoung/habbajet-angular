@@ -6,9 +6,9 @@ GridLayout {
     margin-left: 15;
     margin-right: 15;
     margin-top: 0;
-    font-size: 30;
+    font-size: 20;
     border-radius: 3;
-    padding: 10;
+    padding: 5;
 }
 
 .oldPurchaseTitle {
@@ -17,4 +17,9 @@ GridLayout {
 
 .oldPurchaseCost {
     text-align: right;
+}
+
+.oldPurchaseDate {
+    text-align: left;
+    color: #313131;
 }

@@ -3,7 +3,7 @@
         <new-purchase></new-purchase>
         <ListView [items]="purchases">
                 <ng-template let-purchase="item">
-                        <old-purchase [name]="purchase.name" [cost]="purchase.cost"></old-purchase>
+                        <old-purchase [purchase]="purchase"></old-purchase>
                 </ng-template>
         </ListView>
 </StackLayout>
