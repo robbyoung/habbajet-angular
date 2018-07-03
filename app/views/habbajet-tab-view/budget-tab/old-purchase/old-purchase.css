@@ -1,11 +1,11 @@
 GridLayout {
-    color: #000000;
     margin-left: 15;
     margin-right: 15;
     padding: 5;
 }
 
 .oldPurchaseTitle {
+    color: #757575;
     font-size: 25;
     font-weight: bold;
     text-align: left;
@@ -13,14 +13,16 @@ GridLayout {
 }
 
 .oldPurchaseCost {
+    color: #757575;
     font-size: 30;
     text-align: right;
     vertical-align: center;
+    font-weight: bold;
 }
 
 .oldPurchaseDate {
+    color: #db4848;
     font-size: 15;
     text-align: left;
-    color: #313131;
     padding-top: 0;
 }
