@@ -65,10 +65,6 @@ export class BudgetService {
     }
 
     public makePurchase(name: string, cost: number) {
-        if(!this.validateCost(cost)) {
-            return;
-        }
-
         const date = Moment().unix();
 
         const newPurchase: PurchaseRow = {
@@ -90,10 +86,6 @@ export class BudgetService {
         this.savingService.savePurchases(_.filter(this.budgetTabRows, (row: BudgetTabRow) => {
             return this.isPurchaseRow(row);
         }) as PurchaseRow[]);
-    }
-
-    private validateCost(cost: number): boolean {
-        return isFinite(cost) && cost > 0;
     }
 
     public getPurchases(): BudgetTabRow[] {
