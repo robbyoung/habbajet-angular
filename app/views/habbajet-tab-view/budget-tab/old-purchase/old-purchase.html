@@ -1,7 +1,7 @@
 <StackLayout>
-        <GridLayout rows="35,20" columns="*, 130">
-                <label [text]="purchase.name" row="0" col="0" class="oldPurchaseTitle"></label>
-                <label [text]="purchase.dateString" row="1" col="0" class="oldPurchaseDate"></label>
-                <label [text]="purchase.cost" row="0" col="1" rowSpan="2" class="oldPurchaseCost"></label>
+        <GridLayout *ngIf="row.rowType === 'purchase'" rows="35,20" columns="*, 130" class="purchaseContainer">
+                <label [text]="row.name" row="0" col="0" class="oldPurchaseTitle"></label>
+                <label [text]="row.dateString" row="1" col="0" class="oldPurchaseDate"></label>
+                <label [text]="row.cost" row="0" col="1" rowSpan="2" class="oldPurchaseCost"></label>
         </GridLayout>
 </StackLayout>

@@ -4,7 +4,7 @@ import { HabbajetService, HabbajetInfo } from "./habbajet.service";
 import * as _ from 'lodash';
 import { ImageState } from "./images.service";
 import { HabbajetCheckbox, CheckboxService } from "./checkbox.service";
-import { PurchaseRecord } from "./budget.service";
+import { PurchaseRow, BudgetTabRowType } from "./budget.service";
 import * as Moment from "moment";
 
 @Injectable()
@@ -76,7 +76,7 @@ export class SavingService {
         }
     }
 
-    public savePurchases(purchases: PurchaseRecord[]) {
+    public savePurchases(purchases: PurchaseRow[]) {
         _.each(purchases, (purchase, index) => {
             saveObject.setString(`pName${index}`, purchase.name);
             saveObject.setString(`pCost${index}`, purchase.cost);
@@ -84,12 +84,13 @@ export class SavingService {
         });
     }
 
-    public loadPurchases(): PurchaseRecord[] {
+    public loadPurchases(): PurchaseRow[] {
         let index = 0;
-        const purchases: PurchaseRecord[] = [];
+        const purchases: PurchaseRow[] = [];
         while(saveObject.hasKey(`pName${index}`)) {
             const date = saveObject.hasKey(`pDate${index}`) ? saveObject.getNumber(`pDate${index}`) : 0;
             purchases.push({
+                rowType: BudgetTabRowType.Purchase,
                 name: saveObject.getString(`pName${index}`),
                 cost: saveObject.getString(`pCost${index}`),
                 date,

@@ -6,8 +6,17 @@ import { SavingService } from "./saving.service";
 import * as Moment from "moment";
 
 const NEGATIVE_BUDGET_MODIFIER = 0.9;
+const MAX_PURCHASE_LIST_LENGTH = 20;
 
-export interface PurchaseRecord {
+// TODO: Make a 'show more' row;
+export type BudgetTabRow = PurchaseRow;
+
+export enum BudgetTabRowType {
+    Purchase = 'purchase',
+}
+
+export interface PurchaseRow {
+    rowType: BudgetTabRowType.Purchase;
     name: string;
     cost: string;
     date: number;
@@ -20,14 +29,14 @@ export class BudgetService {
     private totalAmountString: {
         text: string;
     };
-    private purchases: PurchaseRecord[];
+    private budgetTabRows: BudgetTabRow[];
 
     constructor(private savingService: SavingService) {
         this.totalAmount = this.savingService.loadBudget();
         this.totalAmountString = {
             text: '',
         }
-        this.purchases = this.savingService.loadPurchases();
+        this.budgetTabRows = this.savingService.loadPurchases();
         this.updateTotalAmountString();
     }
 
@@ -61,23 +70,34 @@ export class BudgetService {
         }
 
         const date = Moment().unix();
-        this.purchases.unshift({
+
+        const newPurchase: PurchaseRow = {
+            rowType: BudgetTabRowType.Purchase,
             name,
             cost: this.formatMoney(cost),
             date,
             dateString: Moment.unix(date).calendar(),
-        });
+        };
+
+        this.budgetTabRows.unshift(newPurchase);
+        if(this.budgetTabRows.length > MAX_PURCHASE_LIST_LENGTH) {
+            this.budgetTabRows.pop();
+        }
+        
         this.totalAmount = this.totalAmount - cost;
         this.updateTotalAmountString();
-        this.savingService.savePurchases(this.purchases);
+
+        this.savingService.savePurchases(_.filter(this.budgetTabRows, (row: BudgetTabRow) => {
+            return this.isPurchaseRow(row);
+        }) as PurchaseRow[]);
     }
 
     private validateCost(cost: number): boolean {
         return isFinite(cost) && cost > 0;
     }
 
-    public getPurchases(): PurchaseRecord[] {
-        return this.purchases;
+    public getPurchases(): BudgetTabRow[] {
+        return this.budgetTabRows;
     }
 
     private formatMoney(moneyNumber: number): string {
@@ -91,6 +111,10 @@ export class BudgetService {
     private updateTotalAmountString() {
         this.totalAmountString.text = this.formatMoney(this.totalAmount);
         this.savingService.saveBudget(this.totalAmount);
+    }
+
+    private isPurchaseRow(row: BudgetTabRow): row is PurchaseRow {
+        return row.rowType === BudgetTabRowType.Purchase;
     }
 
 }

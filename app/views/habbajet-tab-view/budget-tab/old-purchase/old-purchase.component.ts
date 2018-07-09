@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { PurchaseRecord } from "../../../../services/budget.service";
+import { BudgetTabRow } from "../../../../services/budget.service";
 
 @Component({
     selector: "old-purchase",
@@ -9,7 +9,7 @@ import { PurchaseRecord } from "../../../../services/budget.service";
 
 export class OldPurchaseComponent {
 
-    @Input() purchase: PurchaseRecord;
+    @Input() row: BudgetTabRow;
 
     ngOnInit() {}
 }
