@@ -1,6 +1,6 @@
 <StackLayout>
-    <GridLayout rows="30" columns="200, *" class="infoContainer">
-        <label [text]="'Value:  $' + info.value" row="0" col="0" class="valueLabel"></label>
-        <label [text]="info.factor + ' - ' + info.slack + ' - ' + info.streak" row="0" col="1" class="streakLabel"></label>
+    <GridLayout rows="30" columns="auto, *" class="infoContainer">
+        <label text="Expected Payout:" row="0" col="0" class="expectedPayoutTitle"></label>
+        <label [text]="info.expectedPayout" row="0" col="1" id="expectedPayout"></label>
     </GridLayout>
 </StackLayout>

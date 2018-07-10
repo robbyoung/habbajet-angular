@@ -14,10 +14,12 @@ export enum ButtonImages {
 }
 
 export interface HabbajetInfo  {
+    expectedPayout: string;
     streak: number;
     value: number;
     factor: number;
     slack: number;
+    expectedPayoutUpdateCallback?: () => void;
 }
 
 export interface HabbajetButtons {
@@ -128,6 +130,7 @@ export class HabbajetService {
                 const activeCheckbox = _.find(habbajet.checkboxes, (c: HabbajetCheckbox) => c.active);
                 if(activeCheckbox !== undefined) {
                     activeCheckbox.checkmark = checkmark;
+                    this.budgetService.setExpectedPayout(habbajet.info, habbajet.checkboxes);
                     this.updateBudgetIfNecessary(habbajet);
                     this.savingService.saveHabbajetList(this.habbajetList);
                     return true;
@@ -148,13 +151,15 @@ export class HabbajetService {
 
         const checkboxes = this.checkboxService.getCurrentWeek();
 
-        const info = {
+        const info: HabbajetInfo = {
+            expectedPayout: '',
             streak: 0,
             value,
             factor,
             slack,
         }
 
+        this.budgetService.setExpectedPayout(info, checkboxes);
         const habbajet = new Habbajet(name, 0, color, info, checkboxes);
         this.habbajetList.push(habbajet);
         this.tabService.addHabbajetTab();
@@ -164,11 +169,12 @@ export class HabbajetService {
     public newHabbajetFromSave(name: string, state: number, value: number, factor: number, slack: number, color: string,
             streak: number, checkboxes: HabbajetCheckbox[], startOfWeek: string) {
         
-        const info = {
+        const info: HabbajetInfo = {
             streak,
             value,
             factor,
             slack,
+            expectedPayout: '',
         }
 
         let stateToUse = state;
@@ -185,6 +191,7 @@ export class HabbajetService {
             stateToUse = 0;
         }
         
+        this.budgetService.setExpectedPayout(info, checkboxesToUse);
         const habbajet = new Habbajet(name, stateToUse, color, info, checkboxesToUse);
         this.habbajetList.push(habbajet);
         this.setButtonImages(habbajet);

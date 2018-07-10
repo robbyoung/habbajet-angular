@@ -10,12 +10,12 @@
     border-bottom-right-radius: 20;
 }
 
-.valueLabel {
+.expectedPayoutTitle {
     font-weight: bold;
     font-size: 20;
 }
 
-.streakLabel {
+#expectedPayout {
     font-weight: bold;
     font-size: 20;
     text-align: right;

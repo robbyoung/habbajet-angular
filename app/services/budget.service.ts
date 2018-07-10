@@ -64,6 +64,26 @@ export class BudgetService {
         this.updateTotalAmountString();
     }
 
+    public setExpectedPayout(info: HabbajetInfo, checkboxes: HabbajetCheckbox[]) {
+        let expectedPayout = info.value;
+        let oldPayout = info.expectedPayout;
+        let slackDaysLeft = info.slack;
+        let penalty = info.factor;
+        _.each(checkboxes, (checkbox) => {
+            if(checkbox.checkmark === Checkmark.Negative) {
+                if(slackDaysLeft > 0) {
+                    slackDaysLeft--;
+                } else {
+                    expectedPayout = expectedPayout / penalty;
+                }
+            }
+        });
+        info.expectedPayout = this.formatMoney(expectedPayout);
+        if (info.expectedPayout !== oldPayout && info.expectedPayoutUpdateCallback) {
+            info.expectedPayoutUpdateCallback();
+        }
+    }
+
     public makePurchase(name: string, cost: number) {
         const date = Moment().unix();
 
