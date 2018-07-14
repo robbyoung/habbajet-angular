@@ -2,6 +2,7 @@ import { Component, Input } from "@angular/core";
 import * as frame from 'ui/frame';
 import { HabbajetInfo, HabbajetService } from "../../../../services/habbajet.service";
 import { View } from "ui/frame";
+import * as dialogs from 'ui/dialogs';
 
 @Component({
     selector: "habbajet-info",
@@ -18,6 +19,28 @@ export class HabbajetInfoComponent {
     ngOnInit() {
         this.info = this.habbajetService.getHabbajetInfo(this.habbajetIndex);
         this.info.expectedPayoutUpdateCallback = this.onExpectedPayoutUpdate;
+    }
+
+    onInfoTap() {
+        dialogs.confirm({
+                title: 'More Info',
+                message: `
+                Value: ${this.info.value}\n
+                Factor: ${this.info.factor}\n
+                Slack: ${this.info.slack}\n
+                Streak: ${this.info.streak}\n
+                `,
+                okButtonText: 'OK',
+                cancelButtonText: 'Delete',
+            }).then((result) => {
+                if (result === false) {
+                    this.onDeleteTap();
+                }
+            });
+    }
+
+    onDeleteTap() {
+        dialogs.alert('Not implemented yet');
     }
 
     onExpectedPayoutUpdate() {

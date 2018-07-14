@@ -1,22 +1,27 @@
 .infoContainer {
     width: 300;
-    color: #2e2e2e;
+    color: #F5F5F5;
     padding: 10;
     padding-bottom: 5;
     margin-left: auto;
     margin-right: auto;
-    background-color: #9e9e9e;
-    border-bottom-left-radius: 20;
-    border-bottom-right-radius: 20;
+    font-size: 20;
 }
 
 .expectedPayoutTitle {
     font-weight: bold;
-    font-size: 20;
+    vertical-align: center;
 }
 
 #expectedPayout {
     font-weight: bold;
-    font-size: 20;
     text-align: right;
+    padding-right: 10;
+    vertical-align: center;
+}
+
+.info {
+    background-color: #db4848;
+    text-align: center;
+    font-weight: bold;
 }

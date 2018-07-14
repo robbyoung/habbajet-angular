@@ -3,4 +3,11 @@
     margin: 10;
     font-weight: bold;
     text-align: center;
+    color: #F5F5F5;
+}
+
+.topPart {
+    background-color: #757575;
+    padding-bottom: 10;
+    margin-bottom: 10;
 }
