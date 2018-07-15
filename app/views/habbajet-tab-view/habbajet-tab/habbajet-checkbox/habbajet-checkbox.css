@@ -8,17 +8,13 @@
 }
 
 .checkbox {
+    width: 40;
+    height: 40;
     margin: 5;
     text-align: center;
     vertical-align: center;
-}
-
-.active {
-    background-color: #acacac;
-}
-
-.inactive {
-    background-color: #ffffff;
+    border-width: 2;
+    border-color: #757575;
 }
 
 .checkboxGrid {

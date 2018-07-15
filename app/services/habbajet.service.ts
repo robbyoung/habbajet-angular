@@ -7,10 +7,10 @@ import { BudgetService } from "./budget.service";
 import { SavingService } from "./saving.service";
 
 export enum ButtonImages {
-    Positive = "~/images/checkboxes/checkboxButton1.png",
-    Negative = "~/images/checkboxes/checkboxButton2.png",
-    PositiveSelected = "~/images/checkboxes/checkbox1.png",
-    NegativeSelected = "~/images/checkboxes/checkbox2.png",
+    Positive = "~/images/checkboxes/1false.png",
+    Negative = "~/images/checkboxes/2false.png",
+    PositiveSelected = "~/images/checkboxes/1true.png",
+    NegativeSelected = "~/images/checkboxes/2true.png",
 }
 
 export interface HabbajetInfo  {

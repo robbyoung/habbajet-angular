@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { frameCounts } from '../frame-counts';
 
-export const checkboxImagePrefix = "~/images/checkboxes/checkbox";
+export const checkboxImagePrefix = "~/images/checkboxes/";
 
 export class ImageState {
     public frame: number;

@@ -16,6 +16,7 @@ export class HabbajetCheckboxComponent {
     public checkboxes: HabbajetCheckbox[];
     public currentDay: string;
     public checkboxImagePrefix: string;
+    public colorClass: string;
     
     constructor(private habbajetService: HabbajetService) {
         this.checkboxImagePrefix = checkboxImagePrefix;
@@ -24,6 +25,7 @@ export class HabbajetCheckboxComponent {
     ngOnInit(){
         this.checkboxes = this.habbajetService.getHabbajetCheckboxes(this.habbajetIndex);
         this.setCurrentDayString();
+        this.colorClass = this.habbajetService.getHabbajetColor(this.habbajetIndex);
     }
 
     onCheckboxTap(day: Day) {
