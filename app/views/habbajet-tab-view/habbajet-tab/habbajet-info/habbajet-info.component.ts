@@ -7,18 +7,21 @@ import * as dialogs from 'ui/dialogs';
 @Component({
     selector: "habbajet-info",
     templateUrl: "views/habbajet-tab-view/habbajet-tab/habbajet-info/habbajet-info.html",
-    styleUrls: ["views/habbajet-tab-view/habbajet-tab/habbajet-info/habbajet-info.css"]
+    styleUrls: ["views/habbajet-tab-view/habbajet-tab/habbajet-info/habbajet-info.css",
+                "app.css"]
 })
 
 export class HabbajetInfoComponent {
     @Input() habbajetIndex: number;
     public info: HabbajetInfo;
+    public colorClass: string;
 
     constructor(private habbajetService: HabbajetService) {};
 
     ngOnInit() {
         this.info = this.habbajetService.getHabbajetInfo(this.habbajetIndex);
         this.info.expectedPayoutUpdateCallback = this.onExpectedPayoutUpdate;
+        this.colorClass = this.habbajetService.getHabbajetColor(this.habbajetIndex);
     }
 
     onInfoTap() {
@@ -30,10 +33,10 @@ export class HabbajetInfoComponent {
                 Slack: ${this.info.slack}\n
                 Streak: ${this.info.streak}\n
                 `,
-                okButtonText: 'OK',
-                cancelButtonText: 'Delete',
+                okButtonText: 'Delete',
+                cancelButtonText: 'OK',
             }).then((result) => {
-                if (result === false) {
+                if (result) {
                     this.onDeleteTap();
                 }
             });

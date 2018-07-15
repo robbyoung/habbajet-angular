@@ -86,6 +86,14 @@ export class HabbajetService {
         }
     }
 
+    public getHabbajetColor(index: number): string {
+        if (this.habbajetExists(index)) {
+            return this.habbajetList[index].color;
+        } else {
+            return undefined;
+        }
+    }
+
     public getHabbajetCheckboxes(index: number): HabbajetCheckbox[] {
         if (this.habbajetExists(index)) {
             return this.habbajetList[index].checkboxes;

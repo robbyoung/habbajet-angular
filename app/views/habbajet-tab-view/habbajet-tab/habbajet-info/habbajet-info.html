@@ -1,7 +1,7 @@
 <StackLayout>
-    <GridLayout rows="auto, auto" columns="auto, *, auto" class="infoContainer">
+    <GridLayout rows="auto, auto" columns="auto, *, auto" class="infoContainer darkText">
         <label text="Expected:" row="0" col="0" class="expectedPayoutTitle"></label>
         <label [text]="info.expectedPayout" row="0" col="1" id="expectedPayout"></label>
-        <button text="Info" row="0" col="2" class="info" (tap)="onInfoTap()"></button>
+        <button text="Info" row="0" col="2" [class]="'info lightText ' + colorClass" (tap)="onInfoTap()"></button>
     </GridLayout>
 </StackLayout>

@@ -7,7 +7,8 @@ import { checkboxImagePrefix } from "../../../../services/images.service";
 @Component({
     selector: "habbajet-checkbox",
     templateUrl: "views/habbajet-tab-view/habbajet-tab/habbajet-checkbox/habbajet-checkbox.html",
-    styleUrls: ["views/habbajet-tab-view/habbajet-tab/habbajet-checkbox/habbajet-checkbox.css"]
+    styleUrls: ["views/habbajet-tab-view/habbajet-tab/habbajet-checkbox/habbajet-checkbox.css",
+                "app.css"]
 })
 
 export class HabbajetCheckboxComponent {

@@ -1,0 +1,27 @@
+.green {
+    background-color: #09790e;
+}
+
+.red {
+    background-color: #db4848;
+}
+
+.blue {
+    background-color: #364cb1;
+}
+
+.dark {
+    background-color: #757575;
+}
+
+.darkText {
+    color: #757575;
+}
+
+.light {
+    background-color: #F5F5F5;
+}
+
+.lightText {
+    color: #F5F5F5;
+}
