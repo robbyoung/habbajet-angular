@@ -12,16 +12,19 @@ export class HabbajetTabViewComponent {
 
     public tabList: TabBinding[];
 
-    constructor(private tabService: TabService, private habbajetService: HabbajetService) {}
+    constructor(private tabService: TabService, private habbajetService: HabbajetService) {
+        const interval = setInterval(() => {
+            const page = frame.topmost().currentPage;
+            if(page) {
+                page.getViewById('tabView').android.removeViewAt(0);
+                page.actionBarHidden = true;
+                clearInterval(interval);
+            }
+        }, 10);
+    }
 
     ngOnInit() {
         this.tabList = this.tabService.tabList;
-
-        setTimeout(() => {
-            const page = frame.topmost().currentPage;
-            page.getViewById('tabView').android.removeViewAt(0);
-            page.actionBarHidden = true;
-        }, 1500);
     }
 
 }
