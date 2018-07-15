@@ -21,7 +21,7 @@ export class HabbajetTabViewComponent {
             const page = frame.topmost().currentPage;
             page.getViewById('tabView').android.removeViewAt(0);
             page.actionBarHidden = true;
-        }, 1000);
+        }, 1500);
     }
 
 }

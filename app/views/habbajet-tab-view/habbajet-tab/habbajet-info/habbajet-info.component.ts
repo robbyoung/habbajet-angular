@@ -15,13 +15,15 @@ export class HabbajetInfoComponent {
     @Input() habbajetIndex: number;
     public info: HabbajetInfo;
     public colorClass: string;
+    public expectedPayoutLabelID: string;
 
     constructor(private habbajetService: HabbajetService) {};
 
     ngOnInit() {
         this.info = this.habbajetService.getHabbajetInfo(this.habbajetIndex);
-        this.info.expectedPayoutUpdateCallback = this.onExpectedPayoutUpdate;
         this.colorClass = this.habbajetService.getHabbajetColor(this.habbajetIndex);
+        this.expectedPayoutLabelID = 'expectedPayout' + this.habbajetIndex;
+        this.info.expectedPayoutUpdateCallback = () => this.onExpectedPayoutUpdate(this.expectedPayoutLabelID);
     }
 
     onInfoTap() {
@@ -46,9 +48,9 @@ export class HabbajetInfoComponent {
         dialogs.alert('Not implemented yet');
     }
 
-    onExpectedPayoutUpdate() {
+    onExpectedPayoutUpdate(id: string) {
         const page = frame.topmost().currentPage;
-        const expectedPayoutLabel = page.getViewById('expectedPayout') as View;
+        const expectedPayoutLabel = page.getViewById(id) as View;
         if (expectedPayoutLabel) {
             const NUM_ITERATIONS = 20;
             const colorToReturnTo = expectedPayoutLabel.color;
