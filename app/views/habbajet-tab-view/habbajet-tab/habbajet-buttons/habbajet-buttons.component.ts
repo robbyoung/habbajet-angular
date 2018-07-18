@@ -25,15 +25,13 @@ export class HabbajetButtonsComponent {
     onPositiveLongPress() {
         if(!this.habbajetButtons.locked && this.habbajetService.setCheckmark(this.habbajetIndex, Checkmark.Positive)) {
             this.habbajetService.evolve(this.habbajetIndex);
-            this.habbajetButtons.locked = true;
-            this.habbajetButtons.positiveSrc = ButtonImages.PositiveSelected;
+            this.habbajetService.updateButtonImages(this.habbajetIndex);
         }
     }
 
     onNegativeLongPress() {
         if(!this.habbajetButtons.locked && this.habbajetService.setCheckmark(this.habbajetIndex, Checkmark.Negative)) {
-            this.habbajetButtons.locked = true;
-            this.habbajetButtons.negativeSrc = ButtonImages.NegativeSelected;
+            this.habbajetService.updateButtonImages(this.habbajetIndex);
         }
     }
 

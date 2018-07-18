@@ -9,8 +9,10 @@ import { SavingService } from "./saving.service";
 export enum ButtonImages {
     Positive = "~/images/checkboxes/1false.png",
     Negative = "~/images/checkboxes/2false.png",
-    PositiveSelected = "~/images/checkboxes/1true.png",
-    NegativeSelected = "~/images/checkboxes/2true.png",
+    PositiveSelected = "~/images/checkboxes/1false.png",
+    NegativeSelected = "~/images/checkboxes/2false.png",
+    PositiveIgnored = "~/images/checkboxes/0false.png",
+    NegativeIgnored = "~/images/checkboxes/0false.png",
 }
 
 export interface HabbajetInfo  {
@@ -205,7 +207,11 @@ export class HabbajetService {
         this.setButtonImages(habbajet);
     }
 
-    public setButtonImages(habbajet: Habbajet) {
+    public updateButtonImages(habbajetIndex: number) {
+        this.setButtonImages(this.habbajetList[habbajetIndex]);
+    }
+
+    private setButtonImages(habbajet: Habbajet) {
         const buttons = habbajet.buttons;
         const selectedCheckbox = _.find(habbajet.checkboxes, (c: HabbajetCheckbox) => {
             return c.active;
@@ -216,10 +222,10 @@ export class HabbajetService {
         switch (selectedCheckbox.checkmark) {
             case Checkmark.Positive: 
                 buttons.positiveSrc = ButtonImages.PositiveSelected;
-                buttons.negativeSrc = ButtonImages.Negative;
+                buttons.negativeSrc = ButtonImages.NegativeIgnored;
                 break;
             case Checkmark.Negative: 
-                buttons.positiveSrc = ButtonImages.Positive;
+                buttons.positiveSrc = ButtonImages.PositiveIgnored;
                 buttons.negativeSrc = ButtonImages.NegativeSelected;
                 break;
             default: 
