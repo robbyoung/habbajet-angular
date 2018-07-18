@@ -20,8 +20,10 @@ var ButtonImages;
 (function (ButtonImages) {
     ButtonImages["Positive"] = "~/images/checkboxes/1false.png";
     ButtonImages["Negative"] = "~/images/checkboxes/2false.png";
-    ButtonImages["PositiveSelected"] = "~/images/checkboxes/1true.png";
-    ButtonImages["NegativeSelected"] = "~/images/checkboxes/2true.png";
+    ButtonImages["PositiveSelected"] = "~/images/checkboxes/1false.png";
+    ButtonImages["NegativeSelected"] = "~/images/checkboxes/2false.png";
+    ButtonImages["PositiveIgnored"] = "~/images/checkboxes/0false.png";
+    ButtonImages["NegativeIgnored"] = "~/images/checkboxes/0false.png";
 })(ButtonImages = exports.ButtonImages || (exports.ButtonImages = {}));
 var Habbajet = /** @class */ (function () {
     function Habbajet(name, state, color, info, checkboxes) {
@@ -187,6 +189,9 @@ var HabbajetService = /** @class */ (function () {
         this.habbajetList.push(habbajet);
         this.setButtonImages(habbajet);
     };
+    HabbajetService.prototype.updateButtonImages = function (habbajetIndex) {
+        this.setButtonImages(this.habbajetList[habbajetIndex]);
+    };
     HabbajetService.prototype.setButtonImages = function (habbajet) {
         var buttons = habbajet.buttons;
         var selectedCheckbox = _.find(habbajet.checkboxes, function (c) {
@@ -196,10 +201,10 @@ var HabbajetService = /** @class */ (function () {
         switch (selectedCheckbox.checkmark) {
             case checkbox_service_1.Checkmark.Positive:
                 buttons.positiveSrc = ButtonImages.PositiveSelected;
-                buttons.negativeSrc = ButtonImages.Negative;
+                buttons.negativeSrc = ButtonImages.NegativeIgnored;
                 break;
             case checkbox_service_1.Checkmark.Negative:
-                buttons.positiveSrc = ButtonImages.Positive;
+                buttons.positiveSrc = ButtonImages.PositiveIgnored;
                 buttons.negativeSrc = ButtonImages.NegativeSelected;
                 break;
             default:

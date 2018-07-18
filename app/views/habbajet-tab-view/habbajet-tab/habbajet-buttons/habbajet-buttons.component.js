@@ -23,14 +23,12 @@ var HabbajetButtonsComponent = /** @class */ (function () {
     HabbajetButtonsComponent.prototype.onPositiveLongPress = function () {
         if (!this.habbajetButtons.locked && this.habbajetService.setCheckmark(this.habbajetIndex, checkbox_service_1.Checkmark.Positive)) {
             this.habbajetService.evolve(this.habbajetIndex);
-            this.habbajetButtons.locked = true;
-            this.habbajetButtons.positiveSrc = habbajet_service_1.ButtonImages.PositiveSelected;
+            this.habbajetService.updateButtonImages(this.habbajetIndex);
         }
     };
     HabbajetButtonsComponent.prototype.onNegativeLongPress = function () {
         if (!this.habbajetButtons.locked && this.habbajetService.setCheckmark(this.habbajetIndex, checkbox_service_1.Checkmark.Negative)) {
-            this.habbajetButtons.locked = true;
-            this.habbajetButtons.negativeSrc = habbajet_service_1.ButtonImages.NegativeSelected;
+            this.habbajetService.updateButtonImages(this.habbajetIndex);
         }
     };
     __decorate([
