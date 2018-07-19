@@ -24,6 +24,7 @@ const PURCHASE_COST_ERROR: string = 'Purchase cost is invalid';
 @Injectable()
 export class ValidationService {
     private currentSubmission: HabbajetSubmission;
+    public submitButtonColor: { color: string };
 
     constructor(private habbajetService: HabbajetService, private budgetService: BudgetService) {
         this.resetCurrentSubmission();
@@ -84,6 +85,7 @@ export class ValidationService {
 
     public validateColor(color: string): boolean {
         this.currentSubmission.color = color;
+        this.submitButtonColor.color = color;
         return true;
     }
 
@@ -104,6 +106,7 @@ export class ValidationService {
     }
 
     public resetCurrentSubmission() {
+        this.submitButtonColor = { color: "red" };
         this.currentSubmission = {
             name: undefined,
             value: undefined,

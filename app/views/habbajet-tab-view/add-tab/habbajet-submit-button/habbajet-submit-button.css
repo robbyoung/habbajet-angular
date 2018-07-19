@@ -1,13 +1,10 @@
 .submitButton {
-    width: 120;
+    width: auto;
     height: 60;
     background-color: #000000;
     color: #ffffff;
     font-weight: bold;
     font-size: 25;
-}
-
-.buttonGrid {
-    margin: 0;
-    margin-right: 10;
+    margin-left: 40;
+    margin-right: 40;
 }
