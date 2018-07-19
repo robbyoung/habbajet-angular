@@ -48,6 +48,14 @@ export class ImageService {
         }
     }
 
+    public reset(imageState: ImageState) {
+        if(imageState.action !== 't') {
+            imageState.action = 't';
+            imageState.frame = -1;
+            imageState.state = 0;
+        }
+    }
+
     public action(imageState: ImageState) {
         let randActionNum = Math.round(Math.random() * this.numActionTypes);
         let action = 'a';

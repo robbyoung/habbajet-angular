@@ -117,7 +117,12 @@ export class HabbajetService {
             this.imageService.evolve(this.habbajetList[habbajetIndex].image);
             this.savingService.saveHabbajetList(this.habbajetList);
         }
-        
+    }
+
+    private resetImageState(habbajet: Habbajet) {
+        if(habbajet && habbajet.image) {
+            this.imageService.reset(habbajet.image);
+        }
     }
 
     public action(habbajetIndex: number) {
@@ -153,6 +158,7 @@ export class HabbajetService {
     private updateBudgetIfNecessary(habbajet: Habbajet) {
         const checkboxes = habbajet.checkboxes;
         if(_.every(checkboxes, (c: HabbajetCheckbox) => c.checkmark !== Checkmark.None)) {
+            this.resetImageState(habbajet);
             this.budgetService.addToBudgetWithHabbajet(habbajet.info, checkboxes);
         }
     }
