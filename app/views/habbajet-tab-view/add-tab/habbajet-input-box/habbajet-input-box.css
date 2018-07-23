@@ -20,6 +20,13 @@
     border-color: red;
 }
 
+.infoButton {
+    font-weight: bold;
+    padding-left: 10;
+    vertical-align: center;
+    font-size: 25;
+}
+
 TextField {
     margin-top: 5;
     margin-bottom: 5;

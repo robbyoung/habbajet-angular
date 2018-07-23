@@ -22,12 +22,32 @@
     background-color: #757575;
 }
 
-.darkText {
-    color: #757575;
-}
-
 .light {
     background-color: #F5F5F5;
+}
+
+.greenText {
+    color: #09790e;
+}
+
+.redText {
+    color: #db4848;
+}
+
+.blueText {
+    color: #364cb1;
+}
+
+.yellowText {
+    color: #e5ff00;
+}
+
+.purpleText {
+    color: #c921c0;
+}
+
+.darkText {
+    color: #757575;
 }
 
 .lightText {

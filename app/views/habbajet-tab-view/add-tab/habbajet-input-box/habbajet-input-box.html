@@ -1,6 +1,7 @@
 <StackLayout>
-    <GridLayout class="inputGrid" rows="50" columns="90, *">
+    <GridLayout class="inputGrid" rows="50" columns="90, *, auto">
         <label col="0" [text]="field + ': '" class="heading"></label>
         <TextField col="1" (textChange)="onTextChange($event)" [class]="inputClass" [keyboardType]="keyboardType"></TextField>
+        <label col="2" text="?" [class]="'infoButton ' + buttonColor.color + 'Text'" (tap)="displayInfoDialog()"></label>
     </GridLayout>
 </StackLayout>
