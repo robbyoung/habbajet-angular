@@ -50,6 +50,7 @@ export class HabbajetService {
 
     constructor(private imageService: ImageService, private checkboxService: CheckboxService,
             private tabService: TabService, private budgetService: BudgetService, private savingService: SavingService) {
+        
         this.habbajetList = [];
         this.savingService.loadHabbajetList(this);
         this.tabService.initialiseTabs(this.habbajetList.length);

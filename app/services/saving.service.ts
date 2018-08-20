@@ -12,6 +12,7 @@ export class SavingService {
     constructor(private checkboxService: CheckboxService) {}
 
     public saveHabbajetList(habbajetList: any[]) {
+        this.clearHabbajetData();
         _.each(habbajetList, (habbajet, index) => {
             if(habbajet !== undefined) {
                 this.saveHabbajet(habbajet.name, habbajet.info, habbajet.image, habbajet.checkboxes, index);
@@ -59,6 +60,27 @@ export class SavingService {
             const startOfWeek = saveObject.getString(`hWeekStart${index}`);
             
             habbajetService.newHabbajetFromSave(name, state, value, factor, slack, color, streak, checkboxes, startOfWeek);
+
+            index++;
+        }
+    }
+
+    public clearHabbajetData() {
+        let index = 0;
+        while(saveObject.hasKey(`hName${index}`)) {
+            saveObject.remove(`hName${index}`);
+            saveObject.remove(`hState${index}`);
+            saveObject.remove(`hColor${index}`);
+            saveObject.remove(`hStreak${index}`);
+            saveObject.remove(`hValue${index}`);
+            saveObject.remove(`hFactor${index}`);
+            saveObject.remove(`hSlack${index}`);
+
+            const checkboxes = this.checkboxService.getCurrentWeek();
+            _.each(checkboxes, (c, i) => {
+                saveObject.remove(`hCheckbox${i}${index}`);
+            });
+            saveObject.remove(`hWeekStart${index}`);
 
             index++;
         }
