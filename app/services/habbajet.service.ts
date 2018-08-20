@@ -240,4 +240,11 @@ export class HabbajetService {
                 buttons.negativeSrc = ButtonImages.Negative;
         }
     }
+
+    public deleteHabbajet(habbajetIndex: number) {
+        if(this.habbajetExists(habbajetIndex)) {
+            this.habbajetList.splice(habbajetIndex, 1);
+            this.savingService.saveHabbajetList(this.habbajetList);
+        }
+    }
 }

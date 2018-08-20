@@ -45,7 +45,16 @@ export class HabbajetInfoComponent {
     }
 
     onDeleteTap() {
-        dialogs.alert('Not implemented yet');
+        dialogs.confirm({
+            title: 'Delete Habbajet',
+            message: 'This habbajet will be deleted forever.',
+            okButtonText: 'OK',
+            cancelButtonText: 'Cancel',
+        }).then((result) => {
+            if (result) {
+                this.habbajetService.deleteHabbajet(this.habbajetIndex);
+            }
+        });
     }
 
     onExpectedPayoutUpdate(id: string) {
