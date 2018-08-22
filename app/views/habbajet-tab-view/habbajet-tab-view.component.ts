@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import * as frame from 'ui/frame';
+import * as frame from 'tns-core-modules/ui/frame/frame';
 import { TabService, TabBinding } from "../../services/tab.service";
 import { HabbajetService } from "../../services/habbajet.service";
 

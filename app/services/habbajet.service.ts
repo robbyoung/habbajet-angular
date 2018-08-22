@@ -47,6 +47,7 @@ class Habbajet {
 @Injectable()
 export class HabbajetService {
     public habbajetList: Habbajet[];
+    private numDeleted: number;
 
     constructor(private imageService: ImageService, private checkboxService: CheckboxService,
             private tabService: TabService, private budgetService: BudgetService, private savingService: SavingService) {
@@ -55,6 +56,7 @@ export class HabbajetService {
         this.savingService.loadHabbajetList(this);
         this.tabService.initialiseTabs(this.habbajetList.length);
         this.savingService.saveHabbajetList(this.habbajetList);
+        this.numDeleted = 0;
     }
 
     public habbajetExists(index: number): boolean {
@@ -242,7 +244,9 @@ export class HabbajetService {
     }
 
     public deleteHabbajet(habbajetIndex: number) {
+        habbajetIndex -= this.numDeleted;
         if(this.habbajetExists(habbajetIndex)) {
+            this.numDeleted++;
             this.habbajetList.splice(habbajetIndex, 1);
             this.savingService.saveHabbajetList(this.habbajetList);
             this.tabService.removeHabbajetTab(habbajetIndex + 1);

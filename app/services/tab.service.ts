@@ -6,6 +6,7 @@ export enum TabType {
     Habbajet,
     Budget,
     Add,
+    Empty
 }
 
 export interface TabBinding {
@@ -81,7 +82,14 @@ export class TabService {
     }
 
     public removeHabbajetTab(habbajetIndex: number) {
-        const htab = this.tabList[habbajetIndex];
-        htab.type = TabType.Add;
+        let tabIndex = -1;
+        while (habbajetIndex > 0) {
+            tabIndex++;
+            if (this.tabList[tabIndex].type === TabType.Habbajet) {
+                habbajetIndex--;
+            }
+        }
+        const htab = this.tabList[tabIndex];
+        htab.type = TabType.Empty;
     }
 }
