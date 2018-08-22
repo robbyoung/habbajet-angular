@@ -79,4 +79,9 @@ export class TabService {
             this.tabList[index].habbajetIndex = undefined;
         }
     }
+
+    public removeHabbajetTab(habbajetIndex: number) {
+        const htab = this.tabList[habbajetIndex];
+        htab.type = TabType.Add;
+    }
 }

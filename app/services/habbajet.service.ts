@@ -245,6 +245,7 @@ export class HabbajetService {
         if(this.habbajetExists(habbajetIndex)) {
             this.habbajetList.splice(habbajetIndex, 1);
             this.savingService.saveHabbajetList(this.habbajetList);
+            this.tabService.removeHabbajetTab(habbajetIndex + 1);
         }
     }
 }
