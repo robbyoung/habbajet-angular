@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import * as saveObject from 'application-settings';
+import * as saveObject from 'tns-core-modules/application-settings/application-settings';
 import { HabbajetService, HabbajetInfo } from "./habbajet.service";
 import * as _ from 'lodash';
 import { ImageState } from "./images.service";

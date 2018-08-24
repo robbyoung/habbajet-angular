@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import * as _ from 'lodash';
-import * as dialogs from 'ui/dialogs';
+import * as dialogs from 'tns-core-modules/ui/dialogs/dialogs';
 import { ValidationService } from "../../../../services/validation.service";
 
 @Component({

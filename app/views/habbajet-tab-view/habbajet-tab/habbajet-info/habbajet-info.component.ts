@@ -1,8 +1,8 @@
 import { Component, Input } from "@angular/core";
-import * as frame from 'ui/frame';
+import * as frame from 'tns-core-modules/ui/frame/frame';
 import { HabbajetInfo, HabbajetService } from "../../../../services/habbajet.service";
-import { View } from "ui/frame";
-import * as dialogs from 'ui/dialogs';
+import { View } from "tns-core-modules/ui/frame/frame";
+import * as dialogs from 'tns-core-modules/ui/dialogs/dialogs';
 
 @Component({
     selector: "habbajet-info",
