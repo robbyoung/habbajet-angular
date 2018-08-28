@@ -33,6 +33,7 @@ export class SavingService {
         saveObject.setNumber(`hValue${index}`, info.value);
         saveObject.setNumber(`hFactor${index}`, info.factor);
         saveObject.setNumber(`hSlack${index}`, info.slack);
+        saveObject.setNumber(`hStreak${index}`, info.streak);
     }
 
     private saveHabbajetCheckboxes(checkboxes: HabbajetCheckbox[], index: number) {

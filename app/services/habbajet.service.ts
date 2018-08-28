@@ -150,6 +150,7 @@ export class HabbajetService {
                     activeCheckbox.checkmark = checkmark;
                     this.budgetService.setExpectedPayout(habbajet.info, habbajet.checkboxes);
                     this.updateBudgetIfNecessary(habbajet);
+                    this.updateStreak(habbajet.info, habbajet.checkboxes, false);
                     this.savingService.saveHabbajetList(this.habbajetList);
                     return true;
                 }
@@ -201,11 +202,13 @@ export class HabbajetService {
         if(this.checkboxService.isCurrentWeek(startOfWeek)) {
             checkboxesToUse = checkboxes;
         } else {
-            if(_.some(checkboxes, (checkbox: HabbajetCheckbox) => {
-                checkbox.checkmark === Checkmark.None;
-            })) {
+            const numUnmarked = _.filter(checkboxes, (checkbox: HabbajetCheckbox) => {
+                return checkbox.checkmark === Checkmark.None;
+            }).length;
+            if (numUnmarked > 0) {
                 this.budgetService.addToBudgetWithHabbajet(info, checkboxes);
-            };
+            }
+            this.updateStreak(info, checkboxes, true);
             checkboxesToUse = this.checkboxService.getCurrentWeek();
             stateToUse = 0;
         }
@@ -250,6 +253,38 @@ export class HabbajetService {
             this.habbajetList.splice(habbajetIndex, 1);
             this.savingService.saveHabbajetList(this.habbajetList);
             this.tabService.removeHabbajetTab(habbajetIndex + 1);
+        }
+    }
+
+    public updateStreak(info: HabbajetInfo, checkboxes: HabbajetCheckbox[], includeUnmarked: boolean) {
+        let slackLeft = info.slack;
+        let incrementStreak: boolean;
+        let streakReset: boolean = false;
+        _.each (checkboxes, (checkbox: HabbajetCheckbox) => {
+            if (checkbox.checkmark === Checkmark.Positive) {
+                if(streakReset) {
+                    info.streak++;
+                } else {
+                    incrementStreak = true;
+                }
+            } else if(checkbox.checkmark === Checkmark.Negative || includeUnmarked) {
+                slackLeft--;
+                if (slackLeft < 0) {
+                    incrementStreak = false;
+                    info.streak = 0;
+                    streakReset = true;
+                } else {
+                    if(streakReset) {
+                        info.streak++;
+                    } else {
+                        incrementStreak = true;
+                    }
+                }
+            }
+        });
+
+        if (incrementStreak) {
+            info.streak++;
         }
     }
 }
