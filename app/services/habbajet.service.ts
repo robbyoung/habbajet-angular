@@ -225,24 +225,34 @@ export class HabbajetService {
 
     private setButtonImages(habbajet: Habbajet) {
         const buttons = habbajet.buttons;
-        const selectedCheckbox = _.find(habbajet.checkboxes, (c: HabbajetCheckbox) => {
+        let activeIndex: number;
+        const selectedCheckbox = _.find(habbajet.checkboxes, (c: HabbajetCheckbox, index) => {
+            if (c.active) {
+                activeIndex = index;
+            }
             return c.active;
         });
 
-        buttons.locked = selectedCheckbox.checkmark !== Checkmark.None;
+        if (activeIndex > 0 && habbajet.checkboxes[activeIndex - 1].checkmark === Checkmark.None) {
+            buttons.locked = true;
+            buttons.positiveSrc = ButtonImages.PositiveIgnored;
+            buttons.negativeSrc = ButtonImages.NegativeIgnored;
+        } else {
+            buttons.locked = selectedCheckbox.checkmark !== Checkmark.None;
 
-        switch (selectedCheckbox.checkmark) {
-            case Checkmark.Positive: 
-                buttons.positiveSrc = ButtonImages.PositiveSelected;
-                buttons.negativeSrc = ButtonImages.NegativeIgnored;
-                break;
-            case Checkmark.Negative: 
-                buttons.positiveSrc = ButtonImages.PositiveIgnored;
-                buttons.negativeSrc = ButtonImages.NegativeSelected;
-                break;
-            default: 
-                buttons.positiveSrc = ButtonImages.Positive;
-                buttons.negativeSrc = ButtonImages.Negative;
+            switch (selectedCheckbox.checkmark) {
+                case Checkmark.Positive: 
+                    buttons.positiveSrc = ButtonImages.PositiveSelected;
+                    buttons.negativeSrc = ButtonImages.NegativeIgnored;
+                    break;
+                case Checkmark.Negative: 
+                    buttons.positiveSrc = ButtonImages.PositiveIgnored;
+                    buttons.negativeSrc = ButtonImages.NegativeSelected;
+                    break;
+                default: 
+                    buttons.positiveSrc = ButtonImages.Positive;
+                    buttons.negativeSrc = ButtonImages.Negative;
+            }
         }
     }
 
