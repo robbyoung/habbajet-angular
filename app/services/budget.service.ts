@@ -103,13 +103,28 @@ export class BudgetService {
         this.totalAmount = this.totalAmount - cost;
         this.updateTotalAmountString();
 
-        this.savingService.savePurchases(_.filter(this.budgetTabRows, (row: BudgetTabRow) => {
-            return this.isPurchaseRow(row);
-        }) as PurchaseRow[]);
+        this.savePurchases();
     }
 
     public getPurchases(): BudgetTabRow[] {
         return this.budgetTabRows;
+    }
+
+    public correctPurchase(date: number, newName: string, newCost: string) {
+        const purchase: PurchaseRow = _.find(this.budgetTabRows, (row) => {
+            console.log(row.date)
+            console.log(date)
+            return row.date === date;
+        });
+        const newCostNumber = _.toNumber(newCost);
+        const oldCostNumber = _.toNumber(purchase.cost.substring(1));
+
+        this.totalAmount += oldCostNumber - newCostNumber;
+        this.updateTotalAmountString();
+
+        purchase.name = newName;
+        purchase.cost = this.formatMoney(newCostNumber);
+        this.savePurchases();
     }
 
     private formatMoney(moneyNumber: number): string {
@@ -129,4 +144,9 @@ export class BudgetService {
         return row.rowType === BudgetTabRowType.Purchase;
     }
 
+    private savePurchases() {
+        this.savingService.savePurchases(_.filter(this.budgetTabRows, (row: BudgetTabRow) => {
+            return this.isPurchaseRow(row);
+        }) as PurchaseRow[]);
+    }
 }
