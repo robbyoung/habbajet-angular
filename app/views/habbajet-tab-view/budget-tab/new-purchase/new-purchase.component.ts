@@ -52,7 +52,7 @@ export class NewPurchaseComponent {
             return undefined;
         }
                 
-        const errorMessage = this.validationService.validatePurchaseCost(promptResponse.text);
+        const errorMessage = this.validationService.validatePurchaseCost(promptResponse.text, false);
         if (errorMessage) {
             this.showErrorMessage(errorMessage);
             return undefined;

@@ -25,6 +25,9 @@ export interface PurchaseRow {
 
 @Injectable()
 export class BudgetService {
+    public purchaseLengthObject = {
+        length: 0,
+    }
     private totalAmount: number;
     private totalAmountString: {
         text: string;
@@ -112,8 +115,6 @@ export class BudgetService {
 
     public correctPurchase(date: number, newName: string, newCost: string) {
         const purchase: PurchaseRow = _.find(this.budgetTabRows, (row) => {
-            console.log(row.date)
-            console.log(date)
             return row.date === date;
         });
         const newCostNumber = _.toNumber(newCost);
@@ -124,6 +125,12 @@ export class BudgetService {
 
         purchase.name = newName;
         purchase.cost = this.formatMoney(newCostNumber);
+
+        if (purchase.cost === '$0.00') {
+            this.budgetTabRows = _.filter(this.budgetTabRows, (row) => {
+                return row.date !== date;
+            });
+        }
         this.savePurchases();
     }
 
@@ -145,6 +152,7 @@ export class BudgetService {
     }
 
     private savePurchases() {
+        this.purchaseLengthObject.length = this.budgetTabRows.length;
         this.savingService.savePurchases(_.filter(this.budgetTabRows, (row: BudgetTabRow) => {
             return this.isPurchaseRow(row);
         }) as PurchaseRow[]);

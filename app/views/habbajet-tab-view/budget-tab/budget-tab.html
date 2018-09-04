@@ -8,7 +8,7 @@
                         <old-purchase [row]="purchase"></old-purchase>
                 </ng-template>
         </ListView>
-        <StackLayout *ngIf="purchases.length === 0">
+        <StackLayout *ngIf="purchaseLengthObject.length === 0">
                 <label text="No purchases yet" class="noPurchases"></label>
         </StackLayout>
 </StackLayout>

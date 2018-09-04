@@ -87,6 +87,16 @@ export class SavingService {
         }
     }
 
+    public clearPurchaseData() {
+        let index = 0;
+        while(saveObject.hasKey(`pName${index}`)) {
+            saveObject.remove(`pName${index}`);
+            saveObject.remove(`pCost${index}`);
+            saveObject.remove(`pDate${index}`);
+            index++;
+        }
+    }
+
     public saveBudget(budget: number) {
         saveObject.setNumber('budget', budget);
     }
@@ -100,6 +110,7 @@ export class SavingService {
     }
 
     public savePurchases(purchases: PurchaseRow[]) {
+        this.clearPurchaseData();
         _.each(purchases, (purchase, index) => {
             saveObject.setString(`pName${index}`, purchase.name);
             saveObject.setString(`pCost${index}`, purchase.cost);

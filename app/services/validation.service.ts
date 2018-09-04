@@ -138,15 +138,17 @@ export class ValidationService {
         }
     }
 
-    public validatePurchaseCost(costString: string): string {
+    public validatePurchaseCost(costString: string, canBeZero: boolean): string {
         const cost = _.toNumber(costString);
-        if(!isFinite(cost) || cost <= 0 || cost > 9999) {
+        if(!isFinite(cost) || cost < 0 || cost > 9999) {
+            return PURCHASE_COST_ERROR;
+        } else if (cost === 0 && !canBeZero) {
             return PURCHASE_COST_ERROR;
         }
     }
 
     public submitPurchase(name: string, cost: string) {
-        if(this.validatePurchaseName(name) || this.validatePurchaseCost(cost)) {
+        if(this.validatePurchaseName(name) || this.validatePurchaseCost(cost, false)) {
             throw new Error('Tried to submit an invalid purchase');
         }
 

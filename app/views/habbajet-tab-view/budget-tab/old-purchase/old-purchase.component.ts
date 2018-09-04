@@ -40,7 +40,14 @@ export class OldPurchaseComponent {
     }
 
     private async readPurchaseName() {
-        const promptResponse = await dialogs.prompt("What did you purchase?");
+        const promptResponse = await dialogs.prompt({
+            title: 'Purchase Name',
+            message: 'What did you purchase?',
+            defaultText: this.row.name,
+            okButtonText: 'Confirm',
+            cancelButtonText: 'Cancel',
+        });
+
 
         if(!promptResponse.result) {
             return undefined;
@@ -56,13 +63,18 @@ export class OldPurchaseComponent {
     }
 
     private async readPurchaseCost() {
-        const promptResponse = await dialogs.prompt("How much did it cost?");
-
+        const promptResponse = await dialogs.prompt({
+            title: 'Purchase Cost',
+            message: 'How much did it cost?\n(Set to 0 to delete)',
+            defaultText: this.row.cost.substring(1),
+            okButtonText: 'Confirm',
+            cancelButtonText: 'Cancel',
+        });
         if(!promptResponse.result) {
             return undefined;
         }
                 
-        const errorMessage = this.validationService.validatePurchaseCost(promptResponse.text);
+        const errorMessage = this.validationService.validatePurchaseCost(promptResponse.text, true);
         if (errorMessage) {
             this.showErrorMessage(errorMessage);
             return undefined;

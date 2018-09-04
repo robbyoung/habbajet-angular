@@ -10,10 +10,12 @@ import { BudgetService, BudgetTabRow } from "../../../services/budget.service";
 
 export class BudgetTabComponent {
     public purchases: BudgetTabRow[];
+    public purchaseLengthObject: any;
 
     constructor(private budgetService: BudgetService) {}
 
     ngOnInit() {
         this.purchases = this.budgetService.getPurchases();
+        this.purchaseLengthObject = this.budgetService.purchaseLengthObject;
     }
 }
