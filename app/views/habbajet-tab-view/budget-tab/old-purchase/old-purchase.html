@@ -1,7 +1,7 @@
 <StackLayout>
         <GridLayout *ngIf="row.rowType === 'purchase' && row.cost !== '$0.00'" rows="35,20" columns="*, 130" (tap)="onPurchaseTap()" class="purchaseContainer">
                 <label [text]="row.name" row="0" col="0" class="oldPurchaseTitle"></label>
-                <label [text]="row.dateString" row="1" col="0" class="oldPurchaseDate"></label>
+                <label [text]="row.relativeDateString" row="1" col="0" class="oldPurchaseDate"></label>
                 <label [text]="row.cost" row="0" col="1" rowSpan="2" class="oldPurchaseCost"></label>
         </GridLayout>
 </StackLayout>

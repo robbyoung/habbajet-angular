@@ -4,7 +4,7 @@ import { HabbajetService, HabbajetInfo } from "./habbajet.service";
 import * as _ from 'lodash';
 import { ImageState } from "./images.service";
 import { HabbajetCheckbox, CheckboxService } from "./checkbox.service";
-import { PurchaseRow, BudgetTabRowType } from "./budget.service";
+import { PurchaseRow, BudgetTabRowType, ABSOLUTE_DATE_FORMAT } from "./budget.service";
 import * as Moment from "moment";
 
 @Injectable()
@@ -128,7 +128,8 @@ export class SavingService {
                 name: saveObject.getString(`pName${index}`),
                 cost: saveObject.getString(`pCost${index}`),
                 date,
-                dateString: date !== 0 ? Moment.unix(date).calendar() : '',
+                relativeDateString: date !== 0 ? Moment.unix(date).calendar() : '',
+                absoluteDateString: date !== 0 ? Moment.unix(date).format(ABSOLUTE_DATE_FORMAT) : '',
             });
             index++;
         }

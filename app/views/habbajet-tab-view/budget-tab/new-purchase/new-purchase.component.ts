@@ -30,7 +30,12 @@ export class NewPurchaseComponent {
     }
 
     private async readPurchaseName() {
-        const promptResponse = await dialogs.prompt("What did you purchase?");
+        const promptResponse = await dialogs.prompt({
+            title: 'Purchase Name',
+            message: 'What did you purchase?',
+            okButtonText: 'Confirm',
+            cancelButtonText: 'Cancel',
+        });
 
         if(!promptResponse.result) {
             return undefined;
@@ -46,7 +51,12 @@ export class NewPurchaseComponent {
     }
 
     private async readPurchaseCost() {
-        const promptResponse = await dialogs.prompt("How much did it cost?");
+        const promptResponse = await dialogs.prompt({
+            title: 'Purchase Cost',
+            message: 'How much did it cost?',
+            okButtonText: 'Confirm',
+            cancelButtonText: 'Cancel',
+        });
 
         if(!promptResponse.result) {
             return undefined;

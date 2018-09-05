@@ -7,6 +7,7 @@ import * as Moment from "moment";
 
 const NEGATIVE_BUDGET_MODIFIER = 0.9;
 const MAX_PURCHASE_LIST_LENGTH = 20;
+export const ABSOLUTE_DATE_FORMAT = 'Do MMMM YYYY, h:mm a';
 
 // TODO: Make a 'show more' row;
 export type BudgetTabRow = PurchaseRow;
@@ -20,14 +21,12 @@ export interface PurchaseRow {
     name: string;
     cost: string;
     date: number;
-    dateString: string;
+    relativeDateString: string;
+    absoluteDateString: string;
 }
 
 @Injectable()
 export class BudgetService {
-    public purchaseLengthObject = {
-        length: 0,
-    }
     private totalAmount: number;
     private totalAmountString: {
         text: string;
@@ -95,7 +94,8 @@ export class BudgetService {
             name,
             cost: this.formatMoney(cost),
             date,
-            dateString: Moment.unix(date).calendar(),
+            relativeDateString: Moment.unix(date).calendar(),
+            absoluteDateString: Moment.unix(date).format("DD/MM/YY"),
         };
 
         this.budgetTabRows.unshift(newPurchase);
@@ -152,7 +152,6 @@ export class BudgetService {
     }
 
     private savePurchases() {
-        this.purchaseLengthObject.length = this.budgetTabRows.length;
         this.savingService.savePurchases(_.filter(this.budgetTabRows, (row: BudgetTabRow) => {
             return this.isPurchaseRow(row);
         }) as PurchaseRow[]);

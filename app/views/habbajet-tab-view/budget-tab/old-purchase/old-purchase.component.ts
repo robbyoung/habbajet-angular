@@ -20,7 +20,7 @@ export class OldPurchaseComponent {
     public async onPurchaseTap() {
         const correctionNeeded = await dialogs.confirm({
             title: 'Review Purchase',
-            message: `${this.row.name}\n${this.row.cost}`,
+            message: `${this.row.name}\n${this.row.cost}\n${this.row.absoluteDateString}`,
             okButtonText: 'Edit',
             cancelButtonText: 'OK',
         });
