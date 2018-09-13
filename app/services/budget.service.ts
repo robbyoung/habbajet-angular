@@ -32,6 +32,7 @@ export class BudgetService {
         text: string;
     };
     private budgetTabRows: BudgetTabRow[];
+    public onPurchaseCallback: () => void;
 
     constructor(private savingService: SavingService) {
         this.totalAmount = this.savingService.loadBudget();
@@ -40,6 +41,7 @@ export class BudgetService {
         }
         this.budgetTabRows = this.savingService.loadPurchases();
         this.updateTotalAmountString();
+        this.onPurchaseCallback = _.noop;
     }
 
     public getTotalAmountString(){
@@ -64,6 +66,7 @@ export class BudgetService {
         }
         this.totalAmount = this.totalAmount + amountToAdd;
         this.updateTotalAmountString();
+        this.onPurchaseCallback();
     }
 
     public setExpectedPayout(info: HabbajetInfo, checkboxes: HabbajetCheckbox[]) {
@@ -80,6 +83,9 @@ export class BudgetService {
                 }
             }
         });
+        if (this.totalAmount < 0) {
+            expectedPayout *= NEGATIVE_BUDGET_MODIFIER;
+        }
         info.expectedPayout = this.formatMoney(expectedPayout);
         if (info.expectedPayout !== oldPayout && info.expectedPayoutUpdateCallback) {
             info.expectedPayoutUpdateCallback();
@@ -106,6 +112,7 @@ export class BudgetService {
         this.totalAmount = this.totalAmount - cost;
         this.updateTotalAmountString();
 
+        this.onPurchaseCallback();
         this.savePurchases();
     }
 
@@ -131,6 +138,7 @@ export class BudgetService {
                 return row.date !== date;
             });
         }
+        this.onPurchaseCallback();
         this.savePurchases();
     }
 

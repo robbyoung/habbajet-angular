@@ -57,6 +57,11 @@ export class HabbajetService {
         this.tabService.initialiseTabs(this.habbajetList.length);
         this.savingService.saveHabbajetList(this.habbajetList);
         this.numDeleted = 0;
+        this.budgetService.onPurchaseCallback = () => {
+            _.each(this.habbajetList, (habbajet) => {
+                this.budgetService.setExpectedPayout(habbajet.info, habbajet.checkboxes);
+            })
+        }
     }
 
     public habbajetExists(index: number): boolean {
