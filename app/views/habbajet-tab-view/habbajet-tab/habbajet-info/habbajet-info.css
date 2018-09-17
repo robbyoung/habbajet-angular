@@ -5,11 +5,13 @@
 }
 
 .expectedPayoutTitle {
+    font-size: 20;
     font-weight: bold;
     vertical-align: center;
 }
 
 .expectedPayout {
+    font-size: 20;
     font-weight: bold;
     text-align: right;
     padding-right: 10;

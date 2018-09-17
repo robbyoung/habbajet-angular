@@ -87,6 +87,11 @@ export class BudgetService {
             expectedPayout *= NEGATIVE_BUDGET_MODIFIER;
         }
         info.expectedPayout = this.formatMoney(expectedPayout);
+
+        if(this.totalAmount < 0) {
+            info.expectedPayout += ' (-10%)';
+        }
+
         if (info.expectedPayout !== oldPayout && info.expectedPayoutUpdateCallback) {
             info.expectedPayoutUpdateCallback();
         }
