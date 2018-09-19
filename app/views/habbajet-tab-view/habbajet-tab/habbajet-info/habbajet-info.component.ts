@@ -12,7 +12,7 @@ import * as dialogs from 'tns-core-modules/ui/dialogs/dialogs';
 })
 
 export class HabbajetInfoComponent {
-    @Input() habbajetIndex: number;
+    @Input() habbajetId: string;
     public info: HabbajetInfo;
     public colorClass: string;
     public expectedPayoutLabelID: string;
@@ -20,9 +20,9 @@ export class HabbajetInfoComponent {
     constructor(private habbajetService: HabbajetService) {};
 
     ngOnInit() {
-        this.info = this.habbajetService.getHabbajetInfo(this.habbajetIndex);
-        this.colorClass = this.habbajetService.getHabbajetColor(this.habbajetIndex);
-        this.expectedPayoutLabelID = 'expectedPayout' + this.habbajetIndex;
+        this.info = this.habbajetService.getHabbajetInfo(this.habbajetId);
+        this.colorClass = this.habbajetService.getHabbajetColor(this.habbajetId);
+        this.expectedPayoutLabelID = 'expectedPayout' + this.habbajetId;
         this.info.expectedPayoutUpdateCallback = () => this.onExpectedPayoutUpdate(this.expectedPayoutLabelID);
     }
 
@@ -52,7 +52,7 @@ export class HabbajetInfoComponent {
             cancelButtonText: 'Cancel',
         }).then((result) => {
             if (result) {
-                this.habbajetService.deleteHabbajet(this.habbajetIndex);
+                this.habbajetService.deleteHabbajet(this.habbajetId);
             }
         });
     }

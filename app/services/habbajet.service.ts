@@ -31,11 +31,13 @@ export interface HabbajetButtons {
 }
 
 class Habbajet {
+    public id: string;
     public image: ImageState;
     public buttons: HabbajetButtons;
 
     constructor(public name: string, public state: number, public color: string, public info: HabbajetInfo, public checkboxes: HabbajetCheckbox[]) {
         this.image = new ImageState(state, color);
+        this.id = Math.random() * 1000000 + '';
         this.buttons = {
             positiveSrc: ButtonImages.Positive,
             negativeSrc: ButtonImages.Negative,
@@ -54,7 +56,7 @@ export class HabbajetService {
         
         this.habbajetList = [];
         this.savingService.loadHabbajetList(this);
-        this.tabService.initialiseTabs(this.habbajetList.length);
+        this.tabService.initialiseTabs(_.map(this.habbajetList, (habbajet: Habbajet) => habbajet.id));
         this.savingService.saveHabbajetList(this.habbajetList);
         this.numDeleted = 0;
         this.budgetService.onPurchaseCallback = () => {
@@ -64,65 +66,74 @@ export class HabbajetService {
         }
     }
 
-    public habbajetExists(index: number): boolean {
-        return this.habbajetList.length > index && this.habbajetList[index] !== undefined;
+    public habbajetExists(id: string): boolean {
+        const match = _.find(this.habbajetList, (habbajet: Habbajet) => {
+            return habbajet.id === id;
+        });
+        return match !== undefined;
+    }
+
+    private getHabbajet(id: string) {
+        return _.find(this.habbajetList, (habbajet: Habbajet) => {
+            return habbajet.id === id;
+        });
     }
 
     public getHabbajetCount(): number {
         return this.habbajetList.length;
     }
 
-    public getHabbajetName(index: number): string {
-        if (this.habbajetExists(index)) {
-            return this.habbajetList[index].name;
+    public getHabbajetName(id: string): string {
+        if (this.habbajetExists(id)) {
+            return this.getHabbajet(id).name;
         } else {
             return 'To Remove';
         }
     }
 
-    public getHabbajetImage(index: number): ImageState {
-        if (this.habbajetExists(index)) {
-            return this.habbajetList[index].image;
+    public getHabbajetImage(id: string): ImageState {
+        if (this.habbajetExists(id)) {
+            return this.getHabbajet(id).image;
         } else {
             return undefined;
         }
     }
 
-    public getHabbajetInfo(index: number): HabbajetInfo {
-        if (this.habbajetExists(index)) {
-            return this.habbajetList[index].info;
+    public getHabbajetInfo(id: string): HabbajetInfo {
+        if (this.habbajetExists(id)) {
+            return this.getHabbajet(id).info;
         } else {
             return undefined;
         }
     }
 
-    public getHabbajetColor(index: number): string {
-        if (this.habbajetExists(index)) {
-            return this.habbajetList[index].color;
+    public getHabbajetColor(id: string): string {
+        if (this.habbajetExists(id)) {
+            return this.getHabbajet(id).color;
         } else {
             return undefined;
         }
     }
 
-    public getHabbajetCheckboxes(index: number): HabbajetCheckbox[] {
-        if (this.habbajetExists(index)) {
-            return this.habbajetList[index].checkboxes;
+    public getHabbajetCheckboxes(id: string): HabbajetCheckbox[] {
+        if (this.habbajetExists(id)) {
+            return this.getHabbajet(id).checkboxes;
         } else {
             return undefined;
         }
     }
 
-    public getHabbajetButtons(index: number): HabbajetButtons {
-        if (this.habbajetExists(index)) {
-            return this.habbajetList[index].buttons;
+    public getHabbajetButtons(id: string): HabbajetButtons {
+        if (this.habbajetExists(id)) {
+            return this.getHabbajet(id).buttons;
         } else {
             return undefined;
         }
     }
 
-    public evolve(habbajetIndex: number) {
-        if(this.habbajetExists(habbajetIndex)) {
-            this.imageService.evolve(this.habbajetList[habbajetIndex].image);
+    public evolve(id: string) {
+        if(this.habbajetExists(id)) {
+            this.imageService.evolve(this.getHabbajet(id).image);
             this.savingService.saveHabbajetList(this.habbajetList);
         }
     }
@@ -133,22 +144,22 @@ export class HabbajetService {
         }
     }
 
-    public action(habbajetIndex: number) {
-        if(this.habbajetExists(habbajetIndex)) {
-            this.imageService.action(this.habbajetList[habbajetIndex].image);
+    public action(id: string) {
+        if(this.habbajetExists(id)) {
+            this.imageService.action(this.getHabbajet(id).image);
         }
     }
 
-    public selectCheckbox(habbajetIndex: number, day: Day) {
-        if(this.habbajetExists(habbajetIndex)) {
-            const habbajet = this.habbajetList[habbajetIndex];
+    public selectCheckbox(id: string) {
+        if(this.habbajetExists(id)) {
+            const habbajet = this.getHabbajet(id);
             this.setButtonImages(habbajet);
         }
     }
 
-    public setCheckmark(habbajetIndex: number, checkmark: Checkmark): boolean {
-        if(this.habbajetExists(habbajetIndex)) {
-            const habbajet = this.habbajetList[habbajetIndex];
+    public setCheckmark(id: string, checkmark: Checkmark): boolean {
+        if(this.habbajetExists(id)) {
+            const habbajet = this.getHabbajet(id);
             if(habbajet.image.action !== 't') {
                 const activeCheckbox = _.find(habbajet.checkboxes, (c: HabbajetCheckbox) => c.active);
                 if(activeCheckbox !== undefined) {
@@ -187,7 +198,7 @@ export class HabbajetService {
         this.budgetService.setExpectedPayout(info, checkboxes);
         const habbajet = new Habbajet(name, 0, color, info, checkboxes);
         this.habbajetList.push(habbajet);
-        this.tabService.addHabbajetTab();
+        this.tabService.addHabbajetTab(habbajet.id);
         this.savingService.saveHabbajetList(this.habbajetList);
     }
 
@@ -224,8 +235,8 @@ export class HabbajetService {
         this.setButtonImages(habbajet);
     }
 
-    public updateButtonImages(habbajetIndex: number) {
-        this.setButtonImages(this.habbajetList[habbajetIndex]);
+    public updateButtonImages(id: string) {
+        this.setButtonImages(this.getHabbajet(id));
     }
 
     private setButtonImages(habbajet: Habbajet) {
@@ -261,10 +272,11 @@ export class HabbajetService {
         }
     }
 
-    public deleteHabbajet(habbajetIndex: number) {
-        habbajetIndex -= this.numDeleted;
-        if(this.habbajetExists(habbajetIndex)) {
-            this.numDeleted++;
+    public deleteHabbajet(id: string) {
+        if(this.habbajetExists(id)) {
+            const habbajetIndex = _.findIndex(this.habbajetList, (habbajet) => {
+                return habbajet.id === id;
+            });
             this.habbajetList.splice(habbajetIndex, 1);
             this.savingService.saveHabbajetList(this.habbajetList);
             this.tabService.removeHabbajetTab(habbajetIndex + 1);

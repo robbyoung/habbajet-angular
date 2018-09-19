@@ -3,7 +3,7 @@
         <ng-container  *ngFor="let tab of tabList">
             <StackLayout *tabItem="{title: tab.title}">
                 <budget-tab *ngIf="tab.type === 1"></budget-tab>
-                <habbajet-tab *ngIf="tab.type === 0" [habbajetIndex]="tab.habbajetIndex"></habbajet-tab>
+                <habbajet-tab *ngIf="tab.type === 0" [habbajetId]="tab.habbajetId"></habbajet-tab>
                 <add-tab *ngIf="tab.type === 2"></add-tab>
                 <empty-tab *ngIf="tab.type === 3"></empty-tab>
             </StackLayout>

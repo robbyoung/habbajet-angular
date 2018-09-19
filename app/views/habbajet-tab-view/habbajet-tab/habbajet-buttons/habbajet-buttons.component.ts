@@ -11,27 +11,27 @@ import { Checkmark } from "../../../../services/checkbox.service";
 })
 
 export class HabbajetButtonsComponent {
-    @Input() habbajetIndex: number;
+    @Input() habbajetId: string;
     public habbajetButtons: HabbajetButtons;
     public colorClass: string;
 
     constructor(private habbajetService: HabbajetService) {}
 
     ngOnInit() {
-        this.habbajetButtons = this.habbajetService.getHabbajetButtons(this.habbajetIndex);
-        this.colorClass = this.habbajetService.getHabbajetColor(this.habbajetIndex);
+        this.habbajetButtons = this.habbajetService.getHabbajetButtons(this.habbajetId);
+        this.colorClass = this.habbajetService.getHabbajetColor(this.habbajetId);
     }
 
     onPositiveLongPress() {
-        if(!this.habbajetButtons.locked && this.habbajetService.setCheckmark(this.habbajetIndex, Checkmark.Positive)) {
-            this.habbajetService.evolve(this.habbajetIndex);
-            this.habbajetService.updateButtonImages(this.habbajetIndex);
+        if(!this.habbajetButtons.locked && this.habbajetService.setCheckmark(this.habbajetId, Checkmark.Positive)) {
+            this.habbajetService.evolve(this.habbajetId);
+            this.habbajetService.updateButtonImages(this.habbajetId);
         }
     }
 
     onNegativeLongPress() {
-        if(!this.habbajetButtons.locked && this.habbajetService.setCheckmark(this.habbajetIndex, Checkmark.Negative)) {
-            this.habbajetService.updateButtonImages(this.habbajetIndex);
+        if(!this.habbajetButtons.locked && this.habbajetService.setCheckmark(this.habbajetId, Checkmark.Negative)) {
+            this.habbajetService.updateButtonImages(this.habbajetId);
         }
     }
 
