@@ -197,6 +197,7 @@ export class HabbajetService {
 
         this.budgetService.setExpectedPayout(info, checkboxes);
         const habbajet = new Habbajet(name, 0, color, info, checkboxes);
+        this.setButtonImages(habbajet);
         this.habbajetList.push(habbajet);
         this.tabService.addHabbajetTab(habbajet.id);
         this.savingService.saveHabbajetList(this.habbajetList);
