@@ -7,22 +7,25 @@ import { checkboxImagePrefix } from "../../../../services/images.service";
 @Component({
     selector: "habbajet-checkbox",
     templateUrl: "views/habbajet-tab-view/habbajet-tab/habbajet-checkbox/habbajet-checkbox.html",
-    styleUrls: ["views/habbajet-tab-view/habbajet-tab/habbajet-checkbox/habbajet-checkbox.css"]
+    styleUrls: ["views/habbajet-tab-view/habbajet-tab/habbajet-checkbox/habbajet-checkbox.css",
+                "app.css"]
 })
 
 export class HabbajetCheckboxComponent {
-    @Input() habbajetIndex: number;
+    @Input() habbajetId: string;
     public checkboxes: HabbajetCheckbox[];
     public currentDay: string;
     public checkboxImagePrefix: string;
+    public colorClass: string;
     
     constructor(private habbajetService: HabbajetService) {
         this.checkboxImagePrefix = checkboxImagePrefix;
     }
 
     ngOnInit(){
-        this.checkboxes = this.habbajetService.getHabbajetCheckboxes(this.habbajetIndex);
+        this.checkboxes = this.habbajetService.getHabbajetCheckboxes(this.habbajetId);
         this.setCurrentDayString();
+        this.colorClass = this.habbajetService.getHabbajetColor(this.habbajetId);
     }
 
     onCheckboxTap(day: Day) {
@@ -30,7 +33,7 @@ export class HabbajetCheckboxComponent {
             c.active = day === c.day;
         });
         this.setCurrentDayString();
-        this.habbajetService.selectCheckbox(this.habbajetIndex, day);
+        this.habbajetService.selectCheckbox(this.habbajetId);
     }
 
     setCurrentDayString() {

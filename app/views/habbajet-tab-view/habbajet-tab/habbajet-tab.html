@@ -1,7 +1,11 @@
 <StackLayout>
-    <label [text]="name" class="habbajetName"></label>
-    <habbajet-image [habbajetIndex]="habbajetIndex"></habbajet-image>
-    <habbajet-info [habbajetIndex]="habbajetIndex"></habbajet-info>
-    <habbajet-checkbox [habbajetIndex]="habbajetIndex"></habbajet-checkbox>
-    <habbajet-buttons [habbajetIndex]="habbajetIndex"></habbajet-buttons>
+    <StackLayout class="topPart">
+        <label [text]="name" class="habbajetName"></label>
+        <habbajet-image [habbajetId]="habbajetId"></habbajet-image>
+    </StackLayout>
+    <StackLayout class="bottomPart">
+        <habbajet-checkbox [habbajetId]="habbajetId"></habbajet-checkbox>
+        <habbajet-info [habbajetId]="habbajetId"></habbajet-info>
+        <habbajet-buttons [habbajetId]="habbajetId"></habbajet-buttons>
+    </StackLayout>
 </StackLayout>

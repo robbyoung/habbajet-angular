@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import * as _ from 'lodash';
 import { HabbajetService } from "./habbajet.service";
+import { BudgetService } from "./budget.service";
 
 interface HabbajetSubmission {
     name: string;
@@ -17,11 +18,15 @@ const FACTOR_ERROR: string = 'Habbajet factor is invalid';
 const COLOR_ERROR: string = 'Habbajet color is invalid';
 const VALID_SUBMISSION: string = 'Habbajet properties are valid';
 
+const PURCHASE_NAME_ERROR: string = 'Purchase name is invalid';
+const PURCHASE_COST_ERROR: string = 'Purchase cost is invalid';
+
 @Injectable()
 export class ValidationService {
     private currentSubmission: HabbajetSubmission;
+    public submitButtonColor: { color: string };
 
-    constructor(private habbajetService: HabbajetService) {
+    constructor(private habbajetService: HabbajetService, private budgetService: BudgetService) {
         this.resetCurrentSubmission();
     }
 
@@ -80,6 +85,7 @@ export class ValidationService {
 
     public validateColor(color: string): boolean {
         this.currentSubmission.color = color;
+        this.submitButtonColor.color = color;
         return true;
     }
 
@@ -100,6 +106,7 @@ export class ValidationService {
     }
 
     public resetCurrentSubmission() {
+        this.submitButtonColor = { color: "red" };
         this.currentSubmission = {
             name: undefined,
             value: undefined,
@@ -122,7 +129,29 @@ export class ValidationService {
             return COLOR_ERROR;
         } else {
             return VALID_SUBMISSION;
+        } 
+    }
+
+    public validatePurchaseName(name: string): string {
+        if(!name.length || name.length > 20) {
+            return PURCHASE_NAME_ERROR;
         }
-            
+    }
+
+    public validatePurchaseCost(costString: string, canBeZero: boolean): string {
+        const cost = _.toNumber(costString);
+        if(!isFinite(cost) || cost < 0 || cost > 9999) {
+            return PURCHASE_COST_ERROR;
+        } else if (cost === 0 && !canBeZero) {
+            return PURCHASE_COST_ERROR;
+        }
+    }
+
+    public submitPurchase(name: string, cost: string) {
+        if(this.validatePurchaseName(name) || this.validatePurchaseCost(cost, false)) {
+            throw new Error('Tried to submit an invalid purchase');
+        }
+
+        this.budgetService.makePurchase(name, _.toNumber(cost));
     }
 }

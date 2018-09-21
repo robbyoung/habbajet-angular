@@ -9,12 +9,12 @@ import { HabbajetService } from "../../../services/habbajet.service";
 })
 
 export class HabbajetTabComponent {
-    @Input() habbajetIndex: number;
+    @Input() habbajetId: string;
     public name: string;
     
     constructor(private habbajetService: HabbajetService) {}
 
     ngOnInit() {
-        this.name = this.habbajetService.getHabbajetName(this.habbajetIndex);
+        this.name = this.habbajetService.getHabbajetName(this.habbajetId);
     }
 }

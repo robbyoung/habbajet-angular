@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { frameCounts } from '../frame-counts';
 
-export const checkboxImagePrefix = "~/images/checkboxes/checkbox";
+export const checkboxImagePrefix = "~/images/checkboxes/";
 
 export class ImageState {
     public frame: number;
@@ -45,6 +45,14 @@ export class ImageService {
             imageState.action = 't';
             imageState.frame = -1;
             imageState.state = (imageState.state + 1) % 7;
+        }
+    }
+
+    public reset(imageState: ImageState) {
+        if(imageState.action !== 't') {
+            imageState.action = 't';
+            imageState.frame = -1;
+            imageState.state = 0;
         }
     }
 

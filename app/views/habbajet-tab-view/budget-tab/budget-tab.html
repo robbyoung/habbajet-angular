@@ -1,7 +1,14 @@
 <StackLayout>
-        <money-display></money-display>
-        <new-purchase></new-purchase>
-        <ng-container  *ngFor="let purchase of purchases">
-                <old-purchase [name]="purchase.name" [cost]="purchase.cost"></old-purchase>
-        </ng-container>
+        <StackLayout class="topPart">
+                <money-display></money-display>
+                <new-purchase></new-purchase>
+        </StackLayout>
+        <ListView [items]="purchases">
+                <ng-template let-purchase="item">
+                        <old-purchase [row]="purchase"></old-purchase>
+                </ng-template>
+        </ListView>
+        <StackLayout *ngIf="purchases.length === 0">
+                <label text="No purchases yet" class="noPurchases"></label>
+        </StackLayout>
 </StackLayout>

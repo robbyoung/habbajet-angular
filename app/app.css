@@ -8,3 +8,59 @@
     left: 0;
     background-color: #b62222;
 }
+
+.green {
+    background-color: #09790e;
+}
+
+.red {
+    background-color: #db4848;
+}
+
+.blue {
+    background-color: #364cb1;
+}
+
+.yellow {
+    background-color: #7a8517;
+}
+
+.purple {
+    background-color: #c921c0;
+}
+
+.dark {
+    background-color: #757575;
+}
+
+.light {
+    background-color: #F5F5F5;
+}
+
+.greenText {
+    color: #09790e;
+}
+
+.redText {
+    color: #db4848;
+}
+
+.blueText {
+    color: #364cb1;
+}
+
+.yellowText {
+    color: #7a8517;
+}
+
+.purpleText {
+    color: #c921c0;
+}
+
+.darkText {
+    color: #757575;
+}
+
+.lightText {
+    color: #F5F5F5;
+}

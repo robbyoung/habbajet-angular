@@ -6,6 +6,8 @@ rm -rf app/images/habbajets/*
 mkdir app/images/habbajets/red
 mkdir app/images/habbajets/blue
 mkdir app/images/habbajets/green
+mkdir app/images/habbajets/yellow
+mkdir app/images/habbajets/purple
 
 echo "export function frameCounts(state: string): number {" > app/frame-counts.ts
 echo "  switch(state) {" >> app/frame-counts.ts
@@ -45,6 +47,14 @@ normalGreen="#298D23"
 darkGreen="#0B2F08"
 lightGreen="#91981E"
 
+normalYellow="#7a8517"
+darkYellow="#616309"
+lightYellow="#c0d126"
+
+normalPurple="#c921c0"
+darkPurple="#7e0578"
+lightPurple="#c559c0"
+
 echo "Converting to blue..."
 magick mogrify -path app/images/habbajets/blue -format png -fill $normalBlue -opaque $normalRed app/images/habbajets/red/*.png
 magick mogrify -path app/images/habbajets/blue -format png -fill $lightBlue -opaque $lightRed app/images/habbajets/blue/*.png
@@ -54,3 +64,13 @@ echo "Converting to green..."
 magick mogrify -path app/images/habbajets/green -format png -fill $normalGreen -opaque $normalRed app/images/habbajets/red/*.png
 magick mogrify -path app/images/habbajets/green -format png -fill $lightGreen -opaque $lightRed app/images/habbajets/green/*.png
 magick mogrify -path app/images/habbajets/green -format png -fill $darkGreen -opaque $darkRed app/images/habbajets/green/*.png
+
+echo "Converting to yellow..."
+magick mogrify -path app/images/habbajets/yellow -format png -fill $normalYellow -opaque $normalRed app/images/habbajets/red/*.png
+magick mogrify -path app/images/habbajets/yellow -format png -fill $lightYellow -opaque $lightRed app/images/habbajets/yellow/*.png
+magick mogrify -path app/images/habbajets/yellow -format png -fill $darkYellow -opaque $darkRed app/images/habbajets/yellow/*.png
+
+echo "Converting to purple..."
+magick mogrify -path app/images/habbajets/purple -format png -fill $normalPurple -opaque $normalRed app/images/habbajets/red/*.png
+magick mogrify -path app/images/habbajets/purple -format png -fill $lightPurple -opaque $lightRed app/images/habbajets/purple/*.png
+magick mogrify -path app/images/habbajets/purple -format png -fill $darkPurple -opaque $darkRed app/images/habbajets/purple/*.png

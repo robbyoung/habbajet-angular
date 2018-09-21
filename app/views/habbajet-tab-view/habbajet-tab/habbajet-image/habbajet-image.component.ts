@@ -10,20 +10,19 @@ import { HabbajetService } from "../../../../services/habbajet.service";
 })
 
 export class HabbajetImageComponent {
-    @Input() habbajetIndex: number;
-    public intervalId: number;
+    @Input() habbajetId: string;
     public image: ImageState;
     
     constructor(private habbajetService: HabbajetService, private imageService: ImageService) {}
 
     ngOnInit() {
-        this.image = this.habbajetService.getHabbajetImage(this.habbajetIndex);
-        this.intervalId = setInterval(() => {
+        this.image = this.habbajetService.getHabbajetImage(this.habbajetId);
+        setInterval(() => {
             this.imageService.nextState(this.image);
         }, 100);
     }
 
     public onImageTap() {
-        this.habbajetService.action(this.habbajetIndex);
+        this.habbajetService.action(this.habbajetId);
     }
 }

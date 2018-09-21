@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import * as frame from 'ui/frame';
+import * as frame from 'tns-core-modules/ui/frame/frame';
 import { TabService, TabBinding } from "../../services/tab.service";
 import { HabbajetService } from "../../services/habbajet.service";
 
@@ -12,16 +12,19 @@ export class HabbajetTabViewComponent {
 
     public tabList: TabBinding[];
 
-    constructor(private tabService: TabService, private habbajetService: HabbajetService) {}
+    constructor(private tabService: TabService, private habbajetService: HabbajetService) {
+        const interval = setInterval(() => {
+            const page = frame.topmost().currentPage;
+            if(page) {
+                page.getViewById('tabView').android.removeViewAt(0);
+                page.actionBarHidden = true;
+                clearInterval(interval);
+            }
+        }, 10);
+    }
 
     ngOnInit() {
         this.tabList = this.tabService.tabList;
-
-        setTimeout(() => {
-            const page = frame.topmost().currentPage;
-            page.getViewById('tabView').android.removeViewAt(0);
-            page.actionBarHidden = true;
-        }, 1000);
     }
 
 }

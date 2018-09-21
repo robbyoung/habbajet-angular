@@ -1,8 +1,8 @@
 <StackLayout>
     <GridLayout rows="150" columns="*,130,*,130,*" id="buttonContainer">
-        <image col="1" [src]="habbajetButtons.positiveSrc" class="button"
-         (longPress)="onPositiveLongPress()" [class]="habbajetButtons.locked ? 'collapsed' : 'visible'"></image>
-        <image col="3" [src]="habbajetButtons.negativeSrc" class="button"
-         (longPress)="onNegativeLongPress()" [class]="habbajetButtons.locked ? 'collapsed' : 'visible'"></image>
+        <image col="1" [src]="habbajetButtons.positiveSrc" [class]="'button ' + colorClass"
+         (longPress)="onPositiveLongPress()" [opacity]="habbajetButtons.locked ? 0.5 : 1"></image>
+        <image col="3" [src]="habbajetButtons.negativeSrc" [class]="'button ' + colorClass"
+         (longPress)="onNegativeLongPress()" [opacity]="habbajetButtons.locked ? 0.5 : 1"></image>
     </GridLayout>
 </StackLayout>

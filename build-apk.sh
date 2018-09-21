@@ -6,6 +6,7 @@ rm -rf platforms || { echo 'Failed to remove platforms. Exiting... '; exit 1; }
 echo 'Changing package name for release...'
 sed -i 's/HabbajetAngular/Habbajet/' package.json
 sed -i 's/HabbajetAngular/Habbajet/' app/App_Resources/Android/app.gradle
+mv app/App_Resources/Android/strings.xml app/App_Resources/Android/values/strings.xml
 
 echo 'Copying release icons over...'
 cp Piskel/Icons/ReleaseIcon.png app/App_Resources/Android/drawable-ldpi/icon.png
@@ -27,6 +28,7 @@ esac
 echo 'Changing package name back...'
 sed -i 's/Habbajet/HabbajetAngular/' package.json
 sed -i 's/Habbajet/HabbajetAngular/' app/App_Resources/Android/app.gradle
+mv app/App_Resources/Android/values/strings.xml app/App_Resources/Android/strings.xml
 
 echo 'Putting dev icons back...'
 cp Piskel/Icons/DevIcon.png app/App_Resources/Android/drawable-ldpi/icon.png

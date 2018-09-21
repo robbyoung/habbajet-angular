@@ -23,6 +23,8 @@ export class HabbajetColorPickerComponent {
             { name: 'red', class: '' },
             { name: 'blue', class: '' },
             { name: 'green', class: '' },
+            { name: 'yellow', class: '' },
+            { name: 'purple', class: '' },
         ];
         this.onColorTap(0);
     }

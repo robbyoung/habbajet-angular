@@ -6,12 +6,13 @@ export enum TabType {
     Habbajet,
     Budget,
     Add,
+    Empty
 }
 
 export interface TabBinding {
     title: string;
     type: TabType;
-    habbajetIndex: number;
+    habbajetId: string;
 }
 
 @Injectable()
@@ -21,21 +22,22 @@ export class TabService {
 
     constructor() {}
 
-    public initialiseTabs(numHabbajets: number) {
+    public initialiseTabs(habbajetIds: string[]) {
         this.tabList = [];
         this.budgetTabAtIndex(0);
+        const numHabbajets = habbajetIds.length;
         for(let i = 0; i < numHabbajets; i++) {
-            this.habbajetTabAtIndex(i + 1);
+            this.habbajetTabAtIndex(habbajetIds[i], i + 1);
         }
         if (numHabbajets < MAX_HABBAJETS) {
             this.addTabAtIndex(numHabbajets + 1);
         }
     }
 
-    public addHabbajetTab() {
+    public addHabbajetTab(id: string) {
         const newHabbajetIndex = this.tabList.length - 1;
 
-        this.habbajetTabAtIndex(newHabbajetIndex);
+        this.habbajetTabAtIndex(id, newHabbajetIndex);
     }
 
     public budgetTabAtIndex(index: number) {
@@ -43,26 +45,26 @@ export class TabService {
             this.tabList.push({
                 title: 'Budget',
                 type: TabType.Budget,
-                habbajetIndex: undefined,
+                habbajetId: undefined,
             });
         } else {
             this.tabList[index].title = 'Budget';
             this.tabList[index].type = TabType.Budget;
-            this.tabList[index].habbajetIndex = undefined;
+            this.tabList[index].habbajetId = undefined;
         }
     }
 
-    public habbajetTabAtIndex(index: number) {
+    public habbajetTabAtIndex(id: string, index: number) {
         if(this.tabList.length <= index) {
             this.tabList.push({
                 title: 'Habbajet ' + index,
                 type: TabType.Habbajet,
-                habbajetIndex: index - 1,
+                habbajetId: id,
             });
         } else {
             this.tabList[index].title = 'Habbajet ' + index;
             this.tabList[index].type = TabType.Habbajet;
-            this.tabList[index].habbajetIndex = index - 1;
+            this.tabList[index].habbajetId = id;
         }
     }
 
@@ -71,12 +73,24 @@ export class TabService {
             this.tabList.push({
                 title: 'New Habbajet',
                 type: TabType.Add,
-                habbajetIndex: undefined,
+                habbajetId: undefined,
             });
         } else {
             this.tabList[index].title = 'New Habbajet';
             this.tabList[index].type = TabType.Add;
-            this.tabList[index].habbajetIndex = undefined;
+            this.tabList[index].habbajetId = undefined;
         }
+    }
+
+    public removeHabbajetTab(habbajetIndex: number) {
+        let tabIndex = -1;
+        while (habbajetIndex > 0) {
+            tabIndex++;
+            if (this.tabList[tabIndex].type === TabType.Habbajet) {
+                habbajetIndex--;
+            }
+        }
+        const htab = this.tabList[tabIndex];
+        htab.type = TabType.Empty;
     }
 }

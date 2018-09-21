@@ -3,8 +3,9 @@
         <label [class]="colors[0].class" col="0" (tap)="onColorTap(0)"></label>
         <label [class]="colors[1].class" col="1" (tap)="onColorTap(1)"></label>
         <label [class]="colors[2].class" col="2" (tap)="onColorTap(2)"></label>
-        <!-- <label col="3" (tap)="onColorTap(3)"></label>
-        <label col="4" (tap)="onColorTap(4)"></label>
-        <label col="5" (tap)="onColorTap(5)"></label> -->
+    </GridLayout>
+    <GridLayout rows="auto" columns="*,2*,2*,*" class="colorContainer">
+        <label [class]="colors[3].class" col="1" (tap)="onColorTap(3)"></label>
+        <label [class]="colors[4].class" col="2" (tap)="onColorTap(4)"></label>
     </GridLayout>
 </StackLayout>

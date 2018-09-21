@@ -1,5 +1,12 @@
 .title {
+    color: #F5F5F5;
     font-size: 30;
     margin: 10;
     font-weight: bold;
+    text-align: center;
+}
+
+.topPart {
+    background-color: #757575;
+    margin-bottom: 10;
 }

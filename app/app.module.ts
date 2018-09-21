@@ -25,6 +25,7 @@ import { NewPurchaseComponent } from "./views/habbajet-tab-view/budget-tab/new-p
 import { OldPurchaseComponent } from "./views/habbajet-tab-view/budget-tab/old-purchase/old-purchase.component";
 import { DialogService } from "./services/dialog.service";
 import { NewPurchaseModalComponent } from "./views/modals/new-purchase-modal/new-purchase-modal.component";
+import { EmptyTabComponent } from "./views/habbajet-tab-view/empty-tab/empty-tab.component";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { NewPurchaseModalComponent } from "./views/modals/new-purchase-modal/new
     MoneyDisplayComponent,
     NewPurchaseComponent,
     OldPurchaseComponent,
-    NewPurchaseModalComponent
+    NewPurchaseModalComponent,
+    EmptyTabComponent,
   ],
   providers: [
     HabbajetService,

@@ -1,13 +1,28 @@
-GridLayout {
-    background-color: #c9c9c9;
-    color: #000000;
-    vertical-align: center;
-    text-align: center;
-    margin: 10;
+.purchaseContainer {
     margin-left: 15;
     margin-right: 15;
-    margin-top: 0;
+    padding: 5;
+}
+
+.oldPurchaseTitle {
+    color: #757575;
+    font-size: 25;
+    font-weight: bold;
+    text-align: left;
+    padding-bottom: 0;
+}
+
+.oldPurchaseCost {
+    color: #757575;
     font-size: 30;
-    border-radius: 3;
-    padding: 10;
+    text-align: right;
+    vertical-align: center;
+    font-weight: bold;
+}
+
+.oldPurchaseDate {
+    color: #db4848;
+    font-size: 15;
+    text-align: left;
+    padding-top: 0;
 }
