@@ -1,12 +1,15 @@
 .modal {
     z-index: 999999;
     vertical-align: center;
-    width: 100%;
-    height: 100%;
     position: absolute;
+    height: 400;
+    width: 300;
+    border-width: 2;
+    border-color: #db4848;
+    border-radius: 10;
     top: 0;
     left: 0;
-    background-color: #b62222;
+    background-color: #dfdfdf;
 }
 
 .green {

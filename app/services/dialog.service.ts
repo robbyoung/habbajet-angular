@@ -1,31 +1,47 @@
 import { Injectable } from "@angular/core";
 import * as frame from 'ui/frame';
-import { NewPurchaseModalComponent } from "../views/modals/new-purchase-modal/new-purchase-modal.component";
 import { StackLayout } from "ui/layouts/stack-layout";
-import { TextBase } from "tns-core-modules/ui/text-base/text-base";
 
 @Injectable()
 export class DialogService {
-    private rootView: StackLayout;
+    private modal: StackLayout;
 
     constructor() {
-        setTimeout(() => {
-            this.rootView = frame.topmost().currentPage.getViewById('RootView');
-            console.log(this.rootView);
-        }, 1000);
+        const modalFindingInterval = setInterval(() => {
+            if (frame.topmost().currentPage && frame.topmost().currentPage.getViewById('modalView')) {
+                this.modal = frame.topmost().currentPage.getViewById('modalView');
+                this.modal.visibility = 'collapse';
+                clearInterval(modalFindingInterval);
+            }
+        }, 0);
     }
 
     public newPurchaseDialog() {
-        const purchaseDialog = new StackLayout();
-        purchaseDialog.width = 100;
-        purchaseDialog.height = 100;
-        purchaseDialog.backgroundColor = '#999999';
-        purchaseDialog.className = 'modal';
-        // purchaseDialog.
-        this.rootView.addChild(purchaseDialog);
-        this.rootView.eachChild((c) => {
-            console.log(c);
-            return true;
-        });
+        this.fadeIn();
+        setTimeout(() => {
+            this.fadeOut();
+        }, 2000);
+    }
+
+    private fadeIn() {
+        this.modal.opacity = 0;
+        this.modal.visibility = "visible";
+        const fadeInterval = setInterval(() => {
+            this.modal.opacity += 0.05;
+            if(this.modal.opacity >= 1) {
+                clearInterval(fadeInterval);
+            }
+        }, 5);
+    }
+
+    private fadeOut() {
+        this.modal.opacity = 1;
+        const fadeInterval = setInterval(() => {
+            this.modal.opacity -= 0.05;
+            if(this.modal.opacity <= 0) {
+                this.modal.visibility = "collapse";
+                clearInterval(fadeInterval);
+            }
+        }, 5);
     }
 }
