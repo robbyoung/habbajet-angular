@@ -1,5 +1,5 @@
 <StackLayout>
-    <StackLayout id="modalForeground" class="modal">
+    <StackLayout id="modalForeground" class="modal" (onTap)="onModalTap()">
         <new-purchase-modal [visibility]="modalTypeObject.type === 0 ? 'visible' : 'collapse'"></new-purchase-modal>
     </StackLayout>
 </StackLayout>

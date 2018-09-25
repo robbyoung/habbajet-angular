@@ -13,4 +13,6 @@ export class ModalComponent {
     constructor (dialogService: DialogService) {
         this.modalTypeObject = dialogService.modalStateObject;
     }
+
+    onModalTap() {}
 }
