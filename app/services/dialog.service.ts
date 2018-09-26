@@ -1,9 +1,11 @@
 import { Injectable } from "@angular/core";
 import * as frame from 'ui/frame';
 import { StackLayout } from "ui/layouts/stack-layout";
+import { PurchaseRow } from "./budget.service";
 
 export enum ModalTypes {
-    NewPurchase,
+    NewPurchase = 'newPurchase',
+    AboutPurchase = 'aboutPurchase',
 }
 
 @Injectable()
@@ -11,7 +13,9 @@ export class DialogService {
     private modalBackground: StackLayout;
     private modalForeground: StackLayout;
     public modalStateObject: { type: ModalTypes };
+
     public onNewPurchasePopup: () => void;
+    public onAboutPurchasePopup: (purchase: PurchaseRow) => void;
 
     constructor() {
         const modalFindingInterval = setInterval(() => {
@@ -21,18 +25,22 @@ export class DialogService {
                 this.modalBackground.backgroundColor = '#757575';
                 this.modalBackground.width = 1000;
                 this.modalBackground.height = 1000;
-                this.modalBackground.visibility = 'collapse';
-                this.modalForeground.visibility = 'collapse';
                 this.modalBackground.on('tap', () => { this.fadeOut(); });
                 clearInterval(modalFindingInterval);
             }
         }, 0);
-        this.modalStateObject = { type: ModalTypes.NewPurchase };
+        this.modalStateObject = { type: ModalTypes.AboutPurchase };
     }
 
     public newPurchaseDialog() {
         this.modalStateObject.type = ModalTypes.NewPurchase;
         this.onNewPurchasePopup();
+        this.fadeIn();   
+    }
+
+    public aboutPurchaseDialog(purchase: PurchaseRow) {
+        this.modalStateObject.type = ModalTypes.AboutPurchase;
+        this.onAboutPurchasePopup(purchase);
         this.fadeIn();   
     }
 

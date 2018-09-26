@@ -1,0 +1,13 @@
+<StackLayout class="noTopPadding">
+    <Label text="Review Purchase" class="heading"></Label>
+    <GridLayout rows="auto, auto", columns="auto, *" class="infoContainer">
+        <label row="0" col="0" text="Name:"></label>
+        <label row="0" col="1" [text]="purchaseName"></label>
+        <label row="1" col="0" text="Cost:"></label>
+        <label row="1" col="1" [text]="purchaseCost"></label>
+    </GridLayout>
+    <GridLayout columns="*,auto,*, auto,*">
+        <Button col="1" (onTap)="onEditTap()" text="Edit" class="button"></Button>
+        <Button col="3" (onTap)="onDeleteTap()" text="Delete" class="button"></Button>
+    </GridLayout>
+</StackLayout>

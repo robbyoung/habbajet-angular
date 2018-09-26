@@ -1,5 +1,6 @@
 <StackLayout>
-    <StackLayout id="modalForeground" class="modal" (onTap)="onModalTap()">
-        <new-purchase-modal [visibility]="modalTypeObject.type === 0 ? 'visible' : 'collapse'"></new-purchase-modal>
-    </StackLayout>
+    <GridLayout id="modalForeground" class="modal" (onTap)="onModalTap()" visibility="collapse">
+        <new-purchase-modal [visibility]="modalTypeObject.type === 'newPurchase' ? 'visible' : 'collapsed'"></new-purchase-modal>
+        <about-purchase-modal [visibility]="modalTypeObject.type === 'aboutPurchase' ? 'visible' : 'collapsed'"></about-purchase-modal>
+    </GridLayout>
 </StackLayout>
