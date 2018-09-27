@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import * as frame from 'ui/frame';
 import { StackLayout } from "ui/layouts/stack-layout";
 import { PurchaseRow } from "./budget.service";
+import * as application from 'application';
 
 export enum ModalTypes {
     NewPurchase = 'newPurchase',
@@ -45,6 +46,7 @@ export class DialogService {
     }
 
     private fadeIn() {
+        this.setBackButtonCallback();
         this.modalBackground.opacity = 0;
         this.modalForeground.opacity = 0;
         this.modalBackground.visibility = "visible";
@@ -59,6 +61,7 @@ export class DialogService {
     }
 
     public fadeOut() {
+        this.removeBackButtonCallback();
         this.modalBackground.opacity = 0.5;
         this.modalForeground.opacity = 1;
         const fadeInterval = setInterval(() => {
@@ -70,5 +73,16 @@ export class DialogService {
                 clearInterval(fadeInterval);
             }
         }, 5);
+    }
+
+    public setBackButtonCallback() {
+        application.android.on(application.AndroidApplication.activityBackPressedEvent, (args: any) => {
+            args.cancel = true;
+            this.fadeOut();
+        });
+    }
+
+    public removeBackButtonCallback() {
+        application.android.removeEventListener(application.AndroidApplication.activityBackPressedEvent);
     }
 }
