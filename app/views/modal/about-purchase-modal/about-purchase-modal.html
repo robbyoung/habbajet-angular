@@ -1,10 +1,12 @@
 <StackLayout class="noTopPadding">
     <Label text="Review Purchase" class="heading"></Label>
-    <GridLayout rows="auto, auto", columns="auto, *" class="infoContainer">
-        <label row="0" col="0" text="Name:"></label>
-        <label row="0" col="1" [text]="purchaseName"></label>
-        <label row="1" col="0" text="Cost:"></label>
-        <label row="1" col="1" [text]="purchaseCost"></label>
+    <GridLayout rows="auto, auto, auto, auto", columns="75, *" class="infoContainer">
+        <label row="0" col="0" text="Name:" className="title"></label>
+        <label row="0" col="1" [text]="purchaseName" className="entry"></label>
+        <label row="1" col="0" text="Cost:" className="title"></label>
+        <label row="1" col="1" [text]="purchaseCost" className="entry"></label>
+        <label row="2" col="0" text="Date:" className="title"></label>
+        <label row="3" col="0" colSpan="2" [text]="purchaseDate" className="entry"></label>
     </GridLayout>
     <GridLayout columns="*,auto,*, auto,*">
         <Button col="1" (onTap)="onEditTap()" text="Edit" class="button"></Button>

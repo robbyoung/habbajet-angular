@@ -11,6 +11,7 @@ import { PurchaseRow } from "../../../services/budget.service";
 export class AboutPurchaseModalComponent {
     public purchaseName: string;
     public purchaseCost: string;
+    public purchaseDate: string;
 
     constructor (private dialogService: DialogService) {
         this.dialogService.onAboutPurchasePopup = (purchase: PurchaseRow) => { this.onPopup(purchase); };
@@ -19,6 +20,7 @@ export class AboutPurchaseModalComponent {
     public onPopup(purchase: PurchaseRow) {
         this.purchaseName = purchase.name;
         this.purchaseCost = purchase.cost;
+        this.purchaseDate = purchase.absoluteDateString;
     }
 
     public onEditTap() {

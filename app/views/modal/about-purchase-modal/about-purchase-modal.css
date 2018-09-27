@@ -19,6 +19,10 @@
     font-size: 20;
 }
 
+.title {
+    font-weight: bold;
+}
+
 .button {
     background-color: #db4848;
     color: #F5F5F5;
