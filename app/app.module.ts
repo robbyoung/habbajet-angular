@@ -28,6 +28,7 @@ import { EmptyTabComponent } from "./views/habbajet-tab-view/empty-tab/empty-tab
 import { ModalComponent } from "./views/modal/modal.component";
 import { NewPurchaseModalComponent } from "./views/modal/new-purchase-modal/new-purchase-modal.component";
 import { AboutPurchaseModalComponent } from "./views/modal/about-purchase-modal/about-purchase-modal.component";
+import { DeletePurchaseModalComponent } from "./views/modal/delete-purchase-modal/delete-purchase-modal.component";
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { AboutPurchaseModalComponent } from "./views/modal/about-purchase-modal/
     ModalComponent,
     NewPurchaseModalComponent,
     AboutPurchaseModalComponent,
+    DeletePurchaseModalComponent,
   ],
   providers: [
     HabbajetService,

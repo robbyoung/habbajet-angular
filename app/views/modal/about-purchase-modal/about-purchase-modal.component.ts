@@ -9,6 +9,7 @@ import { PurchaseRow } from "../../../services/budget.service";
 })
 
 export class AboutPurchaseModalComponent {
+    public purchase: PurchaseRow;
     public purchaseName: string;
     public purchaseCost: string;
     public purchaseDate: string;
@@ -18,6 +19,7 @@ export class AboutPurchaseModalComponent {
     }
 
     public onPopup(purchase: PurchaseRow) {
+        this.purchase = purchase;
         this.purchaseName = purchase.name;
         this.purchaseCost = purchase.cost;
         this.purchaseDate = purchase.absoluteDateString;
@@ -28,6 +30,6 @@ export class AboutPurchaseModalComponent {
     }
 
     public onDeleteTap() {
-
+        this.dialogService.deletePurchaseDialog(this.purchase);
     }
 }

@@ -6,5 +6,8 @@
         <StackLayout [visibility]="modalTypeObject.type === 'aboutPurchase' ? 'visible' : 'collapsed'">
             <about-purchase-modal></about-purchase-modal>
         </StackLayout>
+        <StackLayout [visibility]="modalTypeObject.type === 'deletePurchase' ? 'visible' : 'collapsed'">
+            <delete-purchase-modal></delete-purchase-modal>
+        </StackLayout>
     </GridLayout>
 </StackLayout>

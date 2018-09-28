@@ -7,6 +7,7 @@ import * as application from 'application';
 export enum ModalTypes {
     NewPurchase = 'newPurchase',
     AboutPurchase = 'aboutPurchase',
+    DeletePurchase = 'deletePurchase',
 }
 
 @Injectable()
@@ -17,6 +18,7 @@ export class DialogService {
 
     public onNewPurchasePopup: () => void;
     public onAboutPurchasePopup: (purchase: PurchaseRow) => void;
+    public onDeletePurchasePopup: (purchase: PurchaseRow) => void;
 
     constructor() {
         const modalFindingInterval = setInterval(() => {
@@ -45,6 +47,11 @@ export class DialogService {
         this.fadeIn();   
     }
 
+    public deletePurchaseDialog(purchase: PurchaseRow) {
+        this.modalStateObject.type = ModalTypes.DeletePurchase;
+        this.onDeletePurchasePopup(purchase);
+    }
+
     private fadeIn() {
         this.setBackButtonCallback();
         this.modalBackground.opacity = 0;
@@ -57,7 +64,7 @@ export class DialogService {
             if(this.modalForeground.opacity >= 1) {
                 clearInterval(fadeInterval);
             }
-        }, 5);
+        }, 2);
     }
 
     public fadeOut() {
@@ -72,7 +79,7 @@ export class DialogService {
                 this.modalForeground.visibility = "collapse";
                 clearInterval(fadeInterval);
             }
-        }, 5);
+        }, 2);
     }
 
     public setBackButtonCallback() {

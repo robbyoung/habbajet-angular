@@ -11,16 +11,11 @@
     border-top-right-radius: 10;
 }
 
-.infoContainer {
-    padding-left: 20;
-    padding-right: 20;
-    padding-top: 5;
-    padding-bottom: 5;
+.message {
+    padding-top: 40;
+    padding-bottom: 20;
     font-size: 20;
-}
-
-.title {
-    font-weight: bold;
+    text-align: center;
 }
 
 .button {
