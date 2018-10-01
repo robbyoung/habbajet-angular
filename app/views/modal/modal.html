@@ -1,12 +1,12 @@
 <StackLayout>
     <GridLayout id="modalForeground" class="modal" (onTap)="onModalTap()" visibility="collapsed">
-        <StackLayout [visibility]="modalTypeObject.type === 'newPurchase' ? 'visible' : 'collapsed'">
+        <StackLayout *ngIf="modalTypeObject.type === 'newPurchase'">
             <new-purchase-modal></new-purchase-modal>
         </StackLayout>
-        <StackLayout [visibility]="modalTypeObject.type === 'aboutPurchase' ? 'visible' : 'collapsed'">
+        <StackLayout *ngIf="modalTypeObject.type === 'aboutPurchase'">
             <about-purchase-modal></about-purchase-modal>
         </StackLayout>
-        <StackLayout [visibility]="modalTypeObject.type === 'deletePurchase' ? 'visible' : 'collapsed'">
+        <StackLayout *ngIf="modalTypeObject.type === 'deletePurchase'">
             <delete-purchase-modal></delete-purchase-modal>
         </StackLayout>
     </GridLayout>

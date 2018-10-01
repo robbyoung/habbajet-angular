@@ -5,6 +5,7 @@ import { PurchaseRow } from "./budget.service";
 import * as application from 'application';
 
 export enum ModalTypes {
+    None = 'none',
     NewPurchase = 'newPurchase',
     AboutPurchase = 'aboutPurchase',
     DeletePurchase = 'deletePurchase',
@@ -16,9 +17,7 @@ export class DialogService {
     private modalForeground: StackLayout;
     public modalStateObject: { type: ModalTypes };
 
-    public onNewPurchasePopup: () => void;
-    public onAboutPurchasePopup: (purchase: PurchaseRow) => void;
-    public onDeletePurchasePopup: (purchase: PurchaseRow) => void;
+    public activePurchase: PurchaseRow;
 
     constructor() {
         const modalFindingInterval = setInterval(() => {
@@ -32,24 +31,22 @@ export class DialogService {
                 clearInterval(modalFindingInterval);
             }
         }, 0);
-        this.modalStateObject = { type: ModalTypes.AboutPurchase };
+        this.modalStateObject = { type: ModalTypes.None };
     }
 
     public newPurchaseDialog() {
         this.modalStateObject.type = ModalTypes.NewPurchase;
-        this.onNewPurchasePopup();
         this.fadeIn();   
     }
 
     public aboutPurchaseDialog(purchase: PurchaseRow) {
+        this.activePurchase = purchase;
         this.modalStateObject.type = ModalTypes.AboutPurchase;
-        this.onAboutPurchasePopup(purchase);
         this.fadeIn();   
     }
 
-    public deletePurchaseDialog(purchase: PurchaseRow) {
+    public deletePurchaseDialog() {
         this.modalStateObject.type = ModalTypes.DeletePurchase;
-        this.onDeletePurchasePopup(purchase);
     }
 
     private fadeIn() {
@@ -77,6 +74,7 @@ export class DialogService {
             if(this.modalForeground.opacity <= 0) {
                 this.modalBackground.visibility = "collapse";
                 this.modalForeground.visibility = "collapse";
+                this.modalStateObject.type = ModalTypes.None;
                 clearInterval(fadeInterval);
             }
         }, 2);

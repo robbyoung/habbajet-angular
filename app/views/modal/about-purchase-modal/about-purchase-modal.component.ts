@@ -15,14 +15,10 @@ export class AboutPurchaseModalComponent {
     public purchaseDate: string;
 
     constructor (private dialogService: DialogService) {
-        this.dialogService.onAboutPurchasePopup = (purchase: PurchaseRow) => { this.onPopup(purchase); };
-    }
-
-    public onPopup(purchase: PurchaseRow) {
-        this.purchase = purchase;
-        this.purchaseName = purchase.name;
-        this.purchaseCost = purchase.cost;
-        this.purchaseDate = purchase.absoluteDateString;
+        this.purchase = this.dialogService.activePurchase;
+        this.purchaseName = this.purchase.name;
+        this.purchaseCost = this.purchase.cost;
+        this.purchaseDate = this.purchase.absoluteDateString;
     }
 
     public onEditTap() {
@@ -30,6 +26,6 @@ export class AboutPurchaseModalComponent {
     }
 
     public onDeleteTap() {
-        this.dialogService.deletePurchaseDialog(this.purchase);
+        this.dialogService.deletePurchaseDialog();
     }
 }

@@ -19,23 +19,17 @@ export class NewPurchaseModalComponent {
 
     constructor (private validationService: ValidationService, private dialogService: DialogService, private budgetService: BudgetService) {
         this.errorMessage = '';
-        this.dialogService.onNewPurchasePopup = () => { this.onPopup(); };
         const fieldFindingInterval = setInterval(() => {
             if (frame.topmost().currentPage && frame.topmost().currentPage.getViewById('newPurchaseCostField')) {
                 this.nameField  = frame.topmost().currentPage.getViewById('newPurchaseNameField');
                 this.costField  = frame.topmost().currentPage.getViewById('newPurchaseCostField');
                 this.nameField.text = '';
                 this.costField.text = '';
+                this.errorMessage = '';
+                this.nameField.focus();
                 clearInterval(fieldFindingInterval);
             }
         }, 0);
-    }
-
-    public onPopup() {
-        this.nameField.text = '';
-        this.costField.text = '';
-        this.errorMessage = '';
-        this.nameField.focus();
     }
 
     public onSubmitTap() {

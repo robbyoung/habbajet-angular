@@ -12,11 +12,7 @@ export class DeletePurchaseModalComponent {
     private purchase: PurchaseRow;
 
     constructor (private dialogService: DialogService, private budgetService: BudgetService) {
-        this.dialogService.onDeletePurchasePopup = (purchase: PurchaseRow) => { this.onPopup(purchase); };
-    }
-
-    public onPopup(purchase: PurchaseRow) {
-        this.purchase = purchase;
+        this.purchase = dialogService.activePurchase;
     }
 
     public onConfirmTap() {
