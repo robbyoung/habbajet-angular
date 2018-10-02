@@ -1,18 +1,18 @@
-import { Injectable } from "@angular/core";
-import { ImageState, ImageService } from "./images.service";
-import { HabbajetCheckbox, CheckboxService, Day, Checkmark } from "./checkbox.service";
+import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
-import { TabService } from "./tab.service";
-import { BudgetService } from "./budget.service";
-import { SavingService } from "./saving.service";
+import { BudgetService } from './budget.service';
+import { CheckboxService, Checkmark, Day, HabbajetCheckbox } from './checkbox.service';
+import { ImageService, ImageState } from './images.service';
+import { SavingService } from './saving.service';
+import { TabService } from './tab.service';
 
 export enum ButtonImages {
-    Positive = "~/images/checkboxes/1false.png",
-    Negative = "~/images/checkboxes/2false.png",
-    PositiveSelected = "~/images/checkboxes/1false.png",
-    NegativeSelected = "~/images/checkboxes/2false.png",
-    PositiveIgnored = "~/images/checkboxes/0false.png",
-    NegativeIgnored = "~/images/checkboxes/0false.png",
+    Positive = '~/images/checkboxes/1false.png',
+    Negative = '~/images/checkboxes/2false.png',
+    PositiveSelected = '~/images/checkboxes/1false.png',
+    NegativeSelected = '~/images/checkboxes/2false.png',
+    PositiveIgnored = '~/images/checkboxes/0false.png',
+    NegativeIgnored = '~/images/checkboxes/0false.png',
 }
 
 export interface HabbajetInfo  {
@@ -35,14 +35,15 @@ class Habbajet {
     public image: ImageState;
     public buttons: HabbajetButtons;
 
-    constructor(public name: string, public state: number, public color: string, public info: HabbajetInfo, public checkboxes: HabbajetCheckbox[]) {
+    constructor(public name: string, public state: number, public color: string,
+                public info: HabbajetInfo, public checkboxes: HabbajetCheckbox[]) {
         this.image = new ImageState(state, color);
         this.id = Math.random() * 1000000 + '';
         this.buttons = {
             positiveSrc: ButtonImages.Positive,
             negativeSrc: ButtonImages.Negative,
             locked: false,
-        }
+        };
     }
 }
 
@@ -52,7 +53,8 @@ export class HabbajetService {
     private numDeleted: number;
 
     constructor(private imageService: ImageService, private checkboxService: CheckboxService,
-            private tabService: TabService, private budgetService: BudgetService, private savingService: SavingService) {
+                private tabService: TabService, private budgetService: BudgetService,
+                private savingService: SavingService) {
         this.habbajetList = [];
         this.savingService.loadHabbajetList(this);
         this.tabService.initialiseTabs(_.map(this.habbajetList, (habbajet: Habbajet) => habbajet.id));
@@ -61,8 +63,8 @@ export class HabbajetService {
         this.budgetService.onPurchaseCallback = () => {
             _.each(this.habbajetList, (habbajet) => {
                 this.budgetService.setExpectedPayout(habbajet.info, habbajet.checkboxes);
-            })
-        }
+            });
+        };
     }
 
     public habbajetExists(id: string): boolean {
@@ -70,12 +72,6 @@ export class HabbajetService {
             return habbajet.id === id;
         });
         return match !== undefined;
-    }
-
-    private getHabbajet(id: string) {
-        return _.find(this.habbajetList, (habbajet: Habbajet) => {
-            return habbajet.id === id;
-        });
     }
 
     public getHabbajetCount(): number {
@@ -131,37 +127,31 @@ export class HabbajetService {
     }
 
     public evolve(id: string) {
-        if(this.habbajetExists(id)) {
+        if (this.habbajetExists(id)) {
             this.imageService.evolve(this.getHabbajet(id).image);
             this.savingService.saveHabbajetList(this.habbajetList);
         }
     }
 
-    private resetImageState(habbajet: Habbajet) {
-        if(habbajet && habbajet.image) {
-            this.imageService.reset(habbajet.image);
-        }
-    }
-
     public action(id: string) {
-        if(this.habbajetExists(id)) {
+        if (this.habbajetExists(id)) {
             this.imageService.action(this.getHabbajet(id).image);
         }
     }
 
     public selectCheckbox(id: string) {
-        if(this.habbajetExists(id)) {
+        if (this.habbajetExists(id)) {
             const habbajet = this.getHabbajet(id);
             this.setButtonImages(habbajet);
         }
     }
 
     public setCheckmark(id: string, checkmark: Checkmark): boolean {
-        if(this.habbajetExists(id)) {
+        if (this.habbajetExists(id)) {
             const habbajet = this.getHabbajet(id);
-            if(habbajet.image.action !== 't') {
+            if (habbajet.image.action !== 't') {
                 const activeCheckbox = _.find(habbajet.checkboxes, (c: HabbajetCheckbox) => c.active);
-                if(activeCheckbox !== undefined) {
+                if (activeCheckbox !== undefined) {
                     activeCheckbox.checkmark = checkmark;
                     this.budgetService.setExpectedPayout(habbajet.info, habbajet.checkboxes);
                     this.updateBudgetIfNecessary(habbajet);
@@ -174,14 +164,6 @@ export class HabbajetService {
         return false;
     }
 
-    private updateBudgetIfNecessary(habbajet: Habbajet) {
-        const checkboxes = habbajet.checkboxes;
-        if(_.every(checkboxes, (c: HabbajetCheckbox) => c.checkmark !== Checkmark.None)) {
-            this.resetImageState(habbajet);
-            this.budgetService.addToBudgetWithHabbajet(habbajet.info, checkboxes);
-        }
-    }
-
     public newHabbajet(name: string, value: number, factor: number, slack: number, color: string) {
 
         const checkboxes = this.checkboxService.getCurrentWeek();
@@ -192,7 +174,7 @@ export class HabbajetService {
             value,
             factor,
             slack,
-        }
+        };
 
         this.budgetService.setExpectedPayout(info, checkboxes);
         const habbajet = new Habbajet(name, 0, color, info, checkboxes);
@@ -203,19 +185,19 @@ export class HabbajetService {
     }
 
     public newHabbajetFromSave(name: string, state: number, value: number, factor: number, slack: number, color: string,
-            streak: number, checkboxes: HabbajetCheckbox[], startOfWeek: string) {
-        
+                               streak: number, checkboxes: HabbajetCheckbox[], startOfWeek: string) {
+
         const info: HabbajetInfo = {
             streak,
             value,
             factor,
             slack,
             expectedPayout: '',
-        }
+        };
 
         let stateToUse = state;
         let checkboxesToUse: HabbajetCheckbox[];
-        if(this.checkboxService.isCurrentWeek(startOfWeek)) {
+        if (this.checkboxService.isCurrentWeek(startOfWeek)) {
             checkboxesToUse = checkboxes;
         } else {
             const numUnmarked = _.filter(checkboxes, (checkbox: HabbajetCheckbox) => {
@@ -228,7 +210,7 @@ export class HabbajetService {
             checkboxesToUse = this.checkboxService.getCurrentWeek();
             stateToUse = 0;
         }
-        
+
         this.budgetService.setExpectedPayout(info, checkboxesToUse);
         const habbajet = new Habbajet(name, stateToUse, color, info, checkboxesToUse);
         this.habbajetList.push(habbajet);
@@ -237,6 +219,69 @@ export class HabbajetService {
 
     public updateButtonImages(id: string) {
         this.setButtonImages(this.getHabbajet(id));
+    }
+
+    public deleteHabbajet(id: string) {
+        if (this.habbajetExists(id)) {
+            const habbajetIndex = _.findIndex(this.habbajetList, (habbajet) => {
+                return habbajet.id === id;
+            });
+            this.habbajetList.splice(habbajetIndex, 1);
+            this.savingService.saveHabbajetList(this.habbajetList);
+            this.tabService.removeHabbajetTab(habbajetIndex + 1);
+        }
+    }
+
+    public updateStreak(info: HabbajetInfo, checkboxes: HabbajetCheckbox[], includeUnmarked: boolean) {
+        let slackLeft = info.slack;
+        let incrementStreak: boolean;
+        let streakReset: boolean = false;
+        _.each (checkboxes, (checkbox: HabbajetCheckbox) => {
+            if (checkbox.checkmark === Checkmark.Positive) {
+                if (streakReset) {
+                    info.streak++;
+                } else {
+                    incrementStreak = true;
+                }
+            } else if (checkbox.checkmark === Checkmark.Negative || includeUnmarked) {
+                slackLeft--;
+                if (slackLeft < 0) {
+                    incrementStreak = false;
+                    info.streak = 0;
+                    streakReset = true;
+                } else {
+                    if (streakReset) {
+                        info.streak++;
+                    } else {
+                        incrementStreak = true;
+                    }
+                }
+            }
+        });
+
+        if (incrementStreak) {
+            info.streak++;
+        }
+    }
+
+    private getHabbajet(id: string) {
+        return _.find(this.habbajetList, (habbajet: Habbajet) => {
+            return habbajet.id === id;
+        });
+    }
+
+    private resetImageState(habbajet: Habbajet) {
+        if (habbajet && habbajet.image) {
+            this.imageService.reset(habbajet.image);
+        }
+    }
+
+    private updateBudgetIfNecessary(habbajet: Habbajet) {
+        const checkboxes = habbajet.checkboxes;
+        if (_.every(checkboxes, (c: HabbajetCheckbox) => c.checkmark !== Checkmark.None)) {
+            this.resetImageState(habbajet);
+            this.budgetService.addToBudgetWithHabbajet(habbajet.info, checkboxes);
+        }
     }
 
     private setButtonImages(habbajet: Habbajet) {
@@ -257,61 +302,18 @@ export class HabbajetService {
             buttons.locked = selectedCheckbox.checkmark !== Checkmark.None;
 
             switch (selectedCheckbox.checkmark) {
-                case Checkmark.Positive: 
+                case Checkmark.Positive:
                     buttons.positiveSrc = ButtonImages.PositiveSelected;
                     buttons.negativeSrc = ButtonImages.NegativeIgnored;
                     break;
-                case Checkmark.Negative: 
+                case Checkmark.Negative:
                     buttons.positiveSrc = ButtonImages.PositiveIgnored;
                     buttons.negativeSrc = ButtonImages.NegativeSelected;
                     break;
-                default: 
+                default:
                     buttons.positiveSrc = ButtonImages.Positive;
                     buttons.negativeSrc = ButtonImages.Negative;
             }
-        }
-    }
-
-    public deleteHabbajet(id: string) {
-        if(this.habbajetExists(id)) {
-            const habbajetIndex = _.findIndex(this.habbajetList, (habbajet) => {
-                return habbajet.id === id;
-            });
-            this.habbajetList.splice(habbajetIndex, 1);
-            this.savingService.saveHabbajetList(this.habbajetList);
-            this.tabService.removeHabbajetTab(habbajetIndex + 1);
-        }
-    }
-
-    public updateStreak(info: HabbajetInfo, checkboxes: HabbajetCheckbox[], includeUnmarked: boolean) {
-        let slackLeft = info.slack;
-        let incrementStreak: boolean;
-        let streakReset: boolean = false;
-        _.each (checkboxes, (checkbox: HabbajetCheckbox) => {
-            if (checkbox.checkmark === Checkmark.Positive) {
-                if(streakReset) {
-                    info.streak++;
-                } else {
-                    incrementStreak = true;
-                }
-            } else if(checkbox.checkmark === Checkmark.Negative || includeUnmarked) {
-                slackLeft--;
-                if (slackLeft < 0) {
-                    incrementStreak = false;
-                    info.streak = 0;
-                    streakReset = true;
-                } else {
-                    if(streakReset) {
-                        info.streak++;
-                    } else {
-                        incrementStreak = true;
-                    }
-                }
-            }
-        });
-
-        if (incrementStreak) {
-            info.streak++;
         }
     }
 }

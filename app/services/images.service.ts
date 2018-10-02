@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { frameCounts } from '../frame-counts';
 
-export const checkboxImagePrefix = "~/images/checkboxes/";
+export const checkboxImagePrefix = '~/images/checkboxes/';
 
 export class ImageState {
     public frame: number;
@@ -14,7 +14,7 @@ export class ImageState {
         this.action = 'i';
         this.refreshImageUrl();
     }
-    
+
     public refreshImageUrl() {
         this.imageUrl = '~/images/habbajets/' + this.color + '/' + this.action + this.state + '-' + this.frame + '.png';
     }
@@ -31,7 +31,7 @@ export class ImageService {
     public nextState(imageState: ImageState) {
         imageState.frame++;
         const numFrames = frameCounts(imageState.action + imageState.state);
-        
+
         if (numFrames <= imageState.frame) {
             imageState.frame = 0;
             imageState.action = 'i';
@@ -41,7 +41,7 @@ export class ImageService {
     }
 
     public evolve(imageState: ImageState) {
-        if(imageState.action !== 't') {
+        if (imageState.action !== 't') {
             imageState.action = 't';
             imageState.frame = -1;
             imageState.state = (imageState.state + 1) % 7;
@@ -49,7 +49,7 @@ export class ImageService {
     }
 
     public reset(imageState: ImageState) {
-        if(imageState.action !== 't') {
+        if (imageState.action !== 't') {
             imageState.action = 't';
             imageState.frame = -1;
             imageState.state = 0;
@@ -57,14 +57,14 @@ export class ImageService {
     }
 
     public action(imageState: ImageState) {
-        let randActionNum = Math.round(Math.random() * this.numActionTypes);
+        const randActionNum = Math.round(Math.random() * this.numActionTypes);
         let action = 'a';
-        switch(randActionNum) {
+        switch (randActionNum) {
             case 0: action = 'a'; break;
             case 1: action = 'b'; break;
         }
 
-        if(frameCounts(action + imageState.state) > 0 && imageState.action !== 't') {
+        if (frameCounts(action + imageState.state) > 0 && imageState.action !== 't') {
             imageState.action = action;
             imageState.frame = -1;
         }
