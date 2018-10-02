@@ -16,7 +16,7 @@ export class HabbajetTabViewComponent {
         const interval = setInterval(() => {
             const page = frame.topmost().currentPage;
             if(page) {
-                page.getViewById('tabView').android.removeViewAt(0);
+                page.getViewById('tabView').android.removeViewAt(1);
                 page.actionBarHidden = true;
                 clearInterval(interval);
             }
