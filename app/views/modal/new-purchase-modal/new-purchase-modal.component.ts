@@ -1,23 +1,24 @@
-import { Component } from "@angular/core";
-import { ValidationService } from "../../../services/validation.service";
-import { DialogService } from "../../../services/dialog.service";
+import { Component } from '@angular/core';
+import * as _ from 'lodash';
 import * as frame from 'ui/frame';
 import {TextField} from 'ui/text-field';
-import { BudgetService } from "../../../services/budget.service";
-import * as _ from 'lodash';
+import { BudgetService } from '../../../services/budget.service';
+import { DialogService } from '../../../services/dialog.service';
+import { ValidationService } from '../../../services/validation.service';
 
 @Component({
-    selector: "new-purchase-modal",
-    templateUrl: "views/modal/new-purchase-modal/new-purchase-modal.html",
-    styleUrls: ["views/modal/new-purchase-modal/new-purchase-modal.css"]
+    selector: 'new-purchase-modal',
+    templateUrl: 'views/modal/new-purchase-modal/new-purchase-modal.html',
+    styleUrls: ['views/modal/new-purchase-modal/new-purchase-modal.css'],
 })
 
 export class NewPurchaseModalComponent {
+    public errorMessage: string;
     private nameField: TextField;
     private costField: TextField;
-    public errorMessage: string;
 
-    constructor (private validationService: ValidationService, private dialogService: DialogService, private budgetService: BudgetService) {
+    constructor(private validationService: ValidationService, private dialogService: DialogService,
+                private budgetService: BudgetService) {
         this.errorMessage = '';
         const fieldFindingInterval = setInterval(() => {
             if (frame.topmost().currentPage && frame.topmost().currentPage.getViewById('newPurchaseCostField')) {
@@ -44,6 +45,6 @@ export class NewPurchaseModalComponent {
             this.budgetService.makePurchase(nameSubmission, _.toNumber(costSubmission));
             this.dialogService.fadeOut();
         }
-        
+
     }
 }

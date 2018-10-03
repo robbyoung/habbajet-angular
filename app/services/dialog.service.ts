@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import * as frame from 'ui/frame';
-import { StackLayout } from "ui/layouts/stack-layout";
-import { PurchaseRow } from "./budget.service";
+import { Injectable } from '@angular/core';
 import * as application from 'application';
+import * as frame from 'ui/frame';
+import { StackLayout } from 'ui/layouts/stack-layout';
+import { PurchaseRow } from './budget.service';
 
 export enum ModalTypes {
     None = 'none',
@@ -13,11 +13,11 @@ export enum ModalTypes {
 
 @Injectable()
 export class DialogService {
+    public modalStateObject: { type: ModalTypes };
+    public activePurchase: PurchaseRow;
+
     private modalBackground: StackLayout;
     private modalForeground: StackLayout;
-    public modalStateObject: { type: ModalTypes };
-
-    public activePurchase: PurchaseRow;
 
     constructor() {
         const modalFindingInterval = setInterval(() => {
@@ -36,32 +36,17 @@ export class DialogService {
 
     public newPurchaseDialog() {
         this.modalStateObject.type = ModalTypes.NewPurchase;
-        this.fadeIn();   
+        this.fadeIn();
     }
 
     public aboutPurchaseDialog(purchase: PurchaseRow) {
         this.activePurchase = purchase;
         this.modalStateObject.type = ModalTypes.AboutPurchase;
-        this.fadeIn();   
+        this.fadeIn();
     }
 
     public deletePurchaseDialog() {
         this.modalStateObject.type = ModalTypes.DeletePurchase;
-    }
-
-    private fadeIn() {
-        this.setBackButtonCallback();
-        this.modalBackground.opacity = 0;
-        this.modalForeground.opacity = 0;
-        this.modalBackground.visibility = "visible";
-        this.modalForeground.visibility = "visible";
-        const fadeInterval = setInterval(() => {
-            this.modalForeground.opacity += 0.04;
-            this.modalBackground.opacity += 0.02;
-            if(this.modalForeground.opacity >= 1) {
-                clearInterval(fadeInterval);
-            }
-        }, 2);
     }
 
     public fadeOut() {
@@ -71,9 +56,9 @@ export class DialogService {
         const fadeInterval = setInterval(() => {
             this.modalForeground.opacity -= 0.04;
             this.modalBackground.opacity -= 0.02;
-            if(this.modalForeground.opacity <= 0) {
-                this.modalBackground.visibility = "collapse";
-                this.modalForeground.visibility = "collapse";
+            if (this.modalForeground.opacity <= 0) {
+                this.modalBackground.visibility = 'collapse';
+                this.modalForeground.visibility = 'collapse';
                 this.modalStateObject.type = ModalTypes.None;
                 clearInterval(fadeInterval);
             }
@@ -81,7 +66,8 @@ export class DialogService {
     }
 
     public setBackButtonCallback() {
-        application.android.on(application.AndroidApplication.activityBackPressedEvent, (args: any) => {
+        application.android.on(application.AndroidApplication.activityBackPressedEvent,
+            (args: application.AndroidActivityBackPressedEventData) => {
             args.cancel = true;
             this.fadeOut();
         });
@@ -89,5 +75,20 @@ export class DialogService {
 
     public removeBackButtonCallback() {
         application.android.removeEventListener(application.AndroidApplication.activityBackPressedEvent);
+    }
+
+    private fadeIn() {
+        this.setBackButtonCallback();
+        this.modalBackground.opacity = 0;
+        this.modalForeground.opacity = 0;
+        this.modalBackground.visibility = 'visible';
+        this.modalForeground.visibility = 'visible';
+        const fadeInterval = setInterval(() => {
+            this.modalForeground.opacity += 0.04;
+            this.modalBackground.opacity += 0.02;
+            if (this.modalForeground.opacity >= 1) {
+                clearInterval(fadeInterval);
+            }
+        }, 2);
     }
 }

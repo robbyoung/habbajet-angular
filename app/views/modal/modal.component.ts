@@ -1,18 +1,21 @@
-import { Component } from "@angular/core";
-import { DialogService, ModalTypes } from "../../services/dialog.service";
+import { Component } from '@angular/core';
+import * as _ from 'lodash';
+import { DialogService, ModalTypes } from '../../services/dialog.service';
 
 @Component({
-    selector: "modal",
-    templateUrl: "views/modal/modal.html",
-    styleUrls: ["views/modal/modal.css"]
+    selector: 'modal',
+    templateUrl: 'views/modal/modal.html',
+    styleUrls: ['views/modal/modal.css'],
 })
 
 export class ModalComponent {
     public modalTypeObject: { type: ModalTypes };
-    
-    constructor (dialogService: DialogService) {
+
+    constructor(dialogService: DialogService) {
         this.modalTypeObject = dialogService.modalStateObject;
     }
 
-    onModalTap() {}
+    public onModalTap() {
+        _.noop();
+    }
 }
