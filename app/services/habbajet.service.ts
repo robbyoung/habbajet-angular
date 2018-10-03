@@ -30,7 +30,7 @@ export interface HabbajetButtons {
     locked: boolean;
 }
 
-class Habbajet {
+export class Habbajet {
     public id: string;
     public image: ImageState;
     public buttons: HabbajetButtons;

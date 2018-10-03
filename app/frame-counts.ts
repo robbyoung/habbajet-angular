@@ -1,5 +1,5 @@
 export function frameCounts(state: string): number {
-  switch(state) {
+  switch (state) {
     case 'a0': return 14;
     case 'a1': return 13;
     case 'a2': return 7;

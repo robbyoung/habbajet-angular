@@ -10,7 +10,7 @@ mkdir app/images/habbajets/yellow
 mkdir app/images/habbajets/purple
 
 echo "export function frameCounts(state: string): number {" > app/frame-counts.ts
-echo "  switch(state) {" >> app/frame-counts.ts
+echo "  switch (state) {" >> app/frame-counts.ts
 
 files=piskel/*.piskel
 for f in $files; do

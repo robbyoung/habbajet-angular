@@ -4,14 +4,14 @@ import * as Moment from 'moment';
 import * as saveObject from 'tns-core-modules/application-settings/application-settings';
 import { ABSOLUTE_DATE_FORMAT, BudgetTabRowType, PurchaseRow } from './budget.service';
 import { CheckboxService, HabbajetCheckbox } from './checkbox.service';
-import { HabbajetInfo, HabbajetService } from './habbajet.service';
+import { Habbajet, HabbajetInfo, HabbajetService } from './habbajet.service';
 import { ImageState } from './images.service';
 
 @Injectable()
 export class SavingService {
     constructor(private checkboxService: CheckboxService) {}
 
-    public saveHabbajetList(habbajetList: any[]) {
+    public saveHabbajetList(habbajetList: Habbajet[]) {
         this.clearHabbajetData();
         _.each(habbajetList, (habbajet, index) => {
             if (habbajet !== undefined) {
