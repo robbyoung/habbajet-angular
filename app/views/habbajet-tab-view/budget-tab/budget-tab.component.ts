@@ -1,11 +1,11 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 import * as _ from 'lodash';
-import { BudgetService, BudgetTabRow } from "../../../services/budget.service";
+import { BudgetService, BudgetTabRow } from '../../../services/budget.service';
 
 @Component({
-    selector: "budget-tab",
-    templateUrl: "views/habbajet-tab-view/budget-tab/budget-tab.html",
-    styleUrls: ["views/habbajet-tab-view/budget-tab/budget-tab.css"]
+    selector: 'budget-tab',
+    templateUrl: 'views/habbajet-tab-view/budget-tab/budget-tab.html',
+    styleUrls: ['views/habbajet-tab-view/budget-tab/budget-tab.css'],
 })
 
 export class BudgetTabComponent {
@@ -13,7 +13,7 @@ export class BudgetTabComponent {
 
     constructor(private budgetService: BudgetService) {}
 
-    ngOnInit() {
+    public ngOnInit() {
         this.purchases = this.budgetService.getPurchases();
     }
 }

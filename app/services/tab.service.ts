@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 const MAX_HABBAJETS = 5;
 
@@ -6,7 +6,7 @@ export enum TabType {
     Habbajet,
     Budget,
     Add,
-    Empty
+    Empty,
 }
 
 export interface TabBinding {
@@ -20,13 +20,11 @@ export class TabService {
 
     public tabList: TabBinding[];
 
-    constructor() {}
-
     public initialiseTabs(habbajetIds: string[]) {
         this.tabList = [];
         this.budgetTabAtIndex(0);
         const numHabbajets = habbajetIds.length;
-        for(let i = 0; i < numHabbajets; i++) {
+        for (let i = 0; i < numHabbajets; i++) {
             this.habbajetTabAtIndex(habbajetIds[i], i + 1);
         }
         if (numHabbajets < MAX_HABBAJETS) {
@@ -41,7 +39,7 @@ export class TabService {
     }
 
     public budgetTabAtIndex(index: number) {
-        if(this.tabList.length <= index) {
+        if (this.tabList.length <= index) {
             this.tabList.push({
                 title: 'Budget',
                 type: TabType.Budget,
@@ -55,7 +53,7 @@ export class TabService {
     }
 
     public habbajetTabAtIndex(id: string, index: number) {
-        if(this.tabList.length <= index) {
+        if (this.tabList.length <= index) {
             this.tabList.push({
                 title: 'Habbajet ' + index,
                 type: TabType.Habbajet,
@@ -69,7 +67,7 @@ export class TabService {
     }
 
     public addTabAtIndex(index: number) {
-        if(this.tabList.length <= index) {
+        if (this.tabList.length <= index) {
             this.tabList.push({
                 title: 'New Habbajet',
                 type: TabType.Add,

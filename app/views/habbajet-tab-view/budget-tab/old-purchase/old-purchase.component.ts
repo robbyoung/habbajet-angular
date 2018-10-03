@@ -1,20 +1,18 @@
-import { Component, Input } from "@angular/core";
-import { BudgetTabRow } from "../../../../services/budget.service";
-import { DialogService } from "../../../../services/dialog.service";
+import { Component, Input } from '@angular/core';
+import { BudgetTabRow } from '../../../../services/budget.service';
+import { DialogService } from '../../../../services/dialog.service';
 
 @Component({
-    selector: "old-purchase",
-    templateUrl: "views/habbajet-tab-view/budget-tab/old-purchase/old-purchase.html",
-    styleUrls: ["views/habbajet-tab-view/budget-tab/old-purchase/old-purchase.css"]
+    selector: 'old-purchase',
+    templateUrl: 'views/habbajet-tab-view/budget-tab/old-purchase/old-purchase.html',
+    styleUrls: ['views/habbajet-tab-view/budget-tab/old-purchase/old-purchase.css'],
 })
 
 export class OldPurchaseComponent {
 
-    @Input() row: BudgetTabRow;
+    @Input() public row: BudgetTabRow;
 
     constructor(private dialogService: DialogService) {}
-
-    ngOnInit() {}
 
     public onPurchaseTap() {
         this.dialogService.aboutPurchaseDialog(this.row);
@@ -39,17 +37,16 @@ export class OldPurchaseComponent {
     //         cancelButtonText: 'Cancel',
     //     });
 
-
     //     if(!promptResponse.result) {
     //         return undefined;
     //     }
-                
+
     //     const errorMessage = this.validationService.validatePurchaseName(promptResponse.text);
     //     if (errorMessage) {
     //         this.showErrorMessage(errorMessage);
     //         return undefined;
     //     }
-        
+
     //     return promptResponse.text;
     // }
 
@@ -64,13 +61,13 @@ export class OldPurchaseComponent {
     //     if(!promptResponse.result) {
     //         return undefined;
     //     }
-                
+
     //     const errorMessage = this.validationService.validatePurchaseCost(promptResponse.text, true);
     //     if (errorMessage) {
     //         this.showErrorMessage(errorMessage);
     //         return undefined;
     //     }
-        
+
     //     return promptResponse.text;
     // }
 

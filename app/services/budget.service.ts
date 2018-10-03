@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { HabbajetInfo } from "./habbajet.service";
+import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
-import { HabbajetCheckbox, Checkmark } from "./checkbox.service";
-import { SavingService } from "./saving.service";
-import * as Moment from "moment";
+import * as Moment from 'moment';
+import { Checkmark, HabbajetCheckbox } from './checkbox.service';
+import { HabbajetInfo } from './habbajet.service';
+import { SavingService } from './saving.service';
 
 const NEGATIVE_BUDGET_MODIFIER = 0.9;
 const MAX_PURCHASE_LIST_LENGTH = 20;
@@ -27,34 +27,35 @@ export interface PurchaseRow {
 
 @Injectable()
 export class BudgetService {
+    public onPurchaseCallback: () => void;
+
     private totalAmount: number;
     private totalAmountString: {
         text: string;
     };
     private budgetTabRows: BudgetTabRow[];
-    public onPurchaseCallback: () => void;
 
     constructor(private savingService: SavingService) {
         this.totalAmount = this.savingService.loadBudget();
         this.totalAmountString = {
             text: '',
-        }
+        };
         this.budgetTabRows = this.savingService.loadPurchases();
         this.updateTotalAmountString();
         this.onPurchaseCallback = _.noop;
     }
 
-    public getTotalAmountString(){
+    public getTotalAmountString() {
         return this.totalAmountString;
     }
 
     public addToBudgetWithHabbajet(info: HabbajetInfo, checkboxes: HabbajetCheckbox[]) {
         let amountToAdd = info.value;
         let slackDaysLeft = info.slack;
-        let penalty = info.factor;
+        const penalty = info.factor;
         _.each(checkboxes, (checkbox) => {
-            if(checkbox.checkmark !== Checkmark.Positive) {
-                if(slackDaysLeft > 0) {
+            if (checkbox.checkmark !== Checkmark.Positive) {
+                if (slackDaysLeft > 0) {
                     slackDaysLeft--;
                 } else {
                     amountToAdd = amountToAdd / penalty;
@@ -71,12 +72,12 @@ export class BudgetService {
 
     public setExpectedPayout(info: HabbajetInfo, checkboxes: HabbajetCheckbox[]) {
         let expectedPayout = info.value;
-        let oldPayout = info.expectedPayout;
+        const oldPayout = info.expectedPayout;
         let slackDaysLeft = info.slack;
-        let penalty = info.factor;
+        const penalty = info.factor;
         _.each(checkboxes, (checkbox) => {
-            if(checkbox.checkmark === Checkmark.Negative) {
-                if(slackDaysLeft > 0) {
+            if (checkbox.checkmark === Checkmark.Negative) {
+                if (slackDaysLeft > 0) {
                     slackDaysLeft--;
                 } else {
                     expectedPayout = expectedPayout / penalty;
@@ -88,7 +89,7 @@ export class BudgetService {
         }
         info.expectedPayout = this.formatMoney(expectedPayout);
 
-        if(this.totalAmount < 0) {
+        if (this.totalAmount < 0) {
             info.expectedPayout += ' (-10%)';
         }
 
@@ -106,14 +107,14 @@ export class BudgetService {
             cost: this.formatMoney(cost),
             date,
             relativeDateString: Moment.unix(date).calendar(),
-            absoluteDateString: Moment.unix(date).format("DD/MM/YY"),
+            absoluteDateString: Moment.unix(date).format('DD/MM/YY'),
         };
 
         this.budgetTabRows.unshift(newPurchase);
-        if(this.budgetTabRows.length > MAX_PURCHASE_LIST_LENGTH) {
+        if (this.budgetTabRows.length > MAX_PURCHASE_LIST_LENGTH) {
             this.budgetTabRows.pop();
         }
-        
+
         this.totalAmount = this.totalAmount - cost;
         this.updateTotalAmountString();
 

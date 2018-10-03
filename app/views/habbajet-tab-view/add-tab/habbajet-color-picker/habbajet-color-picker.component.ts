@@ -1,6 +1,6 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 import * as _ from 'lodash';
-import { ValidationService } from "../../../../services/validation.service";
+import { ValidationService } from '../../../../services/validation.service';
 
 interface ColorBinding {
     name: string;
@@ -8,17 +8,17 @@ interface ColorBinding {
 }
 
 @Component({
-    selector: "habbajet-color-picker",
-    templateUrl: "views/habbajet-tab-view/add-tab/habbajet-color-picker/habbajet-color-picker.html",
-    styleUrls: ["views/habbajet-tab-view/add-tab/habbajet-color-picker/habbajet-color-picker.css"]
+    selector: 'habbajet-color-picker',
+    templateUrl: 'views/habbajet-tab-view/add-tab/habbajet-color-picker/habbajet-color-picker.html',
+    styleUrls: ['views/habbajet-tab-view/add-tab/habbajet-color-picker/habbajet-color-picker.css'],
 })
 
 export class HabbajetColorPickerComponent {
     public colors: ColorBinding[];
-    
+
     constructor(private validationService: ValidationService) {}
 
-    ngOnInit(){
+    public ngOnInit() {
         this.colors = [
             { name: 'red', class: '' },
             { name: 'blue', class: '' },
@@ -29,8 +29,8 @@ export class HabbajetColorPickerComponent {
         this.onColorTap(0);
     }
 
-    onColorTap(index: number) {
-        if(index < 0 || index >= this.colors.length) {
+    public onColorTap(index: number) {
+        if (index < 0 || index >= this.colors.length) {
             return;
         }
 
@@ -38,7 +38,7 @@ export class HabbajetColorPickerComponent {
         this.validationService.validateColor(selectedColor.name);
         _.each(this.colors, (c) => {
             c.class = 'colorChoice ' + c.name +
-                (c.name === selectedColor.name ? ' selected' : '') 
+                (c.name === selectedColor.name ? ' selected' : '');
         });
     }
 }
