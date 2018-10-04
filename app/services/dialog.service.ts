@@ -9,6 +9,7 @@ export enum ModalTypes {
     NewPurchase = 'newPurchase',
     AboutPurchase = 'aboutPurchase',
     DeletePurchase = 'deletePurchase',
+    EditPurchase = 'editPurchase',
 }
 
 @Injectable()
@@ -48,6 +49,10 @@ export class DialogService {
 
     public deletePurchaseDialog() {
         this.modalStateObject.type = ModalTypes.DeletePurchase;
+    }
+
+    public editPurchaseDialog() {
+        this.modalStateObject.type = ModalTypes.EditPurchase;
     }
 
     public fadeIn() {
@@ -93,7 +98,7 @@ export class DialogService {
         application.android.removeEventListener(application.AndroidApplication.activityBackPressedEvent);
     }
 
-    public prayToAngular() {
+    private prayToAngular() {
         setInterval(() => {
             this.modalStateObject.type = this.modalStateObject.type;
         }, 10);

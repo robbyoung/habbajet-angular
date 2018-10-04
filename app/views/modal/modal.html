@@ -9,5 +9,8 @@
         <StackLayout *ngIf="modalTypeObject.type === 'deletePurchase'">
             <delete-purchase-modal></delete-purchase-modal>
         </StackLayout>
+        <StackLayout *ngIf="modalTypeObject.type === 'editPurchase'">
+            <edit-purchase-modal></edit-purchase-modal>
+        </StackLayout>
     </GridLayout>
 </StackLayout>

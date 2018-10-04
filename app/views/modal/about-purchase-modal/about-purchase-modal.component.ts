@@ -23,7 +23,7 @@ export class AboutPurchaseModalComponent {
     }
 
     public onEditTap() {
-        _.noop();
+        this.dialogService.editPurchaseDialog();
     }
 
     public onDeleteTap() {

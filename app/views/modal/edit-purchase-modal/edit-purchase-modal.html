@@ -1,0 +1,11 @@
+<StackLayout class="noTopPadding">
+    <Label text="Edit Purchase" class="heading"></Label>
+    <GridLayout rows="auto, auto", columns="auto, *" class="inputsContainer">
+        <label row="0" col="0" text="Name:" class="fieldTitle"></label>
+        <TextField row="0" col="1" id="purchaseNameField"></TextField>
+        <label row="1" col="0" text="Cost:" class="fieldTitle"></label>
+        <TextField row="1" col="1" id="purchaseCostField"></TextField>
+    </GridLayout>
+    <Label [text]="errorMessage" class="errorMessage"></Label>
+    <Button (onTap)="onSubmitTap()" text="Submit" class="submitButton"></Button>
+</StackLayout>
