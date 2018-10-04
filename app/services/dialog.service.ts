@@ -32,6 +32,7 @@ export class DialogService {
             }
         }, 0);
         this.modalStateObject = { type: ModalTypes.None };
+        this.prayToAngular();
     }
 
     public newPurchaseDialog() {
@@ -49,6 +50,21 @@ export class DialogService {
         this.modalStateObject.type = ModalTypes.DeletePurchase;
     }
 
+    public fadeIn() {
+        this.setBackButtonCallback();
+        this.modalBackground.opacity = 0;
+        this.modalForeground.opacity = 0;
+        this.modalBackground.visibility = 'visible';
+        this.modalForeground.visibility = 'visible';
+        const fadeInterval = setInterval(() => {
+            this.modalForeground.opacity += 0.04;
+            this.modalBackground.opacity += 0.02;
+            if (this.modalForeground.opacity >= 1) {
+                clearInterval(fadeInterval);
+            }
+        }, 2);
+    }
+
     public fadeOut() {
         this.removeBackButtonCallback();
         this.modalBackground.opacity = 0.5;
@@ -57,9 +73,9 @@ export class DialogService {
             this.modalForeground.opacity -= 0.04;
             this.modalBackground.opacity -= 0.02;
             if (this.modalForeground.opacity <= 0) {
+                this.modalStateObject.type = ModalTypes.None;
                 this.modalBackground.visibility = 'collapse';
                 this.modalForeground.visibility = 'collapse';
-                this.modalStateObject.type = ModalTypes.None;
                 clearInterval(fadeInterval);
             }
         }, 2);
@@ -77,18 +93,9 @@ export class DialogService {
         application.android.removeEventListener(application.AndroidApplication.activityBackPressedEvent);
     }
 
-    private fadeIn() {
-        this.setBackButtonCallback();
-        this.modalBackground.opacity = 0;
-        this.modalForeground.opacity = 0;
-        this.modalBackground.visibility = 'visible';
-        this.modalForeground.visibility = 'visible';
-        const fadeInterval = setInterval(() => {
-            this.modalForeground.opacity += 0.04;
-            this.modalBackground.opacity += 0.02;
-            if (this.modalForeground.opacity >= 1) {
-                clearInterval(fadeInterval);
-            }
-        }, 2);
+    public prayToAngular() {
+        setInterval(() => {
+            this.modalStateObject.type = this.modalStateObject.type;
+        }, 10);
     }
 }
