@@ -10,12 +10,18 @@ export enum ModalTypes {
     AboutPurchase = 'aboutPurchase',
     DeletePurchase = 'deletePurchase',
     EditPurchase = 'editPurchase',
+    Alert = 'alert',
 }
 
 @Injectable()
 export class DialogService {
     public modalStateObject: { type: ModalTypes };
     public activePurchase: PurchaseRow;
+    public alertContents: {
+        title: string;
+        text: string;
+        okButtonText: string;
+    };
 
     private modalBackground: StackLayout;
     private modalForeground: StackLayout;
@@ -53,6 +59,16 @@ export class DialogService {
 
     public editPurchaseDialog() {
         this.modalStateObject.type = ModalTypes.EditPurchase;
+    }
+
+    public alertDialog(title: string, text: string, okButtonText: string) {
+        this.alertContents = {
+            title,
+            text,
+            okButtonText,
+        };
+        this.modalStateObject.type = ModalTypes.Alert;
+        this.fadeIn();
     }
 
     public fadeIn() {

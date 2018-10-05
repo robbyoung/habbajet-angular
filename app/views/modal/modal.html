@@ -12,5 +12,8 @@
         <StackLayout *ngIf="modalTypeObject.type === 'editPurchase'">
             <edit-purchase-modal></edit-purchase-modal>
         </StackLayout>
+        <StackLayout *ngIf="modalTypeObject.type === 'alert'">
+            <alert-modal></alert-modal>
+        </StackLayout>
     </GridLayout>
 </StackLayout>

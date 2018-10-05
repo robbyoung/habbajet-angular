@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import { BudgetService } from './budget.service';
+import { DialogService } from './dialog.service';
 import { HabbajetService } from './habbajet.service';
 
 interface HabbajetSubmission {
@@ -11,10 +12,10 @@ interface HabbajetSubmission {
     color: string;
 }
 
-const NAME_ERROR: string = 'Habbajet name is invalid';
-const VALUE_ERROR: string = 'Habbajet value is invalid';
-const SLACK_ERROR: string = 'Habbajet slack is invalid';
-const FACTOR_ERROR: string = 'Habbajet factor is invalid';
+const NAME_ERROR: string = 'Habbajet name must be between 1 and 20 characters long.';
+const VALUE_ERROR: string = 'Habbajet value must be a number between 1 and 10,000.';
+const SLACK_ERROR: string = 'Habbajet slack must be a number between 0 and 6.';
+const FACTOR_ERROR: string = 'Habbajet factor must be a number between 1 and 10.';
 const COLOR_ERROR: string = 'Habbajet color is invalid';
 const VALID_SUBMISSION: string = 'Habbajet properties are valid';
 
@@ -26,7 +27,8 @@ export class ValidationService {
     public submitButtonColor: { color: string };
     private currentSubmission: HabbajetSubmission;
 
-    constructor(private habbajetService: HabbajetService, private budgetService: BudgetService) {
+    constructor(private habbajetService: HabbajetService, private budgetService: BudgetService,
+                private dialogService: DialogService) {
         this.resetCurrentSubmission();
     }
 
@@ -101,7 +103,10 @@ export class ValidationService {
             );
             this.resetCurrentSubmission();
         } else {
-            alert(result);
+            this.dialogService.alertDialog(
+                'Invalid Submission',
+                result,
+                'OK');
         }
     }
 

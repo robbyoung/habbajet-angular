@@ -1,0 +1,7 @@
+<StackLayout class="noTopPadding">
+    <Label [text]="title" class="heading"></Label>
+    <StackLayout class="textContainer">
+        <label [text]="text" class="text" textWrap="true"></label>
+    </StackLayout>
+    <Button (onTap)="onOkTap()" [text]="okButtonText" class="okButton"></Button>
+</StackLayout>
