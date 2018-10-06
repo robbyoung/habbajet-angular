@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import * as dialogs from 'tns-core-modules/ui/dialogs/dialogs';
+import { DialogService } from '../../../../services/dialog.service';
 import { ValidationService } from '../../../../services/validation.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class HabbajetInputBoxComponent {
     public keyboardType: string;
     public buttonColor: {color: string};
 
-    constructor(private validationService: ValidationService) {
+    constructor(private validationService: ValidationService, private dialogService: DialogService) {
         this.buttonColor = this.validationService.submitButtonColor;
     }
 
@@ -34,11 +34,7 @@ export class HabbajetInputBoxComponent {
 
     public displayInfoDialog() {
         const infoText = this.getInfoText();
-        dialogs.alert({
-            title: this.field,
-            message: infoText,
-            okButtonText: 'OK',
-        });
+        this.dialogService.alertDialog(this.field, infoText, 'OK');
     }
 
     private getInfoText() {
