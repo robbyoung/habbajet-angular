@@ -31,19 +31,6 @@ export class HabbajetInfoComponent {
         this.dialogService.habbajetInfoDialog(this.habbajetId);
     }
 
-    public onDeleteTap() {
-        dialogs.confirm({
-            title: 'Delete Habbajet',
-            message: 'This habbajet will be deleted forever.',
-            okButtonText: 'OK',
-            cancelButtonText: 'Cancel',
-        }).then((result) => {
-            if (result) {
-                this.habbajetService.deleteHabbajet(this.habbajetId);
-            }
-        });
-    }
-
     public onExpectedPayoutUpdate(id: string) {
         const page = frame.topmost().currentPage;
         const expectedPayoutLabel = page.getViewById(id) as View;

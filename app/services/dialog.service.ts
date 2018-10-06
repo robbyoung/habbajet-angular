@@ -8,10 +8,15 @@ export enum ModalTypes {
     None = 'none',
     NewPurchase = 'newPurchase',
     AboutPurchase = 'aboutPurchase',
-    DeletePurchase = 'deletePurchase',
     EditPurchase = 'editPurchase',
     Alert = 'alert',
     HabbajetInfo = 'habbajetInfo',
+    Deletion = 'deletion',
+}
+
+export enum DeletionTypes {
+    Habbajet = 'habbajet',
+    Purchase = 'purchase',
 }
 
 @Injectable()
@@ -24,6 +29,7 @@ export class DialogService {
         text: string;
         okButtonText: string;
     };
+    public typeOfDeletion: DeletionTypes;
 
     private modalBackground: StackLayout;
     private modalForeground: StackLayout;
@@ -56,7 +62,13 @@ export class DialogService {
     }
 
     public deletePurchaseDialog() {
-        this.modalStateObject.type = ModalTypes.DeletePurchase;
+        this.typeOfDeletion = DeletionTypes.Purchase;
+        this.modalStateObject.type = ModalTypes.Deletion;
+    }
+
+    public deleteHabbajetDialog() {
+        this.typeOfDeletion = DeletionTypes.Habbajet;
+        this.modalStateObject.type = ModalTypes.Deletion;
     }
 
     public editPurchaseDialog() {

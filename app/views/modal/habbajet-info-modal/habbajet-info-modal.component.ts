@@ -25,6 +25,6 @@ export class HabbajetInfoModalComponent {
     }
 
     public onDeleteTap() {
-        _.noop();
+        this.dialogService.deleteHabbajetDialog();
     }
 }

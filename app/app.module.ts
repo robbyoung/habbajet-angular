@@ -29,7 +29,7 @@ import { HabbajetInfoComponent } from './views/habbajet-tab-view/habbajet-tab/ha
 import { HabbajetTabComponent } from './views/habbajet-tab-view/habbajet-tab/habbajet-tab.component';
 import { AboutPurchaseModalComponent } from './views/modal/about-purchase-modal/about-purchase-modal.component';
 import { AlertModalComponent } from './views/modal/alert-modal/alert-modal.component';
-import { DeletePurchaseModalComponent } from './views/modal/delete-purchase-modal/delete-purchase-modal.component';
+import { DeletionModalComponent } from './views/modal/deletion-modal/deletion-modal.component';
 import { EditPurchaseModalComponent } from './views/modal/edit-purchase-modal/edit-purchase-modal.component';
 import { HabbajetInfoModalComponent } from './views/modal/habbajet-info-modal/habbajet-info-modal.component';
 import { ModalComponent } from './views/modal/modal.component';
@@ -56,7 +56,7 @@ import { NewPurchaseModalComponent } from './views/modal/new-purchase-modal/new-
     ModalComponent,
     NewPurchaseModalComponent,
     AboutPurchaseModalComponent,
-    DeletePurchaseModalComponent,
+    DeletionModalComponent,
     EditPurchaseModalComponent,
     AlertModalComponent,
     HabbajetInfoModalComponent,
