@@ -33,6 +33,7 @@ export class DialogService {
 
     private modalBackground: StackLayout;
     private modalForeground: StackLayout;
+    private fadeLock: boolean;
 
     constructor() {
         const modalFindingInterval = setInterval(() => {
@@ -46,6 +47,7 @@ export class DialogService {
                 clearInterval(modalFindingInterval);
             }
         }, 0);
+        this.fadeLock = false;
         this.modalStateObject = { type: ModalTypes.None };
         this.prayToAngular();
     }
@@ -92,6 +94,11 @@ export class DialogService {
     }
 
     public fadeIn() {
+        if (this.fadeLock) {
+            return;
+        }
+        this.fadeLock = true;
+
         this.setBackButtonCallback();
         this.modalBackground.opacity = 0;
         this.modalForeground.opacity = 0;
@@ -101,12 +108,18 @@ export class DialogService {
             this.modalForeground.opacity += 0.04;
             this.modalBackground.opacity += 0.02;
             if (this.modalForeground.opacity >= 1) {
+                this.fadeLock = false;
                 clearInterval(fadeInterval);
             }
-        }, 2);
+        }, 1);
     }
 
     public fadeOut() {
+        if (this.fadeLock) {
+            return;
+        }
+        this.fadeLock = true;
+
         this.removeBackButtonCallback();
         this.modalBackground.opacity = 0.5;
         this.modalForeground.opacity = 1;
@@ -117,9 +130,10 @@ export class DialogService {
                 this.modalStateObject.type = ModalTypes.None;
                 this.modalBackground.visibility = 'collapse';
                 this.modalForeground.visibility = 'collapse';
+                this.fadeLock = false;
                 clearInterval(fadeInterval);
             }
-        }, 2);
+        }, 1);
     }
 
     public setBackButtonCallback() {

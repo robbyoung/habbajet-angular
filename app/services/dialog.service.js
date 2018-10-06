@@ -41,6 +41,7 @@ var DialogService = /** @class */ (function () {
                 clearInterval(modalFindingInterval);
             }
         }, 0);
+        this.fadeLock = false;
         this.modalStateObject = { type: ModalTypes.None };
         this.prayToAngular();
     }
@@ -80,6 +81,10 @@ var DialogService = /** @class */ (function () {
     };
     DialogService.prototype.fadeIn = function () {
         var _this = this;
+        if (this.fadeLock) {
+            return;
+        }
+        this.fadeLock = true;
         this.setBackButtonCallback();
         this.modalBackground.opacity = 0;
         this.modalForeground.opacity = 0;
@@ -89,12 +94,17 @@ var DialogService = /** @class */ (function () {
             _this.modalForeground.opacity += 0.04;
             _this.modalBackground.opacity += 0.02;
             if (_this.modalForeground.opacity >= 1) {
+                _this.fadeLock = false;
                 clearInterval(fadeInterval);
             }
-        }, 2);
+        }, 1);
     };
     DialogService.prototype.fadeOut = function () {
         var _this = this;
+        if (this.fadeLock) {
+            return;
+        }
+        this.fadeLock = true;
         this.removeBackButtonCallback();
         this.modalBackground.opacity = 0.5;
         this.modalForeground.opacity = 1;
@@ -105,9 +115,10 @@ var DialogService = /** @class */ (function () {
                 _this.modalStateObject.type = ModalTypes.None;
                 _this.modalBackground.visibility = 'collapse';
                 _this.modalForeground.visibility = 'collapse';
+                _this.fadeLock = false;
                 clearInterval(fadeInterval);
             }
-        }, 2);
+        }, 1);
     };
     DialogService.prototype.setBackButtonCallback = function () {
         var _this = this;

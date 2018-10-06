@@ -10,11 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var dialogs = require("tns-core-modules/ui/dialogs/dialogs");
+var dialog_service_1 = require("../../../../services/dialog.service");
 var validation_service_1 = require("../../../../services/validation.service");
 var HabbajetInputBoxComponent = /** @class */ (function () {
-    function HabbajetInputBoxComponent(validationService) {
+    function HabbajetInputBoxComponent(validationService, dialogService) {
         this.validationService = validationService;
+        this.dialogService = dialogService;
         this.buttonColor = this.validationService.submitButtonColor;
     }
     HabbajetInputBoxComponent.prototype.ngOnInit = function () {
@@ -30,11 +31,7 @@ var HabbajetInputBoxComponent = /** @class */ (function () {
     };
     HabbajetInputBoxComponent.prototype.displayInfoDialog = function () {
         var infoText = this.getInfoText();
-        dialogs.alert({
-            title: this.field,
-            message: infoText,
-            okButtonText: 'OK',
-        });
+        this.dialogService.alertDialog(this.field, infoText, 'OK');
     };
     HabbajetInputBoxComponent.prototype.getInfoText = function () {
         switch (this.field) {
@@ -56,7 +53,7 @@ var HabbajetInputBoxComponent = /** @class */ (function () {
             styleUrls: ['views/habbajet-tab-view/add-tab/habbajet-input-box/habbajet-input-box.css',
                 'app.css'],
         }),
-        __metadata("design:paramtypes", [validation_service_1.ValidationService])
+        __metadata("design:paramtypes", [validation_service_1.ValidationService, dialog_service_1.DialogService])
     ], HabbajetInputBoxComponent);
     return HabbajetInputBoxComponent;
 }());
