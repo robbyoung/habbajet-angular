@@ -21,7 +21,7 @@ tns build android --release --key-store-path my-release-key.jks --key-store-pass
 
 read -p "Install apk on device? " yn
 case $yn in
-    [Yy]* ) adb install -r platforms/android/build/outputs/apk/Habbajet-release.apk; break;;
+    [Yy]* ) adb install -r platforms/android/app/build/outputs/apk/release/app-release.apk; break;;
     * ) echo 'Skipping install...';;
 esac
 
