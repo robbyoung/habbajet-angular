@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import * as dialogs from 'tns-core-modules/ui/dialogs/dialogs';
 import * as frame from 'tns-core-modules/ui/frame/frame';
 import { View } from 'tns-core-modules/ui/frame/frame';
+import { DialogService } from '../../../../services/dialog.service';
 import { HabbajetInfo, HabbajetService } from '../../../../services/habbajet.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class HabbajetInfoComponent {
     public colorClass: string;
     public expectedPayoutLabelID: string;
 
-    constructor(private habbajetService: HabbajetService) {}
+    constructor(private habbajetService: HabbajetService, private dialogService: DialogService) {}
 
     public ngOnInit() {
         this.info = this.habbajetService.getHabbajetInfo(this.habbajetId);
@@ -27,21 +28,7 @@ export class HabbajetInfoComponent {
     }
 
     public onInfoTap() {
-        dialogs.confirm({
-                title: 'More Info',
-                message: `
-                Value: ${this.info.value}\n
-                Factor: ${this.info.factor}\n
-                Slack: ${this.info.slack}\n
-                Streak: ${this.info.streak}\n
-                `,
-                okButtonText: 'Delete',
-                cancelButtonText: 'OK',
-            }).then((result) => {
-                if (result) {
-                    this.onDeleteTap();
-                }
-            });
+        this.dialogService.habbajetInfoDialog(this.habbajetId);
     }
 
     public onDeleteTap() {

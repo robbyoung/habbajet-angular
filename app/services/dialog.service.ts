@@ -11,12 +11,14 @@ export enum ModalTypes {
     DeletePurchase = 'deletePurchase',
     EditPurchase = 'editPurchase',
     Alert = 'alert',
+    HabbajetInfo = 'habbajetInfo',
 }
 
 @Injectable()
 export class DialogService {
     public modalStateObject: { type: ModalTypes };
     public activePurchase: PurchaseRow;
+    public activeHabbajetId: string;
     public alertContents: {
         title: string;
         text: string;
@@ -68,6 +70,12 @@ export class DialogService {
             okButtonText,
         };
         this.modalStateObject.type = ModalTypes.Alert;
+        this.fadeIn();
+    }
+
+    public habbajetInfoDialog(habbajetId: string) {
+        this.activeHabbajetId = habbajetId;
+        this.modalStateObject.type = ModalTypes.HabbajetInfo;
         this.fadeIn();
     }
 

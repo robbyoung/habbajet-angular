@@ -15,5 +15,8 @@
         <StackLayout *ngIf="modalTypeObject.type === 'alert'">
             <alert-modal></alert-modal>
         </StackLayout>
+        <StackLayout *ngIf="modalTypeObject.type === 'habbajetInfo'">
+            <habbajet-info-modal></habbajet-info-modal>
+        </StackLayout>
     </GridLayout>
 </StackLayout>

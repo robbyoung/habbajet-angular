@@ -1,0 +1,17 @@
+<StackLayout class="noTopPadding">
+    <Label text="Habbajet Info" class="heading"></Label>
+    <GridLayout rows="auto, auto, auto, auto", columns="75, *" class="infoContainer">
+        <label row="0" col="0" text="Streak:" className="title"></label>
+        <label row="0" col="1" [text]="info.streak" className="entry"></label>
+        <label row="1" col="0" text="Value:" className="title"></label>
+        <label row="1" col="1" [text]="info.value" className="entry"></label>
+        <label row="2" col="0" text="Factor:" className="title"></label>
+        <label row="2" col="1" [text]="info.factor" className="entry"></label>
+        <label row="3" col="0" text="Slack:" className="title"></label>
+        <label row="3" col="1" [text]="info.slack" className="entry"></label>
+    </GridLayout>
+    <GridLayout columns="*,auto,*, auto,*">
+        <Button col="1" (onTap)="onEditTap()" text="OK" [class]="buttonClass"></Button>
+        <Button col="3" (onTap)="onDeleteTap()" text="Delete" [class]="buttonClass"></Button>
+    </GridLayout>
+</StackLayout>
