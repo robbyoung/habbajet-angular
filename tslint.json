@@ -5,19 +5,19 @@
     ],
     "jsRules": {},
     "rules": {
-        "quotemark": [
-            true,
-            "single",
-            "avoid-escape"
-        ],
-        "interface-name": false,
-        "object-literal-sort-keys": false,
-        "max-classes-per-file": false,
         "indent": [
             true,
             "spaces"
         ],
-        "no-any": true
+        "interface-name": false,
+        "max-classes-per-file": false,
+        "no-any": true,
+        "object-literal-sort-keys": false,
+        "quotemark": [
+            true,
+            "single",
+            "avoid-escape"
+        ]
     },
     "rulesDirectory": []
 }

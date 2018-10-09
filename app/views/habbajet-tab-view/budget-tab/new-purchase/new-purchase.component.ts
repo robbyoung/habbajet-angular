@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import * as _ from 'lodash';
 import { DialogService } from '../../../../services/dialog.service';
-import { ValidationService } from '../../../../services/validation.service';
 
 @Component({
     selector: 'new-purchase',
@@ -11,7 +9,7 @@ import { ValidationService } from '../../../../services/validation.service';
 
 export class NewPurchaseComponent {
 
-    constructor(private validationService: ValidationService, private dialogService: DialogService) {}
+    constructor(private dialogService: DialogService) {}
 
     public onNewPurchaseTap() {
         this.dialogService.newPurchaseDialog();

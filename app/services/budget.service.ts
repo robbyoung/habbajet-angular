@@ -107,7 +107,7 @@ export class BudgetService {
             cost: this.formatMoney(cost),
             date,
             relativeDateString: Moment.unix(date).calendar(),
-            absoluteDateString: Moment.unix(date).format('DD/MM/YY'),
+            absoluteDateString: date !== 0 ? Moment.unix(date).format(ABSOLUTE_DATE_FORMAT) : '',
         };
 
         this.budgetTabRows.unshift(newPurchase);
