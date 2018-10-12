@@ -19,7 +19,7 @@ export class HabbajetImageComponent {
         this.image = this.habbajetService.getHabbajetImage(this.habbajetId);
         setInterval(() => {
             this.imageService.nextState(this.image);
-        }, 100);
+        }, 200);
     }
 
     public onImageTap() {
