@@ -39,6 +39,7 @@ export class SavingService {
             const value = saveObject.getNumber(`hValue${index}`);
             const factor = saveObject.getNumber(`hFactor${index}`);
             const slack = saveObject.getNumber(`hSlack${index}`);
+            const best = saveObject.getNumber(`hBest${index}`, 0);
 
             const checkboxes = this.checkboxService.getCurrentWeek();
             _.each(checkboxes, (c, i) => {
@@ -47,7 +48,7 @@ export class SavingService {
             const startOfWeek = saveObject.getString(`hWeekStart${index}`);
 
             habbajetService.newHabbajetFromSave(name, state, value, factor, slack, color, streak,
-                                                checkboxes, startOfWeek);
+                                                checkboxes, startOfWeek, best);
 
             index++;
         }
@@ -129,6 +130,7 @@ export class SavingService {
         saveObject.setNumber(`hFactor${index}`, info.factor);
         saveObject.setNumber(`hSlack${index}`, info.slack);
         saveObject.setNumber(`hStreak${index}`, info.streak);
+        saveObject.setNumber(`hBest${index}`, info.best);
     }
 
     private saveHabbajetCheckboxes(checkboxes: HabbajetCheckbox[], index: number) {
