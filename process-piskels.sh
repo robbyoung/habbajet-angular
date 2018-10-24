@@ -35,42 +35,60 @@ echo "    default: return 0;" >> app/frame-counts.ts
 echo "  }" >> app/frame-counts.ts
 echo "}" >> app/frame-counts.ts
 
-normalRed="#EA2929"
-darkRed="#8B0F0F"
-lightRed="#EF6F6F"
+red1="#8b0d0d"
+red2="#d11515"
+red3="#df1616"
+red4="#e91b1b"
+red5="#ea2929"
 
-normalBlue="#1D4AA3"
-darkBlue="#07193C"
-lightBlue="#6489D4"
+blue1="#15326f"
+blue2="#17387c"
+blue3="#193e89"
+blue4="#1b4496"
+blue5="#1d4aa3"
 
-normalGreen="#298D23"
-darkGreen="#0B2F08"
-lightGreen="#91981E"
+green1="#c921c0"
+green2="#1e691a"
+green3="#21751d"
+green4="#258120"
+green5="#298d23"
 
-normalYellow="#7a8517"
-darkYellow="#616309"
-lightYellow="#c0d126"
+yellow1="#4a510f"
+yellow2="#565e11"
+yellow3="#626b13"
+yellow4="#6e7815"
+yellow5="#7a8517"
 
-normalPurple="#c921c0"
-darkPurple="#7e0578"
-lightPurple="#c559c0"
+purple1="#95198d"
+purple1="#a21b9a"
+purple1="#af1da6"
+purple1="#bc1fb3"
+purple1="#c921c0"
 
 echo "Converting to blue..."
-magick mogrify -path app/images/habbajets/blue -format png -fill $normalBlue -opaque $normalRed app/images/habbajets/red/*.png
-magick mogrify -path app/images/habbajets/blue -format png -fill $lightBlue -opaque $lightRed app/images/habbajets/blue/*.png
-magick mogrify -path app/images/habbajets/blue -format png -fill $darkBlue -opaque $darkRed app/images/habbajets/blue/*.png
+magick mogrify -path app/images/habbajets/blue -format png -fill $blue1 -opaque $red1 app/images/habbajets/red/*.png
+magick mogrify -path app/images/habbajets/blue -format png -fill $blue2 -opaque $red2 app/images/habbajets/blue/*.png
+magick mogrify -path app/images/habbajets/blue -format png -fill $blue3 -opaque $red3 app/images/habbajets/blue/*.png
+magick mogrify -path app/images/habbajets/blue -format png -fill $blue4 -opaque $red4 app/images/habbajets/blue/*.png
+magick mogrify -path app/images/habbajets/blue -format png -fill $blue5 -opaque $red5 app/images/habbajets/blue/*.png
 
 echo "Converting to green..."
-magick mogrify -path app/images/habbajets/green -format png -fill $normalGreen -opaque $normalRed app/images/habbajets/red/*.png
-magick mogrify -path app/images/habbajets/green -format png -fill $lightGreen -opaque $lightRed app/images/habbajets/green/*.png
-magick mogrify -path app/images/habbajets/green -format png -fill $darkGreen -opaque $darkRed app/images/habbajets/green/*.png
+magick mogrify -path app/images/habbajets/green -format png -fill $green1 -opaque $red1 app/images/habbajets/red/*.png
+magick mogrify -path app/images/habbajets/green -format png -fill $green2 -opaque $red2 app/images/habbajets/green/*.png
+magick mogrify -path app/images/habbajets/green -format png -fill $green3 -opaque $red3 app/images/habbajets/green/*.png
+magick mogrify -path app/images/habbajets/green -format png -fill $green4 -opaque $red4 app/images/habbajets/green/*.png
+magick mogrify -path app/images/habbajets/green -format png -fill $green5 -opaque $red5 app/images/habbajets/green/*.png
 
 echo "Converting to yellow..."
-magick mogrify -path app/images/habbajets/yellow -format png -fill $normalYellow -opaque $normalRed app/images/habbajets/red/*.png
-magick mogrify -path app/images/habbajets/yellow -format png -fill $lightYellow -opaque $lightRed app/images/habbajets/yellow/*.png
-magick mogrify -path app/images/habbajets/yellow -format png -fill $darkYellow -opaque $darkRed app/images/habbajets/yellow/*.png
+magick mogrify -path app/images/habbajets/yellow -format png -fill $yellow1 -opaque $red1 app/images/habbajets/red/*.png
+magick mogrify -path app/images/habbajets/yellow -format png -fill $yellow2 -opaque $red2 app/images/habbajets/yellow/*.png
+magick mogrify -path app/images/habbajets/yellow -format png -fill $yellow3 -opaque $red3 app/images/habbajets/yellow/*.png
+magick mogrify -path app/images/habbajets/yellow -format png -fill $yellow4 -opaque $red4 app/images/habbajets/yellow/*.png
+magick mogrify -path app/images/habbajets/yellow -format png -fill $yellow5 -opaque $red5 app/images/habbajets/yellow/*.png
 
 echo "Converting to purple..."
-magick mogrify -path app/images/habbajets/purple -format png -fill $normalPurple -opaque $normalRed app/images/habbajets/red/*.png
-magick mogrify -path app/images/habbajets/purple -format png -fill $lightPurple -opaque $lightRed app/images/habbajets/purple/*.png
-magick mogrify -path app/images/habbajets/purple -format png -fill $darkPurple -opaque $darkRed app/images/habbajets/purple/*.png
+magick mogrify -path app/images/habbajets/purple -format png -fill $purple1 -opaque $red1 app/images/habbajets/red/*.png
+magick mogrify -path app/images/habbajets/purple -format png -fill $purple2 -opaque $red2 app/images/habbajets/purple/*.png
+magick mogrify -path app/images/habbajets/purple -format png -fill $purple3 -opaque $red3 app/images/habbajets/purple/*.png
+magick mogrify -path app/images/habbajets/purple -format png -fill $purple4 -opaque $red4 app/images/habbajets/purple/*.png
+magick mogrify -path app/images/habbajets/purple -format png -fill $purple5 -opaque $red5 app/images/habbajets/purple/*.png
