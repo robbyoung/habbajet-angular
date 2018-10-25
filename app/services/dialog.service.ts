@@ -105,8 +105,8 @@ export class DialogService {
         this.modalBackground.visibility = 'visible';
         this.modalForeground.visibility = 'visible';
         const fadeInterval = setInterval(() => {
-            this.modalForeground.opacity += 0.04;
-            this.modalBackground.opacity += 0.02;
+            this.modalForeground.opacity += 0.10;
+            this.modalBackground.opacity += 0.05;
             if (this.modalForeground.opacity >= 1) {
                 this.fadeLock = false;
                 clearInterval(fadeInterval);
@@ -124,8 +124,8 @@ export class DialogService {
         this.modalBackground.opacity = 0.5;
         this.modalForeground.opacity = 1;
         const fadeInterval = setInterval(() => {
-            this.modalForeground.opacity -= 0.04;
-            this.modalBackground.opacity -= 0.02;
+            this.modalForeground.opacity -= 0.10;
+            this.modalBackground.opacity -= 0.05;
             if (this.modalForeground.opacity <= 0) {
                 this.modalStateObject.type = ModalTypes.None;
                 this.modalBackground.visibility = 'collapse';

@@ -12,12 +12,14 @@ import { HabbajetInfo, HabbajetService } from '../../../services/habbajet.servic
 
 export class HabbajetInfoModalComponent {
     public info: HabbajetInfo;
-    public buttonClass: string;
+    public colorClass: string;
+    public message: string;
 
     constructor(private dialogService: DialogService, private habbajetService: HabbajetService) {
         const habbajetId = this.dialogService.activeHabbajetId;
         this.info = this.habbajetService.getHabbajetInfo(habbajetId);
-        this.buttonClass = 'button ' + this.habbajetService.getHabbajetColor(habbajetId);
+        this.colorClass = this.habbajetService.getHabbajetColor(habbajetId);
+        this.message = this.getInspirationalMessage();
     }
 
     public onEditTap() {
@@ -26,5 +28,9 @@ export class HabbajetInfoModalComponent {
 
     public onDeleteTap() {
         this.dialogService.deleteHabbajetDialog();
+    }
+
+    private getInspirationalMessage(): string {
+        return 'Don\'t give up!';
     }
 }
