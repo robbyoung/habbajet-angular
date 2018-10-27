@@ -1,5 +1,5 @@
 <StackLayout class="noTopPadding">
-    <Label text="Delete Purchase" class="heading"></Label>
+    <Label [text]="title" [class]="headingClass"></Label>
     <label [text]="deletionText" className="message" textWrap="true"></label>
     <GridLayout columns="*,auto,*,auto,*">
         <Button col="1" (onTap)="onConfirmTap()" text="Confirm" [class]="buttonClass"></Button>

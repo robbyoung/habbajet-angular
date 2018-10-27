@@ -11,8 +11,10 @@ import { HabbajetService } from '../../../services/habbajet.service';
 })
 
 export class DeletionModalComponent {
+    public title: string;
     public deletionText: string;
     public buttonClass: string;
+    public headingClass: string;
     private purchase: PurchaseRow;
     private habbajetId: string;
     private deleteType: DeletionTypes;
@@ -21,12 +23,17 @@ export class DeletionModalComponent {
                 private habbajetService: HabbajetService) {
         this.deleteType = this.dialogService.typeOfDeletion;
         if (this.deleteType === DeletionTypes.Purchase) {
+            this.title = 'Delete Purchase';
             this.deletionText = 'This will permanently delete the purchase.';
             this.buttonClass = 'button red';
+            this.headingClass = 'heading';
         } else {
+            this.title = 'Delete Habbajet';
             this.habbajetId = this.dialogService.activeHabbajetId;
             this.deletionText = 'This will permanently delete the habbajet.';
-            this.buttonClass = 'button ' + this.habbajetService.getHabbajetColor(this.habbajetId);
+            const color = this.habbajetService.getHabbajetColor(this.habbajetId);
+            this.buttonClass = 'button ' + color;
+            this.headingClass = 'heading ' + color;
         }
         this.purchase = dialogService.activePurchase;
     }
