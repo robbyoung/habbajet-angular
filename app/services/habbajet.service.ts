@@ -22,6 +22,8 @@ export interface HabbajetInfo  {
     factor: number;
     slack: number;
     best: number;
+    numSuccesses: number;
+    numFailures: number;
     expectedPayoutUpdateCallback?: () => void;
 }
 
@@ -176,6 +178,8 @@ export class HabbajetService {
             value,
             factor,
             slack,
+            numSuccesses: 0,
+            numFailures: 0,
         };
 
         this.budgetService.setExpectedPayout(info, checkboxes);
@@ -187,7 +191,8 @@ export class HabbajetService {
     }
 
     public newHabbajetFromSave(name: string, state: number, value: number, factor: number, slack: number, color: string,
-                               streak: number, checkboxes: HabbajetCheckbox[], startOfWeek: string, best: number) {
+                               streak: number, checkboxes: HabbajetCheckbox[], startOfWeek: string, best: number,
+                               numSuccesses: number, numFailures: number) {
 
         const info: HabbajetInfo = {
             streak,
@@ -196,6 +201,8 @@ export class HabbajetService {
             factor,
             slack,
             expectedPayout: '',
+            numSuccesses,
+            numFailures,
         };
 
         let stateToUse = state;
@@ -264,10 +271,13 @@ export class HabbajetService {
 
         if (incrementStreak) {
             info.streak++;
+            info.numSuccesses++;
 
             if (info.best < info.streak) {
                 info.best = info.streak;
             }
+        } else {
+            info.numFailures++;
         }
     }
 
