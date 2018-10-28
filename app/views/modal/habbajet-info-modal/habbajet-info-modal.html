@@ -14,7 +14,8 @@
         <label row="2" col="0" text="SLACK:" className="title"></label>
         <label row="2" col="1" [text]="info.slack" className="entry"></label>
 
-        <label row="0" col="3" rowSpan="3" [text]="message" [class]="colorClass + 'Text message'" textWrap="true"></label>
+        <label row="0" col="3" rowSpan="2" [text]="percent" [class]="colorClass + 'Text percent'" textWrap="true"></label>
+        <label row="2" col="3" text="Success Rate" [class]="colorClass + 'Text subPercent'" textWrap="true"></label>
     </GridLayout>
 
     <GridLayout columns="*,auto,*, auto,*">

@@ -13,13 +13,13 @@ import { HabbajetInfo, HabbajetService } from '../../../services/habbajet.servic
 export class HabbajetInfoModalComponent {
     public info: HabbajetInfo;
     public colorClass: string;
-    public message: string;
+    public percent: string;
 
     constructor(private dialogService: DialogService, private habbajetService: HabbajetService) {
         const habbajetId = this.dialogService.activeHabbajetId;
         this.info = this.habbajetService.getHabbajetInfo(habbajetId);
         this.colorClass = this.habbajetService.getHabbajetColor(habbajetId);
-        this.message = this.getInspirationalMessage();
+        this.percent = this.getPercentSuccess();
     }
 
     public onEditTap() {
@@ -30,7 +30,11 @@ export class HabbajetInfoModalComponent {
         this.dialogService.deleteHabbajetDialog();
     }
 
-    private getInspirationalMessage(): string {
-        return 'Don\'t give up!';
+    private getPercentSuccess(): string {
+        const successes = this.info.numSuccesses;
+        const total = successes + this.info.numFailures;
+        const percentSuccess = total === successes ? 100 : Math.floor((successes / total) * 100);
+
+        return `${percentSuccess}%`;
     }
 }

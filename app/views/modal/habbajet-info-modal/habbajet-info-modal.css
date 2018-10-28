@@ -51,9 +51,17 @@
     height: 50;
 }
 
-.message {
+.percent {
     text-align: center;
-    vertical-align: center;
-    font-size: 25;
+    vertical-align: bottom;
+    font-size: 40;
+    font-weight: bold;
     padding: 10;
+    padding-bottom: 2;
+}
+
+.subPercent {
+    text-align: center;
+    vertical-align: top;
+    font-size: 20;
 }

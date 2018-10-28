@@ -156,9 +156,10 @@ export class HabbajetService {
                 const activeCheckbox = _.find(habbajet.checkboxes, (c: HabbajetCheckbox) => c.active);
                 if (activeCheckbox !== undefined) {
                     activeCheckbox.checkmark = checkmark;
+                    activeCheckbox.checkmark === Checkmark.Positive ?
+                        this.onPositiveTap(habbajet.info) : this.onNegativeTap(habbajet.info, habbajet.checkboxes);
                     this.budgetService.setExpectedPayout(habbajet.info, habbajet.checkboxes);
                     this.updateBudgetIfNecessary(habbajet);
-                    this.updateStreak(habbajet.info, habbajet.checkboxes, false);
                     this.savingService.saveHabbajetList(this.habbajetList);
                     return true;
                 }
@@ -215,8 +216,8 @@ export class HabbajetService {
             }).length;
             if (numUnmarked > 0) {
                 this.budgetService.addToBudgetWithHabbajet(info, checkboxes);
+                this.onUnfinishedWeek(info);
             }
-            this.updateStreak(info, checkboxes, true);
             checkboxesToUse = this.checkboxService.getCurrentWeek();
             stateToUse = 0;
         }
@@ -242,43 +243,29 @@ export class HabbajetService {
         }
     }
 
-    public updateStreak(info: HabbajetInfo, checkboxes: HabbajetCheckbox[], includeUnmarked: boolean) {
-        let slackLeft = info.slack;
-        let incrementStreak: boolean;
-        let streakReset: boolean = false;
-        _.each (checkboxes, (checkbox: HabbajetCheckbox) => {
-            if (checkbox.checkmark === Checkmark.Positive) {
-                if (streakReset) {
-                    info.streak++;
-                } else {
-                    incrementStreak = true;
-                }
-            } else if (checkbox.checkmark === Checkmark.Negative || includeUnmarked) {
-                slackLeft--;
-                if (slackLeft < 0) {
-                    incrementStreak = false;
-                    info.streak = 0;
-                    streakReset = true;
-                } else {
-                    if (streakReset) {
-                        info.streak++;
-                    } else {
-                        incrementStreak = true;
-                    }
-                }
-            }
-        });
-
-        if (incrementStreak) {
-            info.streak++;
-            info.numSuccesses++;
-
-            if (info.best < info.streak) {
-                info.best = info.streak;
-            }
-        } else {
-            info.numFailures++;
+    public onPositiveTap(info: HabbajetInfo) {
+        info.streak++;
+        if (info.best < info.streak) {
+            info.best = info.streak;
         }
+        info.numSuccesses++;
+    }
+
+    public onNegativeTap(info: HabbajetInfo, checkboxes: HabbajetCheckbox[]) {
+        const numCrosses = _.countBy(checkboxes, (checkbox: HabbajetCheckbox) => {
+            return checkbox.checkmark === Checkmark.Negative;
+        }).true || 0; 
+        if (numCrosses > info.slack) {
+            info.streak = 0;
+            info.numFailures++;
+        } else {
+            this.onPositiveTap(info);
+        }
+        
+    }
+
+    public onUnfinishedWeek(info: HabbajetInfo) {
+        info.streak = 0;
     }
 
     private getHabbajet(id: string) {
