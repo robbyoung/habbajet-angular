@@ -13,6 +13,7 @@ export class HabbajetInputBoxComponent {
     @Input() public field: string;
     public inputClass: string;
     public keyboardType: string;
+    public hint: string;
     public buttonColor: {color: string};
 
     constructor(private validationService: ValidationService, private dialogService: DialogService) {
@@ -20,8 +21,9 @@ export class HabbajetInputBoxComponent {
     }
 
     public ngOnInit() {
-        this.inputClass = 'invalid';
+        this.inputClass = 'valid';
         this.keyboardType = this.field === 'Name' ? 'email' : 'number';
+        this.hint = this.getHint();
     }
 
     public onTextChange(args) {
@@ -44,6 +46,16 @@ export class HabbajetInputBoxComponent {
             case 'Factor': return 'This determines how the value is decreased on failure';
             case 'Slack': return 'This determines how many "free" days you get for the Habbajet';
             default: return 'Unknown';
+        }
+    }
+
+    private getHint() {
+        switch (this.field) {
+            case 'Name': return 'My Habbajet';
+            case 'Value': return '50';
+            case 'Factor': return '2';
+            case 'Slack': return '0';
+            default: return '?';
         }
     }
 }

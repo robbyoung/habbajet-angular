@@ -28,6 +28,8 @@
 }
 
 TextField {
+    padding-top: 5;
+    padding-bottom: 4;
     margin-top: 5;
     margin-bottom: 5;
 }
