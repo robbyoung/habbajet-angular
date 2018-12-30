@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import * as Moment from 'moment';
 
 export enum Day {
-    Sunday = 0,
-    Monday = 1,
-    Tuesday = 2,
-    Wednesday = 3,
-    Thursday = 4,
-    Friday = 5,
-    Saturday = 6,
+    Monday = 0,
+    Tuesday = 1,
+    Wednesday = 2,
+    Thursday = 3,
+    Friday = 4,
+    Saturday = 5,
+    Sunday = 6,
 }
 
 export enum Checkmark {
@@ -31,9 +31,9 @@ export class CheckboxService {
 
     public getCurrentWeek(): HabbajetCheckbox[] {
         const weekOfCheckboxes: HabbajetCheckbox[] = [];
-        const currentDay: Moment.Moment = Moment().startOf('week');
+        const currentDay: Moment.Moment = Moment().startOf('isoWeek');
         const today: Moment.Moment = Moment().startOf('day');
-        for (let day = Day.Sunday; day <= Day.Saturday; day++) {
+        for (let day = Day.Monday; day <= Day.Sunday; day++) {
             weekOfCheckboxes.push({
                 locked: false,
                 moment: currentDay.clone(),
@@ -48,7 +48,7 @@ export class CheckboxService {
     }
 
     public isCurrentWeek(startOfWeekInQuestion: string): boolean {
-        const startOfCurrentWeek = Moment().startOf('week');
+        const startOfCurrentWeek = Moment().startOf('isoWeek');
         if (startOfCurrentWeek.format('dddd Do MMM') !== startOfWeekInQuestion) {
             return false;
         } else {
