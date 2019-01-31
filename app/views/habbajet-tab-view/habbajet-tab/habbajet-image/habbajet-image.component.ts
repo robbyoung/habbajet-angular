@@ -17,9 +17,7 @@ export class HabbajetImageComponent {
 
     public ngOnInit() {
         this.image = this.habbajetService.getHabbajetImage(this.habbajetId);
-        setInterval(() => {
-            this.imageService.nextState(this.image);
-        }, 200);
+        void this.imageService.animate(this.image);
     }
 
     public onImageTap() {
