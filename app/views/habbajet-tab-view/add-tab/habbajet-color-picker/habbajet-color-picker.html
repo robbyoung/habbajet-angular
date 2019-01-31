@@ -1,11 +1,20 @@
 <StackLayout>
-    <GridLayout rows="auto" columns="*,*,*" class="colorContainer">
+    <GridLayout rows="auto" columns="*,*,*">
         <label [class]="colors[0].class" col="0" (tap)="onColorTap(0)"></label>
         <label [class]="colors[1].class" col="1" (tap)="onColorTap(1)"></label>
         <label [class]="colors[2].class" col="2" (tap)="onColorTap(2)"></label>
     </GridLayout>
-    <GridLayout rows="auto" columns="*,2*,2*,*" class="colorContainer">
+    <GridLayout rows="auto" columns="*,2*,2*,*">
         <label [class]="colors[3].class" col="1" (tap)="onColorTap(3)"></label>
         <label [class]="colors[4].class" col="2" (tap)="onColorTap(4)"></label>
+    </GridLayout>
+    <GridLayout rows="auto" columns="*,*,*">
+        <label [class]="colors[5].class" col="0" (tap)="onColorTap(5)"></label>
+        <label [class]="colors[6].class" col="1" (tap)="onColorTap(6)"></label>
+        <label [class]="colors[7].class" col="2" (tap)="onColorTap(7)"></label>
+    </GridLayout>
+    <GridLayout rows="auto" columns="*,2*,2*,*">
+        <label [class]="colors[8].class" col="1" (tap)="onColorTap(8)"></label>
+        <label [class]="colors[9].class" col="2" (tap)="onColorTap(9)"></label>
     </GridLayout>
 </StackLayout>
