@@ -24,7 +24,12 @@ export class HabbajetColorPickerComponent {
             { name: 'blue', class: '' },
             { name: 'green', class: '' },
             { name: 'yellow', class: '' },
+            { name: 'pink', class: '' },
+            { name: 'grey', class: '' },
+            { name: 'teal', class: '' },
             { name: 'purple', class: '' },
+            { name: 'orange', class: '' },
+            { name: 'brown', class: '' },
         ];
         this.onColorTap(0);
     }

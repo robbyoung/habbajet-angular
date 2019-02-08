@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { frameCounts } from '../frame-counts';
+import { frameRates } from '../frame-rates';
 
 export const checkboxImagePrefix = '~/images/checkboxes/';
+const ONE_SECOND = 1000;
 
 export class ImageState {
     public frame: number;
     public action: string;
     public imageUrl: string;
+    public rate: number;
 
     constructor(public state: number, public color: string) {
         this.state = state;
@@ -28,6 +31,19 @@ export class ImageService {
         this.numActionTypes = 2;
     }
 
+    public async animate(imageState: ImageState) {
+        this.nextState(imageState);
+        while (true) {
+            await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    this.nextState(imageState);
+                    resolve();
+                }, ONE_SECOND / imageState.rate);
+            });
+        }
+
+    }
+
     public nextState(imageState: ImageState) {
         imageState.frame++;
         const numFrames = frameCounts(imageState.action + imageState.state);
@@ -35,6 +51,7 @@ export class ImageService {
         if (numFrames <= imageState.frame) {
             imageState.frame = 0;
             imageState.action = 'i';
+            imageState.rate = frameRates(imageState.action + imageState.state);
         }
 
         imageState.refreshImageUrl();
@@ -45,6 +62,7 @@ export class ImageService {
             imageState.action = 't';
             imageState.frame = -1;
             imageState.state = (imageState.state + 1) % 7;
+            imageState.rate = frameRates(imageState.action + imageState.state);
         }
     }
 
@@ -53,6 +71,7 @@ export class ImageService {
             imageState.action = 't';
             imageState.frame = -1;
             imageState.state = 0;
+            imageState.rate = frameRates(imageState.action + imageState.state);
         }
     }
 
@@ -67,6 +86,7 @@ export class ImageService {
         if (frameCounts(action + imageState.state) > 0 && imageState.action !== 't') {
             imageState.action = action;
             imageState.frame = -1;
+            imageState.rate = frameRates(imageState.action + imageState.state);
         }
     }
 }
