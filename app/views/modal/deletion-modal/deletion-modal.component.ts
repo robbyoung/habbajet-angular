@@ -40,7 +40,6 @@ export class DeletionModalComponent {
 
     public onConfirmTap() {
         if (this.deleteType === DeletionTypes.Purchase) {
-            this.purchase.cost = '$0.00';
             this.budgetService.correctPurchase(this.purchase.date, '', '0');
         } else {
             this.habbajetService.deleteHabbajet(this.habbajetId);
