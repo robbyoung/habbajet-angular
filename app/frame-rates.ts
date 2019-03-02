@@ -8,6 +8,7 @@ export function frameRates(state: string): number {
     case 'i5': return 8;
     case 'i6': return 7;
     case 't1': return 17;
+    case 't2': return 11;
     default: return 100;
   }
 }
