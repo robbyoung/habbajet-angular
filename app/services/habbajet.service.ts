@@ -254,14 +254,13 @@ export class HabbajetService {
     public onNegativeTap(info: HabbajetInfo, checkboxes: HabbajetCheckbox[]) {
         const numCrosses = _.countBy(checkboxes, (checkbox: HabbajetCheckbox) => {
             return checkbox.checkmark === Checkmark.Negative;
-        }).true || 0; 
+        }).true || 0;
         if (numCrosses > info.slack) {
             info.streak = 0;
             info.numFailures++;
         } else {
             this.onPositiveTap(info);
         }
-        
     }
 
     public onUnfinishedWeek(info: HabbajetInfo) {
