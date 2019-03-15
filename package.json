@@ -1,6 +1,6 @@
 {
   "description": "Habbajet - A budget-based habit tracker",
-  "license": "",
+  "license": "MIT",
   "readme": "app/README.md",
   "repository": "https://github.com/robbyoung/HabbajetAngular",
   "nativescript": {
