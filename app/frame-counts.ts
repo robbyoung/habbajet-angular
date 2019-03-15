@@ -8,7 +8,6 @@ export function frameCounts(state: string): number {
     case 'i5': return 11;
     case 'i6': return 11;
     case 't1': return 14;
-    case 't2': return 11;
     default: return 0;
   }
 }
