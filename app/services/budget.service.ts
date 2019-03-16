@@ -6,7 +6,7 @@ import { HabbajetInfo } from './habbajet.service';
 import { SavingService } from './saving.service';
 
 const NEGATIVE_BUDGET_MODIFIER = 0.9;
-const MAX_PURCHASE_LIST_LENGTH = 20;
+export const MAX_PURCHASE_LIST_LENGTH = 20;
 export const ABSOLUTE_DATE_FORMAT = 'Do MMMM YYYY, h:mm a';
 
 // TODO: Make a 'show more' row;

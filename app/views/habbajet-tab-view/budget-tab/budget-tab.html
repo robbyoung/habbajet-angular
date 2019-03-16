@@ -3,7 +3,7 @@
                 <money-display></money-display>
                 <new-purchase></new-purchase>
         </StackLayout>
-        <ListView [items]="purchases">
+        <ListView *ngIf="purchases.length !== 0" [items]="purchases" [height]="purchaseListHeight">
                 <ng-template let-purchase="item">
                         <old-purchase [row]="purchase"></old-purchase>
                 </ng-template>
