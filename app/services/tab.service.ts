@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-const MAX_HABBAJETS = 5;
+const MAX_HABBAJETS = 10;
 
 export enum TabType {
     Habbajet,
